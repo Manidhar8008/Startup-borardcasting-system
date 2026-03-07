@@ -1,40 +1,85 @@
-"""Agent that aggregates research sources for a brand."""
-import os
-import logging
+"""Research agent: gathers topics and signals for a brand."""
 from typing import List, Dict
+import logging
 
-from research import ai_news_scraper, arxiv_scraper, github_ai_trends, youtube_scraper
-from tools_connectors import notebooklm_connector, perplexity_connector
+logger = logging.getLogger("research")
+
+BRAND_TOPICS = {
+    "janani_ai": [
+        "AI tools for small businesses in India",
+        "Vernacular AI and regional language models",
+        "Low-cost automation for Tier-2 cities",
+        "WhatsApp business bots for local entrepreneurs",
+        "AI-powered customer support in Indian markets",
+    ],
+    "mw_ai_data_systems": [
+        "Real-time data pipelines with Python",
+        "AI-driven analytics for SMBs",
+        "Building MLOps workflows on a budget",
+        "Data quality automation",
+        "Open-source LLMs for enterprise data",
+    ],
+    "mw_ai_news": [
+        "Latest AI research breakthroughs",
+        "Startup funding trends in AI",
+        "Regulatory updates on AI in India",
+        "Big Tech AI product launches",
+        "Open-source model releases",
+    ],
+    "mw_ai_edu": [
+        "Python for beginners in AI",
+        "Hands-on LLM fine-tuning tutorials",
+        "Prompt engineering best practices",
+        "Building RAG pipelines step by step",
+        "AI career roadmap for freshers",
+    ],
+}
+
+DEFAULT_TOPICS = [
+    "Artificial Intelligence trends",
+    "Machine learning for startups",
+    "Automation in business workflows",
+    "AI ethics and responsible deployment",
+    "Future of work with AI tools",
+]
 
 
-def gather(brand: str, *, offline: bool = False) -> List[Dict]:
-    logger = logging.getLogger("research")
-    region = os.getenv("REGION", "IN")
-    city = os.getenv("CITY", "Warangal")
-    items: List[Dict] = []
+def gather(brand: str, *, topic: str = "", offline: bool = True) -> List[Dict]:
+    """Return a list of research items for the given brand (or topic)."""
+    base_topics = BRAND_TOPICS.get(brand, DEFAULT_TOPICS)
 
-    news = ai_news_scraper.fetch_ai_headlines(region=region, query=f"AI {city}", offline=offline)
-    papers = arxiv_scraper.fetch_recent_papers(query="artificial intelligence", limit=3, offline=offline)
-    repos = github_ai_trends.fetch_trending(limit=3, offline=offline)
+    if topic:
+        results = [
+            {
+                "title": f"{topic}: Key Trends",
+                "summary": f"An exploration of current developments in {topic}, focusing on practical applications.",
+                "source": "internal",
+                "brand": brand,
+            },
+            {
+                "title": f"{topic}: Opportunities for Startups",
+                "summary": f"How startups can leverage {topic} to gain a competitive edge in 2025.",
+                "source": "internal",
+                "brand": brand,
+            },
+            {
+                "title": f"{topic}: Common Challenges",
+                "summary": f"Top challenges practitioners face when implementing {topic} and how to overcome them.",
+                "source": "internal",
+                "brand": brand,
+            },
+        ]
+        logger.info("Researched topic '%s' for brand '%s'", topic, brand)
+        return results
 
-    perplexity_prompt = f"Top AI/startup stories for {city} founders ({brand}) this week."
-    px = perplexity_connector.ask_perplexity(perplexity_prompt)
-    notebook_summary = notebooklm_connector.summarize_notes([i.get("summary", "") for i in news[:2]])
-    channel_ids = youtube_scraper.load_channel_ids_from_env()
-    yt_items = youtube_scraper.fetch_latest_videos(channel_ids, limit=2, offline=offline) if channel_ids else []
-
-    for story in news:
-        items.append({"title": story.get("title"), "summary": story.get("summary"), "source": "news"})
-    for paper in papers:
-        items.append({"title": paper.get("title"), "summary": paper.get("summary"), "source": "arxiv"})
-    for repo in repos:
-        items.append({"title": repo.get("title"), "summary": repo.get("summary"), "source": "github"})
-    if px:
-        items.append({"title": "Perplexity pulse", "summary": px.get("answer", ""), "source": "perplexity"})
-    if notebook_summary:
-        items.append({"title": "NotebookLM notes", "summary": notebook_summary.get("summary", ""), "source": "notebooklm"})
-    for yt in yt_items:
-        items.append({"title": yt.get("title"), "summary": "Latest video", "source": "youtube"})
-
-    logger.info("research_collected", extra={"brand": brand, "items": len(items)})
-    return items
+    results = [
+        {
+            "title": t,
+            "summary": f"Research signal on: {t}. Relevant to {brand} audience.",
+            "source": "internal",
+            "brand": brand,
+        }
+        for t in base_topics
+    ]
+    logger.info("Gathered %d research items for brand '%s'", len(results), brand)
+    return results

@@ -1,31 +1,17 @@
-"""Optimize drafts based on brand tone and structure."""
-from textwrap import shorten
+"""
+Content Optimizer
+Improves generated posts using engagement signals.
+"""
+
 from typing import Dict
 
 
+def optimize_content(content: str) -> str:
+    """Simple placeholder optimizer. Later this will use analytics feedback."""
+    return content
+
+
 def optimize_draft(draft: Dict, structure: Dict) -> Dict:
-    tone = ", ".join(structure.get("tone", []))
-    cta_style = structure.get("cta_style", draft.get("sections", {}).get("cta", ""))
-
-    # Shorten core sections to keep concise
-    optimized = dict(draft)
-    sections = optimized.get("sections", {})
-    if "hook" in sections:
-        sections["hook"] = shorten(sections["hook"], width=140, placeholder="…")
-    if "insight" in sections:
-        sections["insight"] = shorten(sections["insight"], width=200, placeholder="…")
-    sections["cta"] = sections.get("cta") or cta_style
-    optimized["sections"] = sections
-
-    # Rebuild draft text
-    lines = [
-        f"Hook: {sections.get('hook', '')}",
-        f"Insight: {sections.get('insight', '')}",
-        f"Example: {sections.get('example', '')}",
-        f"CTA: {sections.get('cta', '')} ({tone})",
-    ]
-    optimized["draft"] = "\n".join(lines).strip()
-    return optimized
-
-
-__all__ = ["optimize_draft"]
+    """Optionally post-process a draft dict using brand structure signals."""
+    # Placeholder: in future, use performance_learner data to adjust tone/length
+    return draft

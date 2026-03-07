@@ -1,0 +1,128 @@
+"""JAN Content Agent: uses LLM to generate Hook/Insight/Example/CTA drafts."""
+
+import logging
+import re
+from typing import Dict, List
+
+from ai_core import llm_brain
+
+logger = logging.getLogger("engine")
+
+
+# ── LLM prompt builder ────────────────────────────────────────────────────────
+
+def _build_content_prompt(task: Dict) -> str:
+    topic          = task.get("title", "AI and startups")
+    brand          = task.get("brand", "janani_ai")
+    platform       = task.get("platform", "linkedin")
+    content_type   = task.get("content_type", "insight")
+    content_length = task.get("content_length", "short")
+    summary        = task.get("summary", "")
+    rationale      = task.get("rationale", "")
+
+    length_guide = (
+        "Keep each section under 40 words. Total post under 150 words."
+        if content_length == "short"
+        else "Each section can be 60-100 words. Total post under 400 words."
+    )
+
+    platform_tips = {
+        "twitter":  "Write in a punchy, shareable tone. Use line breaks for clarity.",
+        "linkedin": "Professional but human tone. Encourage comments at the end.",
+        "youtube":  "Conversational and energetic. Works as a spoken script.",
+    }.get(platform, "Clear and engaging tone.")
+
+    return f"""You are JAN, content writer for brand '{brand}'.
+Platform: {platform} ({platform_tips})
+Content type: {content_type}
+Topic: {topic}
+Context: {summary or rationale or 'No additional context.'}
+{length_guide}
+
+Write a social media post with EXACTLY these four labelled sections:
+Hook: <attention-grabbing opening line or question>
+Insight: <the core idea or data point>
+Example: <concrete real-world example or story>
+CTA: <clear call to action>
+
+Output only the four sections. No preamble, no markdown formatting, no extra text.
+"""
+
+
+def _parse_llm_draft(raw: str, task: Dict) -> str:
+    """
+    Extract Hook/Insight/Example/CTA from LLM output.
+    Accepts both 'Label: text' and 'Label:\ntext' formats.
+    Falls back to returning raw text if sections can't be parsed.
+    """
+    sections   = {}
+    current    = None
+    buf: List[str] = []
+
+    for line in raw.splitlines():
+        m = re.match(r"^(Hook|Insight|Example|CTA)\s*:\s*(.*)", line, flags=re.IGNORECASE)
+        if m:
+            if current:
+                sections[current] = " ".join(buf).strip()
+            current = m.group(1).capitalize()
+            buf     = [m.group(2).strip()] if m.group(2).strip() else []
+        elif current:
+            buf.append(line.strip())
+
+    if current:
+        sections[current] = " ".join(buf).strip()
+
+    if len(sections) >= 3:
+        parts = []
+        for label in ("Hook", "Insight", "Example", "CTA"):
+            if label in sections:
+                parts.append(f"{label}: {sections[label]}")
+        return "\n\n".join(parts)
+
+    # Fallback — return raw text cleaned up
+    return raw.strip()
+
+
+# ── Public API ─────────────────────────────────────────────────────────────────
+
+def run(tasks: List[Dict]) -> List[Dict]:
+    """
+    Generate LLM-powered drafts for every task in the plan.
+
+    Returns:
+        List of draft dicts, each containing a 'draft' key with the post text.
+    """
+    drafts = []
+    for task in tasks:
+        prompt    = _build_content_prompt(task)
+        raw_text  = llm_brain.generate_text(prompt)
+        draft_text = _parse_llm_draft(raw_text, task)
+
+        draft = {
+            "brand":          task.get("brand", "janani_ai"),
+            "topic":          task.get("title", ""),
+            "content_type":   task.get("content_type", "insight"),
+            "content_length": task.get("content_length", "short"),
+            "platform":       task.get("platform"),
+            "task_id":        task.get("id"),
+            "draft":          draft_text,
+            "llm_generated":  True,
+        }
+        drafts.append(draft)
+        logger.info("Content drafted for '%s' on %s", task.get("title"), task.get("platform"))
+
+    return drafts
+
+
+def format_output(drafts: List[Dict]) -> str:
+    marker = "🤖" if any(d.get("llm_generated") for d in drafts) else "✍️"
+    lines  = [f"\n{marker}  Generated {len(drafts)} Draft(s):"]
+    for i, d in enumerate(drafts, 1):
+        lines.append(f"\n  ─── Draft {i}: {d.get('topic', 'Untitled')} ───")
+        lines.append(f"  Brand     : {d.get('brand')}")
+        lines.append(f"  Platform  : {d.get('platform', 'N/A')}")
+        lines.append(f"  Type      : {d.get('content_type', 'N/A')}")
+        lines.append("")
+        for line in d.get("draft", "").splitlines():
+            lines.append(f"  {line}")
+    return "\n".join(lines)

@@ -1,0 +1,10 @@
+{
+  "twitter": {
+    "handle": "@mw_ai_news",
+    "token": "ENV:TWITTER_API_KEY"
+  },
+  "instagram": {
+    "handle": "mw_ai_news",
+    "token": "ENV:INSTAGRAM_TOKEN"
+  }
+}

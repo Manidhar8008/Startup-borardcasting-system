@@ -1,0 +1,29 @@
+[
+  {
+    "id": "mwdata-001",
+    "title": "Modern data stack costs",
+    "summary": "Teams report 25-40% cloud waste from orphaned warehouses and idle notebooks.",
+    "tags": ["cost", "cloud", "governance"],
+    "source": "survey 2026",
+    "url": "",
+    "date": "2026-02-25"
+  },
+  {
+    "id": "mwdata-002",
+    "title": "Lakehouse governance",
+    "summary": "Delta-style tables with row-level policies reduce breach risk when paired with fine-grained service accounts.",
+    "tags": ["lakehouse", "security"],
+    "source": "field guide",
+    "url": "",
+    "date": "2026-02-22"
+  },
+  {
+    "id": "mwdata-003",
+    "title": "Metrics layer adoption",
+    "summary": "Semantic layers cut dashboard lead time by ~30% but require central ownership and contract tests.",
+    "tags": ["metrics layer", "analytics"],
+    "source": "case study",
+    "url": "",
+    "date": "2026-02-18"
+  }
+]

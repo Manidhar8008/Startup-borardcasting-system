@@ -1,0 +1,29 @@
+[
+  {
+    "id": "mwedu-001",
+    "title": "Adaptive tutoring",
+    "summary": "LLM tutors that mirror student language improve quiz scores ~12% when paired with weekly teacher feedback loops.",
+    "tags": ["tutoring", "LLM"],
+    "source": "pilot program",
+    "url": "",
+    "date": "2026-02-21"
+  },
+  {
+    "id": "mwedu-002",
+    "title": "Academic integrity",
+    "summary": "Watermark-only detectors fail; portfolio assessments plus oral defenses remain the reliable check.",
+    "tags": ["integrity", "assessment"],
+    "source": "faculty roundtable",
+    "url": "",
+    "date": "2026-02-23"
+  },
+  {
+    "id": "mwedu-003",
+    "title": "Device equity",
+    "summary": "Schools moving to browser-first AI tools reduce device disparities and simplify compliance.",
+    "tags": ["equity", "devices"],
+    "source": "edtech report",
+    "url": "",
+    "date": "2026-02-19"
+  }
+]

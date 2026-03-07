@@ -1,0 +1,10 @@
+{
+  "youtube": {
+    "channel_id": "mw_ai_edu",
+    "token": "ENV:YOUTUBE_API_KEY"
+  },
+  "blog": {
+    "site": "mw_ai_edu.blog",
+    "token": "ENV:BLOG_API_KEY"
+  }
+}

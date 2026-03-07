@@ -1,0 +1,11 @@
+{
+  "brand": "mw_ai_news",
+  "tone": ["analytical", "news-style"],
+  "voice": "fast, neutral, signal-over-noise",
+  "audience": "local businesses, startup ecosystem",
+  "brief_sections": ["Hook", "Insight", "Example", "CTA"],
+  "tools": ["ai_news_scraper", "github_ai_trends", "perplexity_connector"],
+  "cta_style": "ask readers to bookmark and share",
+  "content_ratio": {"long": 0.3, "short": 0.7},
+  "primary_platforms": ["Twitter", "LinkedIn", "YouTube Shorts"]
+}

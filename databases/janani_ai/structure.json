@@ -1,0 +1,11 @@
+{
+  "brand": "janani_ai",
+  "tone": ["founder", "philosophical", "visionary", "educational"],
+  "voice": "founder-led, reflective, forward-looking",
+  "audience": "startup founders, thinkers, AI enthusiasts",
+  "brief_sections": ["Hook", "Insight", "Example", "CTA"],
+  "tools": ["arxiv_scraper", "ai_news_scraper", "perplexity_connector"],
+  "cta_style": "invite readers to reflect and reply",
+  "content_ratio": {"long": 0.3, "short": 0.7},
+  "primary_platforms": ["Twitter", "LinkedIn", "Blog", "Podcast"]
+}

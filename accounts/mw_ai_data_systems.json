@@ -1,0 +1,10 @@
+{
+  "twitter": {
+    "handle": "@mw_ai_data",
+    "token": "ENV:TWITTER_API_KEY"
+  },
+  "linkedin": {
+    "page_id": "mw-data-systems",
+    "token": "ENV:LINKEDIN_TOKEN"
+  }
+}

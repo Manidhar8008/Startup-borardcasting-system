@@ -1,0 +1,11 @@
+{
+  "brand": "mw_ai_data_systems",
+  "tone": ["analytical", "technical", "visionary"],
+  "voice": "data-infra first, precise, forward-looking",
+  "audience": "businesses, engineers, analysts, entrepreneurs",
+  "brief_sections": ["Hook", "Insight", "Example", "CTA"],
+  "tools": ["github_ai_trends", "ai_news_scraper", "arxiv_scraper"],
+  "cta_style": "suggest a measurement to run this week",
+  "content_ratio": {"long": 0.6, "short": 0.4},
+  "primary_platforms": ["LinkedIn", "YouTube", "Blog"]
+}

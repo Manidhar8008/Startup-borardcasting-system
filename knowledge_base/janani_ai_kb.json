@@ -1,0 +1,29 @@
+[
+  {
+    "id": "janani-001",
+    "title": "Founder-led AI experiments",
+    "summary": "Janani AI focuses on founder-led discovery sprints that validate AI-native workflows within two weeks.",
+    "tags": ["founder playbooks", "discovery"],
+    "source": "internal notes",
+    "url": "",
+    "date": "2026-02-27"
+  },
+  {
+    "id": "janani-002",
+    "title": "Customer research loops",
+    "summary": "Weekly customer calls feed a backlog of workflow pains; top items are prototyped with lightweight agents.",
+    "tags": ["customer research", "workflows"],
+    "source": "customer interviews",
+    "url": "",
+    "date": "2026-02-24"
+  },
+  {
+    "id": "janani-003",
+    "title": "Evaluation rubric",
+    "summary": "Shipping criteria: 80% task coverage, clear handoff to humans, and observable metrics in 72 hours.",
+    "tags": ["evaluation", "metrics"],
+    "source": "playbook",
+    "url": "",
+    "date": "2026-02-20"
+  }
+]

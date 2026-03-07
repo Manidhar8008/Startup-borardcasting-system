@@ -1,0 +1,29 @@
+[
+  {
+    "id": "mwnews-001",
+    "title": "Frontier model budgets",
+    "summary": "Frontier model training pushes budgets above $500M; efficiency work targets sparsity and server-side batching.",
+    "tags": ["frontier models", "costs"],
+    "source": "industry brief",
+    "url": "",
+    "date": "2026-02-28"
+  },
+  {
+    "id": "mwnews-002",
+    "title": "Policy momentum",
+    "summary": "US and EU advance AI safety rules on synthetic media disclosure and model incident reporting.",
+    "tags": ["policy", "safety"],
+    "source": "regulation watch",
+    "url": "",
+    "date": "2026-03-01"
+  },
+  {
+    "id": "mwnews-003",
+    "title": "Open tooling surge",
+    "summary": "Smaller labs ship agent orchestration and eval harnesses with permissive licenses, accelerating startup adoption.",
+    "tags": ["open source", "agents"],
+    "source": "open source feed",
+    "url": "",
+    "date": "2026-02-26"
+  }
+]

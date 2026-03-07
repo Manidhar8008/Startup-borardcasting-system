@@ -1,0 +1,35 @@
+[
+  {
+    "title": "Compare open-source agent toolkits for small teams.",
+    "summary": "Compare open-source agent toolkits for small teams.",
+    "brand": "janani_ai",
+    "source": "brain_input",
+    "content_length": "short",
+    "content_type": "thread",
+    "id": "idea-1",
+    "status": "pending",
+    "created_at": "2026-03-05T18:17:59.821594Z"
+  },
+  {
+    "title": "Research: NotebookLM summary: agent orchestration benchmarks.",
+    "summary": "NotebookLM summary: agent orchestration benchmarks.",
+    "brand": "janani_ai",
+    "source": "brain_input_research",
+    "content_length": "short",
+    "content_type": "thread",
+    "id": "idea-2",
+    "status": "pending",
+    "created_at": "2026-03-05T18:17:59.830144Z"
+  },
+  {
+    "title": "Thought: Long-form: blog about AI readiness checklist for local SMEs.",
+    "summary": "Long-form: blog about AI readiness checklist for local SMEs.",
+    "brand": "janani_ai",
+    "source": "brain_input_thought",
+    "content_length": "long",
+    "content_type": "long_form",
+    "id": "idea-3",
+    "status": "pending",
+    "created_at": "2026-03-05T18:17:59.838515Z"
+  }
+]

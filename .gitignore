@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual env
+venv/
+.env
+
+# VSCode
+.vscode/
+
+# Logs
+logs/
+*.log
+
+# Windows
+AppData/
+Desktop.ini
+Thumbs.db
+
+# Docker
+docker/

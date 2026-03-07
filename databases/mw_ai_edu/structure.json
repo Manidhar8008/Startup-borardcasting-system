@@ -1,0 +1,11 @@
+{
+  "brand": "mw_ai_edu",
+  "tone": ["educational", "simple", "visionary"],
+  "voice": "supportive, research-backed, teacher-first",
+  "audience": "students, beginners, developers",
+  "brief_sections": ["Hook", "Insight", "Example", "CTA"],
+  "tools": ["arxiv_scraper", "ai_news_scraper", "youtube_scraper"],
+  "cta_style": "invite educators to pilot and report back",
+  "content_ratio": {"long": 0.6, "short": 0.4},
+  "primary_platforms": ["YouTube", "Blog", "Twitter"]
+}

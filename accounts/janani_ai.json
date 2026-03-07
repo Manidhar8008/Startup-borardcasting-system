@@ -1,0 +1,14 @@
+{
+  "twitter": {
+    "handle": "@jananiai",
+    "token": "ENV:TWITTER_API_KEY"
+  },
+  "linkedin": {
+    "page_id": "janani-page",
+    "token": "ENV:LINKEDIN_TOKEN"
+  },
+  "youtube": {
+    "channel_id": "janani-channel",
+    "token": "ENV:YOUTUBE_API_KEY"
+  }
+}

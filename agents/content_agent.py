@@ -1,24 +1,37 @@
-"""JAN Content Agent: uses LLM to generate Hook/Insight/Example/CTA drafts."""
+# -*- coding: utf-8 -*-
+"""Content Agent (v2) — LLM-powered Hook/Insight/Example/CTA draft generation.
+
+Refactored to inherit from BaseAgent and register with the agent registry.
+Uses prompt_loader for template management instead of hardcoded prompts.
+"""
 
 import logging
 import re
-from typing import Dict, List
+from typing import Any, Dict, List
 
+from agents.base_agent import BaseAgent
+from agents.agent_registry import register
 from ai_core import llm_brain
 
-logger = logging.getLogger("engine")
+logger = logging.getLogger("agent.content")
 
+# Platform-specific writing tips
+PLATFORM_TIPS = {
+    "twitter":  "Write in a punchy, shareable tone. Use line breaks for clarity.",
+    "linkedin": "Professional but human tone. Encourage comments at the end.",
+    "youtube":  "Conversational and energetic. Works as a spoken script.",
+}
 
-# ── LLM prompt builder ────────────────────────────────────────────────────────
 
 def _build_content_prompt(task: Dict) -> str:
-    topic          = task.get("title", "AI and startups")
-    brand          = task.get("brand", "janani_ai")
-    platform       = task.get("platform", "linkedin")
-    content_type   = task.get("content_type", "insight")
+    """Build LLM prompt for content generation."""
+    topic = task.get("title", "AI and startups")
+    brand = task.get("brand", "janani_ai")
+    platform = task.get("platform", "linkedin")
+    content_type = task.get("content_type", "insight")
     content_length = task.get("content_length", "short")
-    summary        = task.get("summary", "")
-    rationale      = task.get("rationale", "")
+    summary = task.get("summary", "")
+    rationale = task.get("rationale", "")
 
     length_guide = (
         "Keep each section under 40 words. Total post under 150 words."
@@ -26,14 +39,23 @@ def _build_content_prompt(task: Dict) -> str:
         else "Each section can be 60-100 words. Total post under 400 words."
     )
 
-    platform_tips = {
-        "twitter":  "Write in a punchy, shareable tone. Use line breaks for clarity.",
-        "linkedin": "Professional but human tone. Encourage comments at the end.",
-        "youtube":  "Conversational and energetic. Works as a spoken script.",
-    }.get(platform, "Clear and engaging tone.")
-
-    return f"""You are JAN, content writer for brand '{brand}'.
-Platform: {platform} ({platform_tips})
+    # Try loading from prompt template, fall back to inline
+    try:
+        from prompts.prompt_loader import load_prompt
+        return load_prompt(
+            "content_prompts/social_post.md",
+            brand=brand,
+            platform=platform,
+            content_type=content_type,
+            topic=topic,
+            context=summary or rationale or "No additional context.",
+            length_guide=length_guide,
+            platform_tips=PLATFORM_TIPS.get(platform, "Clear and engaging tone."),
+        )
+    except Exception:
+        # Inline fallback
+        return f"""You are JAN, content writer for brand '{brand}'.
+Platform: {platform} ({PLATFORM_TIPS.get(platform, 'Clear and engaging tone.')})
 Content type: {content_type}
 Topic: {topic}
 Context: {summary or rationale or 'No additional context.'}
@@ -50,13 +72,9 @@ Output only the four sections. No preamble, no markdown formatting, no extra tex
 
 
 def _parse_llm_draft(raw: str, task: Dict) -> str:
-    """
-    Extract Hook/Insight/Example/CTA from LLM output.
-    Accepts both 'Label: text' and 'Label:\ntext' formats.
-    Falls back to returning raw text if sections can't be parsed.
-    """
-    sections   = {}
-    current    = None
+    """Extract Hook/Insight/Example/CTA from LLM output."""
+    sections = {}
+    current = None
     buf: List[str] = []
 
     for line in raw.splitlines():
@@ -65,7 +83,7 @@ def _parse_llm_draft(raw: str, task: Dict) -> str:
             if current:
                 sections[current] = " ".join(buf).strip()
             current = m.group(1).capitalize()
-            buf     = [m.group(2).strip()] if m.group(2).strip() else []
+            buf = [m.group(2).strip()] if m.group(2).strip() else []
         elif current:
             buf.append(line.strip())
 
@@ -79,50 +97,79 @@ def _parse_llm_draft(raw: str, task: Dict) -> str:
                 parts.append(f"{label}: {sections[label]}")
         return "\n\n".join(parts)
 
-    # Fallback — return raw text cleaned up
     return raw.strip()
 
 
-# ── Public API ─────────────────────────────────────────────────────────────────
+@register
+class ContentAgent(BaseAgent):
+    name = "content"
+    role = "content_creator"
+    description = (
+        "Generates platform-specific content: LinkedIn posts, Twitter threads, "
+        "Instagram captions, reels scripts, YouTube short scripts, blog outlines."
+    )
+    tools = []
+
+    def run(self, **kwargs) -> Dict[str, Any]:
+        """Generate LLM-powered drafts from a content plan.
+
+        Expected kwargs:
+            plan (list): List of task dicts from the strategy agent.
+
+        Returns:
+            Dict with 'drafts' (list of draft dicts).
+        """
+        plan = kwargs.get("plan", [])
+        if not plan:
+            return {"drafts": [], "error": "No plan provided."}
+
+        drafts = []
+        for task in plan:
+            prompt = _build_content_prompt(task)
+            raw_text = llm_brain.generate_text(prompt)
+            draft_text = _parse_llm_draft(raw_text, task)
+
+            draft = {
+                "brand": task.get("brand", self.brand),
+                "topic": task.get("title", ""),
+                "content_type": task.get("content_type", "insight"),
+                "content_length": task.get("content_length", "short"),
+                "platform": task.get("platform"),
+                "task_id": task.get("id"),
+                "draft": draft_text,
+                "llm_generated": True,
+            }
+            drafts.append(draft)
+            logger.info("Content drafted for '%s' on %s", task.get("title"), task.get("platform"))
+
+        return {"drafts": drafts}
+
+    def format_output(self, data: Any) -> str:
+        drafts = data.get("drafts", []) if isinstance(data, dict) else data
+        marker = "🤖" if any(d.get("llm_generated") for d in drafts) else "✍️"
+        lines = [f"\n{marker}  Generated {len(drafts)} Draft(s):"]
+        for i, d in enumerate(drafts, 1):
+            lines.append(f"\n  ─── Draft {i}: {d.get('topic', 'Untitled')} ───")
+            lines.append(f"  Brand     : {d.get('brand')}")
+            lines.append(f"  Platform  : {d.get('platform', 'N/A')}")
+            lines.append(f"  Type      : {d.get('content_type', 'N/A')}")
+            lines.append("")
+            for line in d.get("draft", "").splitlines():
+                lines.append(f"  {line}")
+        return "\n".join(lines)
+
+
+# ── Backward compatibility ────────────────────────────────────────────────────
+# Keep module-level functions so existing imports (jan_manager, main.py) still work.
 
 def run(tasks: List[Dict]) -> List[Dict]:
-    """
-    Generate LLM-powered drafts for every task in the plan.
-
-    Returns:
-        List of draft dicts, each containing a 'draft' key with the post text.
-    """
-    drafts = []
-    for task in tasks:
-        prompt    = _build_content_prompt(task)
-        raw_text  = llm_brain.generate_text(prompt)
-        draft_text = _parse_llm_draft(raw_text, task)
-
-        draft = {
-            "brand":          task.get("brand", "janani_ai"),
-            "topic":          task.get("title", ""),
-            "content_type":   task.get("content_type", "insight"),
-            "content_length": task.get("content_length", "short"),
-            "platform":       task.get("platform"),
-            "task_id":        task.get("id"),
-            "draft":          draft_text,
-            "llm_generated":  True,
-        }
-        drafts.append(draft)
-        logger.info("Content drafted for '%s' on %s", task.get("title"), task.get("platform"))
-
-    return drafts
+    """Legacy API: generate drafts from task list."""
+    agent = ContentAgent()
+    result = agent.run(plan=tasks)
+    return result.get("drafts", [])
 
 
 def format_output(drafts: List[Dict]) -> str:
-    marker = "🤖" if any(d.get("llm_generated") for d in drafts) else "✍️"
-    lines  = [f"\n{marker}  Generated {len(drafts)} Draft(s):"]
-    for i, d in enumerate(drafts, 1):
-        lines.append(f"\n  ─── Draft {i}: {d.get('topic', 'Untitled')} ───")
-        lines.append(f"  Brand     : {d.get('brand')}")
-        lines.append(f"  Platform  : {d.get('platform', 'N/A')}")
-        lines.append(f"  Type      : {d.get('content_type', 'N/A')}")
-        lines.append("")
-        for line in d.get("draft", "").splitlines():
-            lines.append(f"  {line}")
-    return "\n".join(lines)
+    """Legacy API: format drafts for display."""
+    agent = ContentAgent()
+    return agent.format_output({"drafts": drafts})

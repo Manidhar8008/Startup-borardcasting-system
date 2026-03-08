@@ -31,5 +31,78 @@
     "id": "idea-3",
     "status": "pending",
     "created_at": "2026-03-05T18:17:59.838515Z"
+  },
+  {
+    "title": "- Compare open-source agent toolkits for small teams.",
+    "summary": "- Compare open-source agent toolkits for small teams.",
+    "brand": "janani_ai",
+    "source": "brain_notes",
+    "content_length": "short",
+    "id": "idea-4",
+    "status": "pending",
+    "created_at": "2026-03-08T19:06:37.112018Z"
+  },
+  {
+    "title": "Research link",
+    "summary": "- NotebookLM summary: agent orchestration benchmarks.",
+    "brand": "janani_ai",
+    "source": "brain_notes_research",
+    "content_length": "short",
+    "id": "idea-5",
+    "status": "pending",
+    "created_at": "2026-03-08T19:06:37.194693Z"
+  },
+  {
+    "title": "Research link",
+    "summary": "THOUGHTS:",
+    "brand": "janani_ai",
+    "source": "brain_notes_research",
+    "content_length": "short",
+    "id": "idea-6",
+    "status": "pending",
+    "created_at": "2026-03-08T19:06:37.203024Z"
+  },
+  {
+    "title": "Research link",
+    "summary": "- Long-form: blog about AI readiness checklist for local SMEs.",
+    "brand": "janani_ai",
+    "source": "brain_notes_research",
+    "content_length": "short",
+    "id": "idea-7",
+    "status": "pending",
+    "created_at": "2026-03-08T19:06:37.212173Z"
+  },
+  {
+    "title": "Janani - AI Ki Kahani ends after a two-and-a-half-month run; producer Abhigyan Jha says, \u2018Indian televisi - The Times of India",
+    "summary": "<a href=\"https://news.google.com/rss/articles/CBMixgJBVV95cUxPZXVnVGpQNFRKWS1BZVJ6T1pfUXlTQW1KOXFSSGFCejNpS0p3OVZjLWZNeDA0UVAzbWlsZlBjc2cteDdZR2FMTzhGXzhRVHpSamZEandkSTAzR2lxcmNYV2JFWWZEOWtQT2NQRlBoWXg1bC1KZTB2MHhZazRSd0RGcnI4SUc2ZWZIRGNrY3FVVzZHV2VRdGhXZVRRR3JkbmxhTHhRVmhFQ3RxTFZEMFZkanJ5VjYtcmlqY2FqRlNBRGdZcVVIRDl5dDQ0VXRJaTBXUzliYUFQcVlpLW01OXFWVkRLZEpxcEF0YkFrMkZRSlFhTVZrMklSSVVhYXoxb0tmM3A3ZVM5MFYtbGhvaF9KYlA4U3dHU1J6cDJiRFpCa3RkajBWSUFrVVJ6V1hJWlZvVHpoQlZaaXU0NVBKeURzSnlTTml2UdIBywJBVV95cUxNcktBS1Z1Q0g0clRfNFFULWx2Vi1zVktsSkNsMGdGNWE3MThOdGFmQjFxZmNQR2JZN1U5ODZiQm5vSFBvS0NzV2ttZXJQOWE2NlQ1aU5WWGNnUFFSQ2FhZ1hqVHVwYkNwVHVlLWxwZFVPZjZsNE5yNFBCUEE1dkYyWEN3M3pPOC0xNkx3Tl9KYlNDUzFTMVRqVi1tV0l0QXJUZzQtUTdrYm9GbXl4RmJNRlkxUF9GaERZM01RLXhWQlNHSHlHamdLUjlxOWluUkcxQUs5SUk0X3Z0cFZXNnMweDdiOXh0bWU3ZWt0UVlxcGI2SlF6VkRsNzZ4WEY0RHdxbWx3RkloLWlKamEwTlFqaTdJV0ViT3RRc0daYUdWNEtxRFlZeGlJMFU4cU5HVnRnQzJrNDNTN2NUM3hqaHhyTGNYa2RlVUNvRmNn?oc=5\" target=\"_blank\">Janani - AI Ki Kahani ends after a two-and-a-half-month run; producer Abhigyan Jha says, \u2018Indian televisi</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">The Times of India</font>",
+    "source": "predictor_clone:rss:rss",
+    "brand": "janani_ai",
+    "content_length": "long",
+    "content_type": "long_form",
+    "id": "idea-8",
+    "status": "pending",
+    "created_at": "2026-03-08T19:06:38.921500Z"
+  },
+  {
+    "title": "Sumit Kaul Plays Self-obsessed Scientist In 'Janani-AI Ki Kahani': 'Difficult To Relate' - Outlook India",
+    "summary": "<a href=\"https://news.google.com/rss/articles/CBMiygFBVV95cUxQcGxUYlNkSWpHX3gxT1U1SGtxY1A0VE91Tm0yeVotZDV3OGlfSUdwd3ZuSXk0d2pqQXE2TVNCRjRVeFV5UTN0X21DN19OZVhwamtJTFZDQ3dLLUU2NVFNTlVwMmlPSlJEanlsUG5qaHJrcEpyYnlpSW9RQW05cXVIekk2bGdmdzBERWcxYzZMRkNoRzhhNnVDcUU5d1NDYnVwWU1mUGlyUmotMGs2cUFmYUFkTmJfd3A0enBIeERXLVVKVjM2SWZMRXJB0gHXAUFVX3lxTE5QYi1hYlhSc0RYSjNHRlZieHFFUWFlUjFaSllnODNGMllZLXFzQU5Lb1dKd2sxMmxfZ2hjajJManhPM2xFaUZxZFdzQ0NYTVZ5YTk5dDc0a2FoSlRYU1E3T0wxbVVleXFaRmJrcEFVdDNoMEtnZWtocnZLUVRiTms4Uzl4bjJxTUcyOURxci1VejF4aXJVdF9LNVhCcG9GaUNhbF94TU5rVDRIeGVnUU5pOXRLcGxSckhuc0ZWUDRGT3NzOWVEc3hCNTN0Wi1LQUlOYkpUaW9v?oc=5\" target=\"_blank\">Sumit Kaul Plays Self-obsessed Scientist In 'Janani-AI Ki Kahani': 'Difficult To Relate'</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Outlook India</font>",
+    "source": "predictor_clone:rss:rss",
+    "brand": "janani_ai",
+    "content_length": "long",
+    "content_type": "long_form",
+    "id": "idea-9",
+    "status": "pending",
+    "created_at": "2026-03-08T19:06:38.935486Z"
+  },
+  {
+    "title": "Mazher Sayed reveals he has added 'comic touch' to his 'Janani-AI Ki Kahani' character - The Times of India",
+    "summary": "<a href=\"https://news.google.com/rss/articles/CBMi7wFBVV95cUxQWldJaHp1NzZUcVFlX0NyY3dXakF1bUpXSzg0Wkg5dWtMZjFDZi1TNm5RRFlIcTUyRGQybFNUXzA2aWxRZXpxM1duS0d6ZXM1NEZVWnB3dHhZZ3dFNWEta0xYbk9tQ1V1STNGdS1vM0NnRERkNzdlWnJvTE13NkhNU1RaZzVIM3AydVhXUl81N1h6eXhqWVp3ZTA2eFBoRVZQS2FaZzhmNHdVd2FaM0FfVE5uTjVSbG9xeHpkd01yMm5vYWhYbVNtN0pDMDVDTEhpRm9tQmkzalNPOEFPT05KcG4tMjc3R1h4dmtvT0Ytc9IB9AFBVV95cUxPX0tuWlZ2MnV4Sl9VZzIxaGVhWkg2Yk5aSThvVk53ME9SdThoUXZqLTI0RThTN21od3FHMnViVWdfUGFlYTVFSmNmaGg4QXM3b0JuU05NSzk5UmZpc2UxNUdKSDZTZTI3cllNM3J2VS1iYVBOd2JidHVLSXpVOXpKdERtQUNjTVRGWXo2bjBudWxEOV9XS1dkUndoM3RUMEVTeHVTSFRzV3hFNDFjd1FfdTByNWJmcG9XRy1QZVBYd3h5Z25OZXdCUEh1bTEwQjdNZWd5dFhNanh0WG5pa2hfcmZkOEdKZ2tZVkhEalhHS3FYc3BU?oc=5\" target=\"_blank\">Mazher Sayed reveals he has added 'comic touch' to his 'Janani-AI Ki Kahani' character</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">The Times of India</font>",
+    "source": "predictor_clone:rss:rss",
+    "brand": "janani_ai",
+    "content_length": "long",
+    "content_type": "long_form",
+    "id": "idea-10",
+    "status": "pending",
+    "created_at": "2026-03-08T19:06:38.947431Z"
   }
 ]

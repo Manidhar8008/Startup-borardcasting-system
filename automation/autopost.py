@@ -1,14 +1,22 @@
-"""Auto-post flow: move drafts through approval and into distribution channels."""
+# -*- coding: utf-8 -*-
+"""Auto-post flow: move drafts through approval and into distribution channels.
+
+Updated with all 8 distribution channels.
+"""
 from typing import Dict, Iterable, List
 
 from decision_engine.approval_queue import ApprovalQueue
-from distribution import twitter, linkedin, instagram, youtube
+from distribution import twitter, linkedin, instagram, youtube, facebook, blog, newsletter, podcast
 
 CHANNEL_MAP = {
     "twitter": twitter.post_tweet,
     "linkedin": linkedin.post_linkedin,
     "instagram": instagram.post_instagram,
     "youtube": youtube.schedule_upload,
+    "facebook": facebook.post_facebook,
+    "blog": blog.publish_blog,
+    "newsletter": newsletter.send_newsletter,
+    "podcast": podcast.publish_podcast,
 }
 
 
@@ -19,6 +27,12 @@ def dispatch_to_channels(text: str, channels: Iterable[str], *, dry_run: bool = 
         if handler:
             if ch == "youtube":
                 results.append(handler(title=text[:60], description=text, dry_run=dry_run))
+            elif ch == "blog":
+                results.append(handler(text, title=text[:60], dry_run=dry_run))
+            elif ch == "newsletter":
+                results.append(handler(text, subject=text[:60], dry_run=dry_run))
+            elif ch == "podcast":
+                results.append(handler(text, title=text[:60], dry_run=dry_run))
             else:
                 results.append(handler(text, dry_run=dry_run))
     return results

@@ -5,11 +5,16 @@ Scoring dimensions:
   trend_score        — keyword-based proxy for trending relevance
   recency_score      — bias toward topics not used recently (from memory)
   brand_alignment    — how well the topic matches brand keywords
+  learned_boost      — historical engagement patterns from performance learner
 """
 
+import json
 import re
 from datetime import datetime, timezone
+from pathlib import Path
 from typing import Dict, List, Optional
+
+LEARNED_PATTERNS_PATH = Path(__file__).resolve().parent.parent / "memory_engine" / "learned_patterns.json"
 
 # ── Brand keyword maps for alignment scoring ───────────────────────────────────
 
@@ -82,6 +87,24 @@ def _recency_score(topic_title: str, memory_records: List[Dict]) -> float:
     return 1.0  # Never used — maximum freshness
 
 
+def _learned_boost(text: str, brand: str) -> float:
+    """0.0–1.0 boost based on historically successful topic patterns."""
+    if not LEARNED_PATTERNS_PATH.exists():
+        return 0.0
+    try:
+        patterns = json.loads(LEARNED_PATTERNS_PATH.read_text(encoding="utf-8"))
+        topic_boosts = patterns.get("topic_boosts", {})
+        # Check if any learned high-performing keyword appears in this text
+        low = text.lower()
+        boost = 0.0
+        for keyword, score in topic_boosts.items():
+            if keyword.lower() in low:
+                boost = max(boost, min(float(score), 1.0))
+        return boost
+    except Exception:
+        return 0.0
+
+
 def score_topics(
     topics: List[Dict],
     focus_topics: Optional[List[str]] = None,
@@ -113,13 +136,14 @@ def score_topics(
         ts  = _trend_score(text)
         rs  = _recency_score(title, memory_records)
         bas = _brand_alignment_score(text, brand)
+        lb  = _learned_boost(text, brand)
 
         # Founder focus boost: if topic aligns with today's focus, +0.2 bonus
         focus_boost = 0.2 if any(kw in text.lower() for kw in focus_text.split()) else 0.0
 
-        # Weighted total
+        # Weighted total (5 dimensions)
         total = round(
-            (ts * 0.30) + (rs * 0.25) + (bas * 0.30) + (focus_boost * 0.15),
+            (ts * 0.25) + (rs * 0.20) + (bas * 0.25) + (focus_boost * 0.15) + (lb * 0.15),
             4,
         )
 
@@ -130,6 +154,7 @@ def score_topics(
                 "recency":        round(rs, 3),
                 "brand_alignment": round(bas, 3),
                 "focus_boost":    round(focus_boost, 3),
+                "learned_boost":  round(lb, 3),
             },
             "total_score": total,
         })

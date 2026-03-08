@@ -1,10 +1,17 @@
-"""Research agent: gathers topics and signals for a brand."""
-from typing import List, Dict
+# -*- coding: utf-8 -*-
+"""Research agent: gathers topics and signals for a brand.
+
+v3 — Now powered by the multi-source research_pipeline.
+Falls back to hardcoded topics only when all live sources fail.
+"""
+
 import logging
+from typing import Dict, List
 
 logger = logging.getLogger("research")
 
-BRAND_TOPICS = {
+# Fallback topics used only when all live sources fail
+_FALLBACK_TOPICS = {
     "janani_ai": [
         "AI tools for small businesses in India",
         "Vernacular AI and regional language models",
@@ -35,7 +42,7 @@ BRAND_TOPICS = {
     ],
 }
 
-DEFAULT_TOPICS = [
+_DEFAULT_FALLBACK = [
     "Artificial Intelligence trends",
     "Machine learning for startups",
     "Automation in business workflows",
@@ -44,42 +51,41 @@ DEFAULT_TOPICS = [
 ]
 
 
-def gather(brand: str, *, topic: str = "", offline: bool = True) -> List[Dict]:
-    """Return a list of research items for the given brand (or topic)."""
-    base_topics = BRAND_TOPICS.get(brand, DEFAULT_TOPICS)
-
+def _fallback_results(brand: str, topic: str = "") -> List[Dict]:
+    """Generate fallback results when live pipeline fails."""
     if topic:
-        results = [
-            {
-                "title": f"{topic}: Key Trends",
-                "summary": f"An exploration of current developments in {topic}, focusing on practical applications.",
-                "source": "internal",
-                "brand": brand,
-            },
-            {
-                "title": f"{topic}: Opportunities for Startups",
-                "summary": f"How startups can leverage {topic} to gain a competitive edge in 2025.",
-                "source": "internal",
-                "brand": brand,
-            },
-            {
-                "title": f"{topic}: Common Challenges",
-                "summary": f"Top challenges practitioners face when implementing {topic} and how to overcome them.",
-                "source": "internal",
-                "brand": brand,
-            },
+        return [
+            {"title": f"{topic}: Key Trends", "summary": f"Current developments in {topic}.", "source": "fallback", "brand": brand},
+            {"title": f"{topic}: Startup Opportunities", "summary": f"How startups can leverage {topic}.", "source": "fallback", "brand": brand},
+            {"title": f"{topic}: Challenges", "summary": f"Top challenges in implementing {topic}.", "source": "fallback", "brand": brand},
         ]
-        logger.info("Researched topic '%s' for brand '%s'", topic, brand)
-        return results
-
-    results = [
-        {
-            "title": t,
-            "summary": f"Research signal on: {t}. Relevant to {brand} audience.",
-            "source": "internal",
-            "brand": brand,
-        }
-        for t in base_topics
+    topics = _FALLBACK_TOPICS.get(brand, _DEFAULT_FALLBACK)
+    return [
+        {"title": t, "summary": f"Research signal: {t}. Relevant to {brand}.", "source": "fallback", "brand": brand}
+        for t in topics
     ]
-    logger.info("Gathered %d research items for brand '%s'", len(results), brand)
+
+
+def gather(brand: str, *, topic: str = "", offline: bool = True) -> List[Dict]:
+    """Gather research topics via multi-source pipeline.
+
+    Falls back to hardcoded topics only when the pipeline returns nothing.
+    """
+    try:
+        from research.research_pipeline import run_pipeline
+        results = run_pipeline(
+            query=topic or brand,
+            brand=brand,
+            offline=offline,
+            limit=15,
+        )
+        if results:
+            logger.info("Pipeline returned %d items for brand '%s'", len(results), brand)
+            return results
+    except Exception as exc:
+        logger.warning("Research pipeline failed: %s — using fallback", exc)
+
+    # Fallback: hardcoded topics
+    results = _fallback_results(brand, topic)
+    logger.info("Using fallback: %d items for brand '%s'", len(results), brand)
     return results

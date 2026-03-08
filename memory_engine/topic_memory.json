@@ -1,3 +1,339 @@
 {
-  "topics": []
+  "knowledge": [
+    {
+      "id": "janani-001",
+      "title": "Founder-led AI experiments",
+      "summary": "Janani AI focuses on founder-led discovery sprints that validate AI-native workflows within two weeks.",
+      "tags": [
+        "founder playbooks",
+        "discovery"
+      ],
+      "source": "internal notes",
+      "url": "",
+      "date": "2026-02-27"
+    },
+    {
+      "id": "janani-002",
+      "title": "Customer research loops",
+      "summary": "Weekly customer calls feed a backlog of workflow pains; top items are prototyped with lightweight agents.",
+      "tags": [
+        "customer research",
+        "workflows"
+      ],
+      "source": "customer interviews",
+      "url": "",
+      "date": "2026-02-24"
+    },
+    {
+      "id": "janani-003",
+      "title": "Evaluation rubric",
+      "summary": "Shipping criteria: 80% task coverage, clear handoff to humans, and observable metrics in 72 hours.",
+      "tags": [
+        "evaluation",
+        "metrics"
+      ],
+      "source": "playbook",
+      "url": "",
+      "date": "2026-02-20"
+    },
+    {
+      "id": "mwdata-001",
+      "title": "Modern data stack costs",
+      "summary": "Teams report 25-40% cloud waste from orphaned warehouses and idle notebooks.",
+      "tags": [
+        "cost",
+        "cloud",
+        "governance"
+      ],
+      "source": "survey 2026",
+      "url": "",
+      "date": "2026-02-25"
+    },
+    {
+      "id": "mwdata-002",
+      "title": "Lakehouse governance",
+      "summary": "Delta-style tables with row-level policies reduce breach risk when paired with fine-grained service accounts.",
+      "tags": [
+        "lakehouse",
+        "security"
+      ],
+      "source": "field guide",
+      "url": "",
+      "date": "2026-02-22"
+    },
+    {
+      "id": "mwdata-003",
+      "title": "Metrics layer adoption",
+      "summary": "Semantic layers cut dashboard lead time by ~30% but require central ownership and contract tests.",
+      "tags": [
+        "metrics layer",
+        "analytics"
+      ],
+      "source": "case study",
+      "url": "",
+      "date": "2026-02-18"
+    },
+    {
+      "id": "mwedu-001",
+      "title": "Adaptive tutoring",
+      "summary": "LLM tutors that mirror student language improve quiz scores ~12% when paired with weekly teacher feedback loops.",
+      "tags": [
+        "tutoring",
+        "LLM"
+      ],
+      "source": "pilot program",
+      "url": "",
+      "date": "2026-02-21"
+    },
+    {
+      "id": "mwedu-002",
+      "title": "Academic integrity",
+      "summary": "Watermark-only detectors fail; portfolio assessments plus oral defenses remain the reliable check.",
+      "tags": [
+        "integrity",
+        "assessment"
+      ],
+      "source": "faculty roundtable",
+      "url": "",
+      "date": "2026-02-23"
+    },
+    {
+      "id": "mwedu-003",
+      "title": "Device equity",
+      "summary": "Schools moving to browser-first AI tools reduce device disparities and simplify compliance.",
+      "tags": [
+        "equity",
+        "devices"
+      ],
+      "source": "edtech report",
+      "url": "",
+      "date": "2026-02-19"
+    },
+    {
+      "id": "mwnews-001",
+      "title": "Frontier model budgets",
+      "summary": "Frontier model training pushes budgets above $500M; efficiency work targets sparsity and server-side batching.",
+      "tags": [
+        "frontier models",
+        "costs"
+      ],
+      "source": "industry brief",
+      "url": "",
+      "date": "2026-02-28"
+    },
+    {
+      "id": "mwnews-002",
+      "title": "Policy momentum",
+      "summary": "US and EU advance AI safety rules on synthetic media disclosure and model incident reporting.",
+      "tags": [
+        "policy",
+        "safety"
+      ],
+      "source": "regulation watch",
+      "url": "",
+      "date": "2026-03-01"
+    },
+    {
+      "id": "mwnews-003",
+      "title": "Open tooling surge",
+      "summary": "Smaller labs ship agent orchestration and eval harnesses with permissive licenses, accelerating startup adoption.",
+      "tags": [
+        "open source",
+        "agents"
+      ],
+      "source": "open source feed",
+      "url": "",
+      "date": "2026-02-26"
+    }
+  ],
+  "founder_inputs": [
+    {
+      "title": "- Explore how Warangal colleges can run weekend AI build sprints.",
+      "summary": "- Explore how Warangal colleges can run weekend AI build sprints.",
+      "brand": "mw_ai_news",
+      "source": "brain_notes",
+      "content_length": "short"
+    },
+    {
+      "title": "- Compare open-source agent toolkits for small teams.",
+      "summary": "- Compare open-source agent toolkits for small teams.",
+      "brand": "janani_ai",
+      "source": "brain_notes",
+      "content_length": "short"
+    },
+    {
+      "title": "Research link",
+      "summary": "- NotebookLM summary: agent orchestration benchmarks.",
+      "brand": "janani_ai",
+      "source": "brain_notes_research",
+      "content_length": "short"
+    },
+    {
+      "title": "Research link",
+      "summary": "- Article: Tier-2 startup growth in Telangana.",
+      "brand": "mw_ai_news",
+      "source": "brain_notes_research",
+      "content_length": "short"
+    },
+    {
+      "title": "Research link",
+      "summary": "THOUGHTS:",
+      "brand": "janani_ai",
+      "source": "brain_notes_research",
+      "content_length": "short"
+    },
+    {
+      "title": "Research link",
+      "summary": "- Need simple rubric to rank topics by Tier-2 impact + virality.",
+      "brand": "mw_ai_news",
+      "source": "brain_notes_research",
+      "content_length": "short"
+    },
+    {
+      "title": "Research link",
+      "summary": "- Long-form: blog about AI readiness checklist for local SMEs.",
+      "brand": "janani_ai",
+      "source": "brain_notes_research",
+      "content_length": "short"
+    }
+  ],
+  "analytics": [],
+  "history": [
+    {
+      "title": "Compare open-source agent toolkits for small teams.",
+      "summary": "Compare open-source agent toolkits for small teams.",
+      "brand": "janani_ai",
+      "source": "brain_input",
+      "content_length": "short",
+      "content_type": "thread",
+      "id": "idea-1",
+      "status": "pending",
+      "created_at": "2026-03-05T18:17:59.821594Z"
+    },
+    {
+      "title": "Research: NotebookLM summary: agent orchestration benchmarks.",
+      "summary": "NotebookLM summary: agent orchestration benchmarks.",
+      "brand": "janani_ai",
+      "source": "brain_input_research",
+      "content_length": "short",
+      "content_type": "thread",
+      "id": "idea-2",
+      "status": "pending",
+      "created_at": "2026-03-05T18:17:59.830144Z"
+    },
+    {
+      "title": "Thought: Long-form: blog about AI readiness checklist for local SMEs.",
+      "summary": "Long-form: blog about AI readiness checklist for local SMEs.",
+      "brand": "janani_ai",
+      "source": "brain_input_thought",
+      "content_length": "long",
+      "content_type": "long_form",
+      "id": "idea-3",
+      "status": "pending",
+      "created_at": "2026-03-05T18:17:59.838515Z"
+    },
+    {
+      "title": "- Compare open-source agent toolkits for small teams.",
+      "summary": "- Compare open-source agent toolkits for small teams.",
+      "brand": "janani_ai",
+      "source": "brain_notes",
+      "content_length": "short",
+      "id": "idea-4",
+      "status": "pending",
+      "created_at": "2026-03-08T19:06:37.112018Z"
+    },
+    {
+      "title": "Research link",
+      "summary": "- NotebookLM summary: agent orchestration benchmarks.",
+      "brand": "janani_ai",
+      "source": "brain_notes_research",
+      "content_length": "short",
+      "id": "idea-5",
+      "status": "pending",
+      "created_at": "2026-03-08T19:06:37.194693Z"
+    },
+    {
+      "title": "Research link",
+      "summary": "THOUGHTS:",
+      "brand": "janani_ai",
+      "source": "brain_notes_research",
+      "content_length": "short",
+      "id": "idea-6",
+      "status": "pending",
+      "created_at": "2026-03-08T19:06:37.203024Z"
+    },
+    {
+      "title": "Research link",
+      "summary": "- Long-form: blog about AI readiness checklist for local SMEs.",
+      "brand": "janani_ai",
+      "source": "brain_notes_research",
+      "content_length": "short",
+      "id": "idea-7",
+      "status": "pending",
+      "created_at": "2026-03-08T19:06:37.212173Z"
+    },
+    {
+      "title": "Explore how Warangal colleges can run weekend AI build sprints.",
+      "summary": "Explore how Warangal colleges can run weekend AI build sprints.",
+      "brand": "mw_ai_edu",
+      "source": "brain_input",
+      "content_length": "short",
+      "content_type": "short_explainer",
+      "id": "idea-1",
+      "status": "pending",
+      "created_at": "2026-03-05T18:17:59.819592Z"
+    },
+    {
+      "title": "Research: Article: Tier-2 startup growth in Telangana.",
+      "summary": "Article: Tier-2 startup growth in Telangana.",
+      "brand": "mw_ai_news",
+      "source": "brain_input_research",
+      "content_length": "short",
+      "content_type": "thread",
+      "id": "idea-1",
+      "status": "pending",
+      "created_at": "2026-03-05T18:17:59.854117Z"
+    },
+    {
+      "title": "Thought: Need simple rubric to rank topics by Tier-2 impact + viralit",
+      "summary": "Need simple rubric to rank topics by Tier-2 impact + virality.",
+      "brand": "mw_ai_news",
+      "source": "brain_input_thought",
+      "content_length": "long",
+      "content_type": "explainer",
+      "id": "idea-2",
+      "status": "pending",
+      "created_at": "2026-03-05T18:17:59.861280Z"
+    },
+    {
+      "title": "- Explore how Warangal colleges can run weekend AI build sprints.",
+      "summary": "- Explore how Warangal colleges can run weekend AI build sprints.",
+      "brand": "mw_ai_news",
+      "source": "brain_notes",
+      "content_length": "short",
+      "id": "idea-3",
+      "status": "pending",
+      "created_at": "2026-03-08T19:06:37.090683Z"
+    },
+    {
+      "title": "Research link",
+      "summary": "- Article: Tier-2 startup growth in Telangana.",
+      "brand": "mw_ai_news",
+      "source": "brain_notes_research",
+      "content_length": "short",
+      "id": "idea-4",
+      "status": "pending",
+      "created_at": "2026-03-08T19:06:37.100944Z"
+    },
+    {
+      "title": "Research link",
+      "summary": "- Need simple rubric to rank topics by Tier-2 impact + virality.",
+      "brand": "mw_ai_news",
+      "source": "brain_notes_research",
+      "content_length": "short",
+      "id": "idea-5",
+      "status": "pending",
+      "created_at": "2026-03-08T19:06:37.110829Z"
+    }
+  ]
 }

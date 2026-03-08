@@ -1,4 +1,4 @@
-"""JAN Chat Interface: interactive CLI loop."""
+"""JAN Chat Interface: interactive CLI loop (v3 — Gemini powered)."""
 import sys
 from core.jan_manager import JanManager
 
@@ -10,14 +10,17 @@ BANNER = r"""
 ╚█████╔╝██║  ██║██║ ╚████║
  ╚════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝
 
-  Your AI Broadcasting Manager
-  Brand: {brand}  |  LLM: llama3 (Ollama)  |  Workflow Mode: ON
-  Type 'help' or just:  create 3 threads about AI agents
+  JAN AI Media Manager  |  Brand: {brand}
+  LLM: {llm}  |  9 Platforms  |  Workflow Mode: ON
+  Type 'help' or:  multiply AI agents
 """
 
 HELP_TEXT = """
+━━━  CONTENT MULTIPLICATION  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  multiply <topic>       1 idea → 22 assets across 9 platforms
+
 ━━━  WORKFLOW (one command does everything)  ━━━━━━━━━━━━━━━━━━
-  <message>            Type naturally — JAN auto-detects workflows
+  <message>              Type naturally — JAN auto-detects workflows
 
   Examples:
     create 3 reels about AI agents
@@ -26,18 +29,18 @@ HELP_TEXT = """
     research prompt engineering trends
 
 ━━━  STEP-BY-STEP COMMANDS  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  morning briefing     Read notes + score topics + LLM plan
-  research <topic>     Research a topic
-  plan today           Build scored + LLM content plan
-  generate drafts      LLM drafts (Hook / Insight / Example / CTA)
-  publish drafts       Simulate publishing → records topic memory
-  topic insights       Top / recent / recommended topics
+  morning briefing       Read notes + score topics + LLM plan + learning
+  research <topic>       Research a topic (live: RSS + Perplexity)
+  plan today             Build scored + LLM content plan
+  generate drafts        Gemini drafts (Hook / Insight / Example / CTA)
+  publish drafts         Simulate publishing → records topic memory
+  topic insights         Top / recent / recommended topics
 
 ━━━  SYSTEM  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  status               Pipeline + memory state
-  brand <name>         Switch brand
-  help                 This menu
-  exit                 Quit JAN
+  status                 Pipeline + memory + LLM provider state
+  brand <name>           Switch brand
+  help                   This menu
+  exit                   Quit JAN
 """
 
 
@@ -49,9 +52,18 @@ def _thinking(msg: str):
     print(f"\n  ⟳  {msg}", flush=True)
 
 
+def _get_llm_info() -> str:
+    try:
+        from ai_core.llm_router import get_active_provider
+        return get_active_provider()
+    except Exception:
+        return "ollama"
+
+
 def run(brand: str = "janani_ai"):
     jan = JanManager(brand=brand)
-    print(BANNER.format(brand=jan.brand))
+    llm = _get_llm_info()
+    print(BANNER.format(brand=jan.brand, llm=llm))
 
     while True:
         try:
@@ -79,6 +91,14 @@ def run(brand: str = "janani_ai"):
         elif cmd == "help":
             print(HELP_TEXT)
 
+        # ── Multiply ─────────────────────────────────────────────────────────
+        elif cmd == "multiply":
+            if not arg:
+                print("⚠️  Usage: multiply <topic>\n   Example: multiply AI agents for startups")
+            else:
+                _thinking(f"Multiplying across 9 platforms: \"{arg}\" ...")
+                print(jan.multiply(arg))
+
         # ── Workflow shortcut: do <message> ───────────────────────────────────
         elif cmd == "do":
             if not arg:
@@ -92,7 +112,7 @@ def run(brand: str = "janani_ai"):
 
         # ── Morning briefing ──────────────────────────────────────────────────
         elif full_cmd == "morning briefing":
-            _thinking("Reading notes + scoring topics + building strategy ...")
+            _thinking("Reading notes + scoring topics + learning + building strategy ...")
             print(jan.morning_briefing())
 
         # ── Research ──────────────────────────────────────────────────────────
@@ -110,7 +130,7 @@ def run(brand: str = "janani_ai"):
 
         # ── Generate ──────────────────────────────────────────────────────────
         elif full_cmd == "generate drafts":
-            _thinking("Writing drafts with LLM ...")
+            _thinking("Writing drafts with Gemini ...")
             print(jan.generate_drafts())
 
         # ── Publish ───────────────────────────────────────────────────────────

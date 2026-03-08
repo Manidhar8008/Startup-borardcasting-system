@@ -41,6 +41,16 @@ PIPELINES: Dict[str, List[str]] = {
         "strategy",
         "content",
     ],
+    "research_to_draft": [
+        "research",
+        "strategy",
+        "content",
+    ],
+    "multiply_pipeline": [
+        "research",
+        "strategy",
+        "content",
+    ],
     "publish_flow": [
         "publish",
         "analytics",

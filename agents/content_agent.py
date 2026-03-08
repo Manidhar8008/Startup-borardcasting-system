@@ -11,7 +11,11 @@ from typing import Any, Dict, List
 
 from agents.base_agent import BaseAgent
 from agents.agent_registry import register
-from ai_core import llm_brain
+
+try:
+    from ai_core.llm_router import generate as llm_generate
+except ImportError:
+    from ai_core.llm_brain import generate_text as llm_generate
 
 logger = logging.getLogger("agent.content")
 
@@ -126,8 +130,17 @@ class ContentAgent(BaseAgent):
         drafts = []
         for task in plan:
             prompt = _build_content_prompt(task)
-            raw_text = llm_brain.generate_text(prompt)
+            raw_text = llm_generate(prompt=prompt)
             draft_text = _parse_llm_draft(raw_text, task)
+
+            # Platform-optimize via content transformer
+            platform = task.get("platform", "linkedin")
+            try:
+                from network_engine.content_transformer import transform
+                transformed = transform(draft_text, platform, brand=task.get("brand", self.brand))
+                draft_text = transformed.get("text") or transformed.get("caption") or transformed.get("script") or transformed.get("body") or draft_text
+            except Exception:
+                pass  # Use raw draft if transformer fails
 
             draft = {
                 "brand": task.get("brand", self.brand),

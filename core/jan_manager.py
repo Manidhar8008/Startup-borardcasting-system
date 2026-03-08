@@ -1,5 +1,13 @@
 # -*- coding: utf-8 -*-
-"""JAN Manager: orchestrates all agents and maintains session state."""
+"""JAN Manager v3: orchestrates all agents via the WorkflowManager.
+
+Upgrades:
+  - Gemini-powered via LLM router
+  - Orchestrator-driven pipelines
+  - Content multiplication (1 idea → N assets)
+  - Performance learning feedback loop
+  - Backward-compatible individual commands
+"""
 
 import logging
 from typing import Dict, List
@@ -22,9 +30,16 @@ class JanManager:
         self._plan: List[Dict]             = []
         self._drafts: List[Dict]           = []
         self._publish_results: List[Dict]  = []
+        self._multiplication: List[Dict]   = []
         self._last_intent: Dict            = {}
 
-    # ── Individual commands ────────────────────────────────────────────────────
+    # ── Orchestrator access ────────────────────────────────────────────────────
+
+    def _get_workflow_manager(self):
+        from orchestrator.workflow_manager import WorkflowManager
+        return WorkflowManager(brand=self.brand)
+
+    # ── Individual commands (backward-compatible) ──────────────────────────────
 
     def research(self, topic: str) -> str:
         self._research_results = research_agent.run(topic, brand=self.brand)
@@ -52,6 +67,45 @@ class JanManager:
         self._publish_results = publisher_agent.run(self._drafts, dry_run=True)
         return publisher_agent.format_output(self._publish_results)
 
+    # ── New: Content Multiplication ────────────────────────────────────────────
+
+    def multiply(self, topic: str) -> str:
+        """Multiply 1 idea into content for all platforms via Gemini."""
+        from content_engine.multiplier import multiply_quick, format_multiplication_report
+
+        idea = {"title": topic, "summary": f"Create multi-platform content about: {topic}"}
+        self._multiplication = multiply_quick(idea, brand=self.brand)
+
+        # Send all multiplied assets to the approval queue
+        from decision_engine.approval_queue import ApprovalQueue
+        queue = ApprovalQueue(self.brand)
+        for asset in self._multiplication:
+            queue.add_draft({
+                "topic": asset.get("idea_source", topic),
+                "draft": asset.get("draft", ""),
+                "platform": asset.get("platform", ""),
+                "content_type": asset.get("content_type", ""),
+                "brand": self.brand,
+            })
+
+        report = format_multiplication_report(self._multiplication)
+        lines = [report]
+        lines.append(f"\n✅  {len(self._multiplication)} drafts added to approval queue.")
+        lines.append("   Type 'publish drafts' to simulate publishing.")
+
+        # Show preview of first 3 assets
+        for i, asset in enumerate(self._multiplication[:3], 1):
+            draft_preview = asset.get("draft", "")[:120]
+            lines.append(f"\n  📄 {asset['content_type']} ({asset['platform']}):")
+            lines.append(f"     {draft_preview}...")
+
+        if len(self._multiplication) > 3:
+            lines.append(f"\n  ... and {len(self._multiplication) - 3} more assets")
+
+        return "\n".join(lines)
+
+    # ── New: Morning Briefing v2 ───────────────────────────────────────────────
+
     def morning_briefing(self) -> str:
         lines = []
         self._morning_notes = morning_reader.read_morning_notes()
@@ -62,13 +116,31 @@ class JanManager:
         self._research_results = research_agent.run(seed, brand=self.brand)
         lines.append(research_agent.format_output(self._research_results))
 
+        # Run learning cycle to update patterns
+        try:
+            from ai_core.performance_learner import learn
+            learning = learn()
+            if learning.get("events_analyzed", 0) > 0:
+                lines.append(f"\n🧠 Learning: analyzed {learning['events_analyzed']} events, "
+                             f"{len(learning.get('topic_boosts', {}))} topic patterns learned.")
+        except Exception:
+            pass
+
         self._plan = planner_agent.run(
             self._research_results,
             brand=self.brand,
             morning_notes=self._morning_notes,
         )
         lines.append(planner_agent.format_output(self._plan))
-        lines.append("\n✅  Briefing complete. Type 'generate drafts' to write content.")
+
+        # Show LLM provider
+        try:
+            from ai_core.llm_router import get_active_provider
+            lines.append(f"\n  🤖 LLM: {get_active_provider()}")
+        except Exception:
+            pass
+
+        lines.append("\n✅  Briefing complete. Type 'generate drafts' or 'multiply <topic>' next.")
         return "\n".join(lines)
 
     def topic_insights(self) -> str:
@@ -104,49 +176,52 @@ class JanManager:
 
         return "\n".join(lines)
 
-    # ── Workflow execution ─────────────────────────────────────────────────────
+    # ── Workflow execution (upgraded with controller agent) ─────────────────────
 
     def execute_workflow(self, message: str) -> str:
-        """
-        Full natural-language pipeline:
-            parse intent → [research] → [score+plan] → [draft generation]
-
-        Intent routing:
-          content_generation  → research + score + plan + drafts  (full pipeline)
-          research            → research only
-          planning            → research + score + plan (no drafts)
-          briefing            → delegates to morning_briefing()
-          unknown             → helpful error message
-
-        Args:
-            message: Free-text user command, e.g.
-                     "create 3 reels about AI agents for janani_ai"
-
-        Returns:
-            Multi-section formatted string with all pipeline output.
-        """
         sections = []
 
-        # ── Step 0: Parse intent with LLM (regex fallback when offline) ──────
+        # Step 0: Use Controller Agent to parse intent
+        try:
+            from agents.controller_agent import ControllerAgent
+            controller = ControllerAgent(brand=self.brand)
+            analysis = controller.run(message=message, brand=self.brand)
+            sections.append(controller.format_output(analysis))
+
+            intent_name = analysis.get("intent", "create")
+            params = analysis.get("params", {})
+            topic = params.get("topic", "")
+
+            # Handle multiply intent
+            if intent_name == "multiply":
+                sections.append("\n" + "─" * 55)
+                sections.append("  🔄 Multiplication Mode Activated")
+                sections.append(self.multiply(topic or message))
+                return "\n".join(sections)
+
+        except Exception:
+            # Fallback to old workflow interpreter
+            analysis = None
+
+        # Fall back to existing workflow logic
         intent = workflow_interpreter.interpret_user_message(message)
         self._last_intent = intent
-        sections.append(workflow_interpreter.format_intent(intent))
+        if analysis is None:
+            sections.append(workflow_interpreter.format_intent(intent))
 
         if intent["intent"] == "unknown":
             sections.append(
                 "\n\n⚠️  Could not understand your request.\n"
-                "   Try:  do create 3 threads about AI agents\n"
-                "         do research prompt engineering\n"
-                "         do plan today\n"
+                "   Try:  create 3 threads about AI agents\n"
+                "         multiply AI agents\n"
+                "         research prompt engineering\n"
                 "         morning briefing"
             )
             return "\n".join(sections)
 
-        # Delegate briefing entirely
         if intent["intent"] == "briefing":
             return "\n".join(sections) + "\n\n" + self.morning_briefing()
 
-        # Honour brand switch requested in the message
         if intent.get("brand") and intent["brand"] != self.brand:
             self.brand = intent["brand"]
             sections.append(f"\n  🔀 Brand switched to: {self.brand}")
@@ -156,28 +231,26 @@ class JanManager:
         formats  = intent.get("formats", ["insight"])
         language = intent.get("language", "")
 
-        # ── Step 1: Research ──────────────────────────────────────────────────
+        # Step 1: Research
         sections.append("\n" + "─" * 55)
         sections.append("  📡 Step 1 — Researching...")
         self._research_results = research_agent.run(topic or "", brand=self.brand)
         sections.append(research_agent.format_output(self._research_results))
 
-        # research intent stops here
         if intent["intent"] == "research":
             sections.append(
                 "\n✅  Research complete!"
-                "\n   Type 'plan today' to build a scored content plan from these results."
+                "\n   Type 'plan today' to build a scored content plan."
             )
             return "\n".join(sections)
 
-        # ── Step 2: Score topics + build LLM plan ────────────────────────────
+        # Step 2: Score + Plan
         sections.append("\n" + "─" * 55)
         sections.append("  🧠 Step 2 — Scoring topics + building LLM plan...")
 
-        # Surface format/quantity preferences to the planner via workflow_notes
         workflow_notes = {
             "focus_topics":  [topic] if topic else [],
-            "content_goals": [f"{quantity} \u00d7 {f}" for f in formats],
+            "content_goals": [f"{quantity} × {f}" for f in formats],
             "tasks":         [],
             "notes":         [f"User requested: {message}"],
         }
@@ -192,23 +265,23 @@ class JanManager:
         )
         sections.append(planner_agent.format_output(self._plan))
 
-        # planning intent stops here (no drafts)
         if intent["intent"] == "planning":
             sections.append(
                 "\n✅  Planning complete!"
-                "\n   Type 'generate drafts' to write content for this plan."
+                "\n   Type 'generate drafts' to write content."
             )
             return "\n".join(sections)
 
-        # ── Step 3: Generate drafts (content_generation intent) ───────────────
+        # Step 3: Generate drafts (via Gemini)
         sections.append("\n" + "─" * 55)
-        sections.append("  \u270d\ufe0f  Step 3 — Writing drafts with LLM...")
+        sections.append("  ✍️  Step 3 — Writing drafts with Gemini...")
         self._drafts = content_agent.run(self._plan)
         sections.append(content_agent.format_output(self._drafts))
 
         sections.append(
-            "\n\n\u2705  Workflow complete!"
-            "\n   Type 'publish drafts' when you're ready to simulate publishing."
+            "\n\n✅  Workflow complete!"
+            "\n   Type 'publish drafts' to simulate publishing."
+            "\n   Type 'multiply <topic>' to create content for all 9 platforms."
         )
         return "\n".join(sections)
 
@@ -220,14 +293,24 @@ class JanManager:
             f"'{self._last_intent.get('raw', '')}'"
             if self._last_intent else "—"
         )
+
+        # Get LLM provider
+        try:
+            from ai_core.llm_router import get_active_provider
+            llm_info = get_active_provider()
+        except Exception:
+            llm_info = "ollama"
+
         lines = [
             f"\n📊 JAN Pipeline Status — Brand: {self.brand}",
-            f"  Last workflow  : {intent_str}",
-            f"  Morning notes  : {'✅ loaded' if self._morning_notes else '—'}",
-            f"  Research items : {len(self._research_results)}",
-            f"  Plan tasks     : {len(self._plan)}",
-            f"  Drafts         : {len(self._drafts)}",
-            f"  Published      : {len(self._publish_results)}",
-            f"  Topic memory   : {mem_count} records",
+            f"  LLM Provider   : {llm_info}",
+            f"  Last workflow   : {intent_str}",
+            f"  Morning notes   : {'✅ loaded' if self._morning_notes else '—'}",
+            f"  Research items  : {len(self._research_results)}",
+            f"  Plan tasks      : {len(self._plan)}",
+            f"  Drafts          : {len(self._drafts)}",
+            f"  Published       : {len(self._publish_results)}",
+            f"  Multiplied      : {len(self._multiplication)}",
+            f"  Topic memory    : {mem_count} records",
         ]
         return "\n".join(lines)

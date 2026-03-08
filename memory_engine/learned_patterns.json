@@ -1,0 +1,16 @@
+{
+  "topic_boosts": {
+    "local": 1.0,
+    "llms": 1.0,
+    "startups": 1.0,
+    "python": 0.8471,
+    "tutorial": 0.8471,
+    "test": 0.6471,
+    "topic": 0.6471
+  },
+  "platform_preferences": {},
+  "content_type_wins": {},
+  "platform_totals": {},
+  "events_analyzed": 0,
+  "memory_records": 3
+}

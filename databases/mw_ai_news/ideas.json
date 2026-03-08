@@ -20,5 +20,35 @@
     "id": "idea-2",
     "status": "pending",
     "created_at": "2026-03-05T18:17:59.861280Z"
+  },
+  {
+    "title": "- Explore how Warangal colleges can run weekend AI build sprints.",
+    "summary": "- Explore how Warangal colleges can run weekend AI build sprints.",
+    "brand": "mw_ai_news",
+    "source": "brain_notes",
+    "content_length": "short",
+    "id": "idea-3",
+    "status": "pending",
+    "created_at": "2026-03-08T19:06:37.090683Z"
+  },
+  {
+    "title": "Research link",
+    "summary": "- Article: Tier-2 startup growth in Telangana.",
+    "brand": "mw_ai_news",
+    "source": "brain_notes_research",
+    "content_length": "short",
+    "id": "idea-4",
+    "status": "pending",
+    "created_at": "2026-03-08T19:06:37.100944Z"
+  },
+  {
+    "title": "Research link",
+    "summary": "- Need simple rubric to rank topics by Tier-2 impact + virality.",
+    "brand": "mw_ai_news",
+    "source": "brain_notes_research",
+    "content_length": "short",
+    "id": "idea-5",
+    "status": "pending",
+    "created_at": "2026-03-08T19:06:37.110829Z"
   }
 ]

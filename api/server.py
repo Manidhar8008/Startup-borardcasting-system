@@ -40,6 +40,10 @@ app = FastAPI(
     version="2.0.0",
 )
 
+# ── Authentication Routes ──────────────────────────────────────────────────
+from auth.auth_routes import router as auth_router
+app.include_router(auth_router)
+
 # Allow all origins for local dev
 app.add_middleware(
     CORSMiddleware,
@@ -430,3 +434,47 @@ def stop_automation():
     from agents.automation_agent import AutomationAgent
     agent = AutomationAgent(brand=BRAND)
     return agent.stop_engine()
+
+@app.post("/growth/recommendations")
+def get_growth_recommendations(brand_id: int = 1, db: Session = Depends(lambda: next(getattr(__import__('database.session', fromlist=['get_db']), 'get_db')()))):
+    from analytics_engine.growth_optimizer import GrowthOptimizer
+    optimizer = GrowthOptimizer(db)
+    recs = optimizer.get_recommendations(brand_id)
+    if "error" in recs:
+        raise HTTPException(status_code=404, detail=recs["error"])
+    return {"status": "success", "recommendations": recs}
+
+@app.post("/autonomous/activate")
+def activate_autonomous_growth(brand_id: int = 1, db: Session = Depends(lambda: next(getattr(__import__('database.session', fromlist=['get_db']), 'get_db')()))):
+    """
+    Activates the end-to-end hands-free loop dictated by the AI Marketing Brain.
+    """
+    from agents.marketing_brain_agent import MarketingBrainAgent
+    brain = MarketingBrainAgent(brand=brand_id)
+    directive = brain.run(brand_id=brand_id)
+    
+    # In a full system, this would spawn a perpetual background job or Celery worker
+    # that wakes up daily, reads the 'global_state_snapshot', and triggers the pipeline.
+    
+    return {
+        "status": "success",
+        "message": "Autonomous Growth Mode activated.",
+        "marketing_brain_directive": directive
+    }
+
+# ── Plugin Ecosystem Endpoints ────────────────────────────────────────────────
+
+@app.get("/plugins")
+def list_plugins():
+    from plugins.plugin_manager import PluginManager
+    pm = PluginManager()
+    return {"status": "success", "plugins": pm.list_plugins()}
+
+@app.post("/plugins/execute/{plugin_name}")
+def execute_plugin(plugin_name: str):
+    from plugins.plugin_manager import PluginManager
+    pm = PluginManager()
+    res = pm.execute_plugin(plugin_name, post_url="janani.ai/post/123")
+    if "error" in res:
+        raise HTTPException(status_code=400, detail=res["error"])
+    return {"status": "success", "result": res}

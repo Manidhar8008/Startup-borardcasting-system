@@ -16,11 +16,12 @@ from agents.agent_registry import register
 
 # Weights for each scoring dimension
 WEIGHTS = {
-    "trend_velocity": 0.25,
-    "audience_relevance": 0.20,
-    "founder_interest": 0.20,
-    "historical_engagement": 0.20,
-    "recency_bonus": 0.15,
+    "trend_velocity": 0.20,
+    "audience_relevance": 0.15,
+    "founder_interest": 0.15,
+    "historical_engagement": 0.15,
+    "recency_bonus": 0.10,
+    "viral_probability": 0.25,
 }
 
 
@@ -89,14 +90,20 @@ def rank_topics(topics: List[Dict], brand: str = "janani_ai") -> List[Dict]:
     Returns:
         Sorted list with 'rank_score' and dimension scores added.
     """
+    from ai_core.viral_predictor import ViralPredictor
+    predictor = ViralPredictor()
+    
     scored = []
     for topic in topics:
+        topic_title = topic.get("topic", topic.get("title", ""))
+        
         scores = {
             "trend_velocity": _score_trend_velocity(topic),
             "audience_relevance": _score_audience_relevance(topic, brand),
             "founder_interest": _score_founder_interest(topic),
             "historical_engagement": _score_historical_engagement(topic, brand),
             "recency_bonus": _score_recency(topic, brand),
+            "viral_probability": predictor.score_probability(topic_title, "text", "linkedin"), # Defaulting to linkedin text for baseline scoring
         }
         rank_score = sum(scores[k] * WEIGHTS[k] for k in WEIGHTS)
         topic_scored = {**topic, "dimension_scores": scores, "rank_score": round(rank_score, 3)}
@@ -150,6 +157,7 @@ class TopicRanker(BaseAgent):
             lines.append(
                 f"\n  {i}. {topic_name[:60]}"
                 f"\n     Score: {t.get('rank_score', 0):.3f} | "
+                f"Viral: {scores.get('viral_probability', 0):.2f} "
                 f"Trend: {scores.get('trend_velocity', 0):.1f} "
                 f"Audience: {scores.get('audience_relevance', 0):.1f} "
                 f"Founder: {scores.get('founder_interest', 0):.1f} "

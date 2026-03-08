@@ -6,6 +6,8 @@ Main orchestration engine that runs the AI pipeline.
 from agents.strategy_agent import generate_strategy
 from agents.content_agent import generate_content
 from memory.business_profile import load_business_profile
+from ai.ollama_client import health_check
+
 
 def run_pipeline(idea: str) -> str:
     """
@@ -24,6 +26,10 @@ def run_pipeline(idea: str) -> str:
     """
     print(f"Starting pipeline for idea: '{idea}'")
     
+    if not health_check():
+        return "LLM not running"
+        
+
     # Step 1: Load the business profile
     # Using a default brand_id for the MVP
     business_profile = load_business_profile("default_brand")

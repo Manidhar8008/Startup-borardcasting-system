@@ -37,6 +37,6 @@ Return structured text with:
 5 Suggested hashtags
 """
 
-    strategy = generate(prompt, model="deepseek-coder")
+    strategy = generate(prompt, model="llama3")
 
     return strategy

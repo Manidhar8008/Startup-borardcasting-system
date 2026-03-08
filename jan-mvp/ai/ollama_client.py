@@ -6,6 +6,17 @@ Handles communication with the local Ollama LLM API.
 import requests
 from typing import Optional
 
+def health_check() -> bool:
+    """
+    Checks if the local Ollama API is running and accessible.
+    """
+    try:
+        r = requests.get("http://localhost:11434/api/tags", timeout=5)
+        return r.status_code == 200
+    except requests.exceptions.RequestException:
+        return False
+
+
 def generate(prompt: str, model: str = "llama3") -> Optional[str]:
     """
     Calls the local Ollama API to generate text based on a prompt.
@@ -25,7 +36,7 @@ def generate(prompt: str, model: str = "llama3") -> Optional[str]:
     }
     
     try:
-        response = requests.post(url, json=payload, timeout=60)
+        response = requests.post(url, json=payload, timeout=180)
         response.raise_for_status()
         data = response.json()
         return data.get("response")

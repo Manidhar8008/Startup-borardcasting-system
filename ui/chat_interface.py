@@ -12,18 +12,18 @@ BANNER = r"""
 
   Your AI Broadcasting Manager
   Brand: {brand}  |  LLM: llama3 (Ollama)  |  Workflow Mode: ON
-  Type 'help' or just:  do create 3 threads about AI agents
+  Type 'help' or just:  create 3 threads about AI agents
 """
 
 HELP_TEXT = """
 ━━━  WORKFLOW (one command does everything)  ━━━━━━━━━━━━━━━━━━
-  do <message>         Natural language — JAN handles the rest
+  <message>            Type naturally — JAN auto-detects workflows
 
   Examples:
-    do create 3 reels about AI agents
-    do write 2 linkedin posts on LLM fine tuning
-    do make a tutorial on building RAG pipelines
-    do research prompt engineering trends
+    create 3 reels about AI agents
+    write 2 linkedin posts on LLM fine tuning
+    make a tutorial on building RAG pipelines
+    research prompt engineering trends
 
 ━━━  STEP-BY-STEP COMMANDS  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   morning briefing     Read notes + score topics + LLM plan
@@ -134,9 +134,9 @@ def run(brand: str = "janani_ai"):
                 jan = JanManager(brand=arg)
                 print(f"✅ Switched to brand: {arg}")
 
-        # ── Unknown ───────────────────────────────────────────────────────────
+        # ── Fallback: Natural Language Workflow ───────────────────────────────
         else:
-            print(f"❓ Unknown command: '{raw}'")
-            print(f"   Tip: Try  do {raw}  to run it as a workflow.")
+            _thinking(f"Interpreting: \"{raw}\" ...")
+            print(jan.execute_workflow(raw))
 
         print_separator()

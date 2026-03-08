@@ -1,0 +1,88 @@
+{
+  "events": [
+    {
+      "topic": "draft-1",
+      "timestamp": "2026-03-08T20:56:59.146460+00:00",
+      "impressions": 0,
+      "likes": 0,
+      "comments": 0,
+      "shares": 0,
+      "clicks": 0,
+      "followers": 0,
+      "platform": "youtube,linkedin",
+      "brand": "janani_ai",
+      "content_type": "",
+      "score": 1
+    },
+    {
+      "topic": "draft-1",
+      "timestamp": "2026-03-08T20:56:59.153716+00:00",
+      "impressions": 0,
+      "likes": 0,
+      "comments": 0,
+      "shares": 0,
+      "clicks": 0,
+      "followers": 0,
+      "platform": "youtube,linkedin",
+      "brand": "janani_ai",
+      "content_type": "",
+      "score": 1
+    },
+    {
+      "topic": "draft-2",
+      "timestamp": "2026-03-08T20:56:59.160003+00:00",
+      "impressions": 0,
+      "likes": 0,
+      "comments": 0,
+      "shares": 0,
+      "clicks": 0,
+      "followers": 0,
+      "platform": "linkedin",
+      "brand": "janani_ai",
+      "content_type": "",
+      "score": 1
+    },
+    {
+      "topic": "draft-2",
+      "timestamp": "2026-03-08T20:56:59.167319+00:00",
+      "impressions": 0,
+      "likes": 0,
+      "comments": 0,
+      "shares": 0,
+      "clicks": 0,
+      "followers": 0,
+      "platform": "linkedin",
+      "brand": "janani_ai",
+      "content_type": "",
+      "score": 1
+    },
+    {
+      "topic": "draft-3",
+      "timestamp": "2026-03-08T20:56:59.174532+00:00",
+      "impressions": 0,
+      "likes": 0,
+      "comments": 0,
+      "shares": 0,
+      "clicks": 0,
+      "followers": 0,
+      "platform": "linkedin",
+      "brand": "janani_ai",
+      "content_type": "",
+      "score": 1
+    },
+    {
+      "topic": "draft-3",
+      "timestamp": "2026-03-08T20:56:59.181824+00:00",
+      "impressions": 0,
+      "likes": 0,
+      "comments": 0,
+      "shares": 0,
+      "clicks": 0,
+      "followers": 0,
+      "platform": "linkedin",
+      "brand": "janani_ai",
+      "content_type": "",
+      "score": 1
+    }
+  ]
+}

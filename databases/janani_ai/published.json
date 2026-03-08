@@ -1,1 +1,65 @@
-[]
+[
+  {
+    "brand": "janani_ai",
+    "topic": "Thought: Long-form: blog about AI readiness checklist for local SMEs.",
+    "content_length": "long",
+    "platform": null,
+    "sections": {
+      "hook": "Why Thought: Long-form: blog about AI readiness checklist for local SMEs. matters to Tier-2 India (Warangal) right now.",
+      "insight": "founder-led, reflective, forward-looking: Long-form: blog about AI readiness checklist for local SMEs.",
+      "example": "Janani AI focuses on founder-led discovery sprints that validate AI-native workflows within two weeks.",
+      "cta": "invite readers to reflect and reply"
+    },
+    "draft": "Hook: Why Thought: Long-form: blog about AI readiness checklist for local SMEs. matters to Tier-2 India (Warangal) right now.\n\nInsight: founder-led, reflective, forward-looking: Long-form: blog about AI readiness checklist for local SMEs.\n\nExample: Janani AI focuses on founder-led discovery sprints that validate AI-native workflows within two weeks.\n\nCTA: invite readers to reflect and reply",
+    "prompt": "You are the content engine for brand 'janani_ai'.\nAudience: startup founders, thinkers, AI enthusiasts\nTone: founder, philosophical, visionary, educational\nVoice: founder-led, reflective, forward-looking\nCTA style: invite readers to reflect and reply\nLocation focus: Tier-2 India (Warangal)\nContent length: long\nPlatform: not specified\n\nTopic: Thought: Long-form: blog about AI readiness checklist for local SMEs.\n\nBrand structure sections: Hook; Insight; Example; CTA\nPreferred tools: arxiv_scraper, ai_news_scraper, perplexity_connector\n\nGrounding facts from knowledge base:\n- Founder-led AI experiments (internal notes, 2026-02-27): Janani AI focuses on founder-led discovery sprints that validate AI-native workflows within two weeks.\n- Customer research loops (customer interviews, 2026-02-24): Weekly customer calls feed a backlog of workflow pains; top items are prototyped with lightweight agents.\n- Evaluation rubric (playbook, 2026-02-20): Shipping criteria: 80% task coverage, clear handoff to humans, and observable metrics in 72 hours.\n\nRecent research snippets:\nLong-form: blog about AI readiness checklist for local SMEs.\n\nCompose a social media insight post that follows the sections in order (Hook, Insight, Example, CTA).\nKeep it under 120 words for short content or under 400 words for long content.",
+    "created_at": "2026-03-08T20:56:43.204114Z",
+    "idea_id": "idea-3",
+    "content_type": "long_form",
+    "image": "D:\\Startup borardcasting engine\\media_assets\\images\\Thought:_Long-form:_blog_about_AI_readin.png",
+    "id": "draft-1",
+    "status": "published",
+    "published_at": "2026-03-08T20:56:59.113923Z"
+  },
+  {
+    "brand": "janani_ai",
+    "topic": "Research link",
+    "content_length": "short",
+    "platform": null,
+    "sections": {
+      "hook": "Why Research link matters to Tier-2 India (Warangal) right now.",
+      "insight": "founder-led, reflective, forward-looking: - Long-form: blog about AI readiness checklist for local SMEs.",
+      "example": "Janani AI focuses on founder-led discovery sprints that validate AI-native workflows within two weeks.",
+      "cta": "invite readers to reflect and reply"
+    },
+    "draft": "Hook: Why Research link matters to Tier-2 India (Warangal) right now.\n\nInsight: founder-led, reflective, forward-looking: - Long-form: blog about AI readiness checklist for local SMEs.\n\nExample: Janani AI focuses on founder-led discovery sprints that validate AI-native workflows within two weeks.\n\nCTA: invite readers to reflect and reply",
+    "prompt": "You are the content engine for brand 'janani_ai'.\nAudience: startup founders, thinkers, AI enthusiasts\nTone: founder, philosophical, visionary, educational\nVoice: founder-led, reflective, forward-looking\nCTA style: invite readers to reflect and reply\nLocation focus: Tier-2 India (Warangal)\nContent length: short\nPlatform: not specified\n\nTopic: Research link\n\nBrand structure sections: Hook; Insight; Example; CTA\nPreferred tools: arxiv_scraper, ai_news_scraper, perplexity_connector\n\nGrounding facts from knowledge base:\n- Founder-led AI experiments (internal notes, 2026-02-27): Janani AI focuses on founder-led discovery sprints that validate AI-native workflows within two weeks.\n- Customer research loops (customer interviews, 2026-02-24): Weekly customer calls feed a backlog of workflow pains; top items are prototyped with lightweight agents.\n- Evaluation rubric (playbook, 2026-02-20): Shipping criteria: 80% task coverage, clear handoff to humans, and observable metrics in 72 hours.\n\nRecent research snippets:\n- Long-form: blog about AI readiness checklist for local SMEs.\n\nCompose a social media insight post that follows the sections in order (Hook, Insight, Example, CTA).\nKeep it under 120 words for short content or under 400 words for long content.",
+    "created_at": "2026-03-08T20:56:43.323004Z",
+    "idea_id": "idea-7",
+    "content_type": null,
+    "image": "D:\\Startup borardcasting engine\\media_assets\\images\\Research_link.png",
+    "id": "draft-2",
+    "status": "published",
+    "published_at": "2026-03-08T20:56:59.129523Z"
+  },
+  {
+    "brand": "janani_ai",
+    "topic": "Research link",
+    "content_length": "short",
+    "platform": null,
+    "sections": {
+      "hook": "Why Research link matters to Tier-2 India (Warangal) right now.",
+      "insight": "founder-led, reflective, forward-looking: - Long-form: blog about AI readiness checklist for local SMEs.",
+      "example": "Janani AI focuses on founder-led discovery sprints that validate AI-native workflows within two weeks.",
+      "cta": "invite readers to reflect and reply"
+    },
+    "draft": "Hook: Why Research link matters to Tier-2 India (Warangal) right now.\n\nInsight: founder-led, reflective, forward-looking: - Long-form: blog about AI readiness checklist for local SMEs.\n\nExample: Janani AI focuses on founder-led discovery sprints that validate AI-native workflows within two weeks.\n\nCTA: invite readers to reflect and reply",
+    "prompt": "You are the content engine for brand 'janani_ai'.\nAudience: startup founders, thinkers, AI enthusiasts\nTone: founder, philosophical, visionary, educational\nVoice: founder-led, reflective, forward-looking\nCTA style: invite readers to reflect and reply\nLocation focus: Tier-2 India (Warangal)\nContent length: short\nPlatform: not specified\n\nTopic: Research link\n\nBrand structure sections: Hook; Insight; Example; CTA\nPreferred tools: arxiv_scraper, ai_news_scraper, perplexity_connector\n\nGrounding facts from knowledge base:\n- Founder-led AI experiments (internal notes, 2026-02-27): Janani AI focuses on founder-led discovery sprints that validate AI-native workflows within two weeks.\n- Customer research loops (customer interviews, 2026-02-24): Weekly customer calls feed a backlog of workflow pains; top items are prototyped with lightweight agents.\n- Evaluation rubric (playbook, 2026-02-20): Shipping criteria: 80% task coverage, clear handoff to humans, and observable metrics in 72 hours.\n\nRecent research snippets:\n- Long-form: blog about AI readiness checklist for local SMEs.\n\nCompose a social media insight post that follows the sections in order (Hook, Insight, Example, CTA).\nKeep it under 120 words for short content or under 400 words for long content.",
+    "created_at": "2026-03-08T20:56:43.347503Z",
+    "idea_id": "idea-14",
+    "content_type": null,
+    "image": "D:\\Startup borardcasting engine\\media_assets\\images\\Research_link.png",
+    "id": "draft-3",
+    "status": "published",
+    "published_at": "2026-03-08T20:56:59.144919Z"
+  }
+]

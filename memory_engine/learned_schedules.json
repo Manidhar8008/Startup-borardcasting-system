@@ -1,0 +1,24 @@
+{
+  "youtube,linkedin": {
+    "best_hours_utc": [
+      20
+    ],
+    "best_hour_label": [
+      "20:00"
+    ],
+    "avg_engagement": {
+      "20": 0.0
+    }
+  },
+  "linkedin": {
+    "best_hours_utc": [
+      20
+    ],
+    "best_hour_label": [
+      "20:00"
+    ],
+    "avg_engagement": {
+      "20": 0.0
+    }
+  }
+}

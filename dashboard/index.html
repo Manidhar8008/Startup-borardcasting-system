@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAN AI - Creator Intelligence Platform</title>
+    <link rel="stylesheet" href="index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div id="app" class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="logo-icon"><i class="fa-solid fa-bolt"></i></span>
+                    <span class="logo-text">JAN AI</span>
+                </div>
+            </div>
+            
+            <div class="brand-selector">
+                <label>Active Workspace</label>
+                <select id="brand-select" onchange="app.switchBrand()">
+                    <option value="1">janani_ai (Default)</option>
+                    <option value="2">startup_hq</option>
+                </select>
+            </div>
+
+            <ul class="nav-links">
+                <li class="nav-item active" data-page="overview" onclick="app.navigate('overview')">
+                    <i class="fa-solid fa-chart-pie"></i> Overview
+                </li>
+                <li class="nav-item" data-page="intelligence" onclick="app.navigate('intelligence')">
+                    <i class="fa-solid fa-brain"></i> Intelligence Engine
+                </li>
+                <li class="nav-item" data-page="factory" onclick="app.navigate('factory')">
+                    <i class="fa-solid fa-pencil-ruler"></i> Content Factory
+                </li>
+                <li class="nav-item" data-page="calendar" onclick="app.navigate('calendar')">
+                    <i class="fa-regular fa-calendar-days"></i> Editorial Calendar
+                </li>
+                <li class="nav-item" data-page="approvals" onclick="app.navigate('approvals')">
+                    <i class="fa-solid fa-check-to-slot"></i> Approval Queue
+                </li>
+                <li class="nav-item" data-page="automation" onclick="app.navigate('automation')">
+                    <i class="fa-solid fa-robot"></i> Automation Center
+                </li>
+                <li class="nav-item" data-page="founder" onclick="app.navigate('founder')">
+                    <i class="fa-solid fa-user-tie"></i> Founder Assistant
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <div class="subscription-status">
+                    <span class="tier-badge">PRO PLAN</span>
+                    <div class="usage-bar"><div class="usage-fill" style="width: 45%;"></div></div>
+                    <span class="usage-text">45/100 Posts Used</span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <header class="top-header">
+                <h1 id="page-title">Overview</h1>
+                <div class="header-actions">
+                    <button class="btn btn-primary" onclick="app.startAutomation()"><i class="fa-solid fa-play"></i> Run Autonomous Pipeline</button>
+                    <div class="user-profile">
+                        <img src="https://i.pravatar.cc/150?u=jan" alt="User" />
+                    </div>
+                </div>
+            </header>
+
+            <div id="page-container" class="page-container">
+                <!-- Pages get injected here -->
+            </div>
+        </main>
+        
+        <!-- Global Notification Overlay -->
+        <div id="notification-container" class="notification-container"></div>
+    </div>
+
+    <!-- Page Templates -->
+    <template id="tpl-overview">
+        <div class="dashboard-grid">
+            <div class="metric-card glass-panel">
+                <div class="metric-icon"><i class="fa-solid fa-eye"></i></div>
+                <div class="metric-data">
+                    <h3>Total Views (30d)</h3>
+                    <div class="metric-value">245.8K <span class="trend up">+12.4%</span></div>
+                </div>
+            </div>
+            <div class="metric-card glass-panel">
+                <div class="metric-icon"><i class="fa-solid fa-heart"></i></div>
+                <div class="metric-data">
+                    <h3>Total Engagement</h3>
+                    <div class="metric-value">18.2K <span class="trend up">+5.1%</span></div>
+                </div>
+            </div>
+            <div class="metric-card glass-panel">
+                <div class="metric-icon"><i class="fa-solid fa-ranking-star"></i></div>
+                <div class="metric-data">
+                    <h3>Best Format</h3>
+                    <div class="metric-value">LinkedIn Carousel</div>
+                </div>
+            </div>
+            <div class="metric-card glass-panel">
+                <div class="metric-icon"><i class="fa-solid fa-hourglass-half"></i></div>
+                <div class="metric-data">
+                    <h3>Pending Drafts</h3>
+                    <div class="metric-value pending-count">12</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="overview-panels">
+            <div class="glass-panel wide-panel">
+                <h2><i class="fa-solid fa-bolt"></i> Recent Pipeline Activity</h2>
+                <div class="activity-feed">
+                    <div class="activity-item">
+                        <div class="act-time">10 mins ago</div>
+                        <div class="act-desc"><strong>Automation Engine</strong> generated 3 new ideas based on 'AI Scaling Trends'.</div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="act-time">1 hr ago</div>
+                        <div class="act-desc"><strong>Review Agent</strong> approved draft "The future of LLM routing".</div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="act-time">3 hrs ago</div>
+                        <div class="act-desc"><strong>Publisher</strong> successfully pushed weekly thread to Twitter.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="tpl-founder">
+        <div class="founder-view glass-panel">
+            <div class="chat-header">
+                <h2><i class="fa-solid fa-user-tie"></i> Chief of Staff Assistant</h2>
+                <p>Ask for strategic advice based on your real-time analytics.</p>
+            </div>
+            <div class="chat-history" id="chat-history">
+                <div class="chat-msg ai">
+                    <div class="msg-avatar"><i class="fa-solid fa-robot"></i></div>
+                    <div class="msg-bubble">Hello Founder! I'm reviewing your analytics for the past 30 days. How can I help you shape next week's strategy?</div>
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="founder-query" placeholder="e.g. Should we double down on video content this week?" onkeypress="if(event.key==='Enter') app.askFounder()">
+                <button class="btn btn-primary" onclick="app.askFounder()"><i class="fa-solid fa-paper-plane"></i></button>
+            </div>
+        </div>
+    </template>
+    
+    <template id="tpl-approvals">
+        <div class="approvals-view glass-panel">
+            <div class="panel-header">
+                <h2><i class="fa-solid fa-check-to-slot"></i> Human Approval Queue</h2>
+                <button class="btn btn-outline" onclick="app.refreshQueue()"><i class="fa-solid fa-rotate-right"></i> Refresh</button>
+            </div>
+            <div class="queue-list" id="approval-queue-list">
+                <!-- Mock item -->
+                <div class="queue-item">
+                    <div class="queue-meta">
+                        <span class="platform-badge linkedin"><i class="fa-brands fa-linkedin"></i> LinkedIn</span>
+                        <span class="topic-label">AI in SaaS</span>
+                    </div>
+                    <div class="draft-content">
+                        How we scaled our AI pipeline from 10 to 10k requests/min. 🚀\n\nThe secret isn't more models, it's better routing. Here's a 3-step breakdown of our architecture...
+                    </div>
+                    <div class="queue-actions">
+                        <button class="btn btn-success" onclick="app.publishDraft('d123')"><i class="fa-solid fa-check"></i> Approve & Publish</button>
+                        <button class="btn btn-danger"><i class="fa-solid fa-xmark"></i> Reject</button>
+                        <button class="btn btn-outline"><i class="fa-solid fa-pen"></i> Edit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script src="app.js"></script>
+</body>
+</html>

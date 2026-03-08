@@ -3,14 +3,20 @@ import json
 from pathlib import Path
 from typing import Dict, List, Optional
 from datetime import datetime
+import threading
 
 ROOT = Path(__file__).resolve().parent.parent
 DATABASES_DIR = ROOT / "databases"
 
+try:
+    from network_engine.webhook_notifier import WebhookNotifier
+except ImportError:
+    WebhookNotifier = None
 
 class ApprovalQueue:
     def __init__(self, brand: str):
         self.brand = brand
+        self.notifier = WebhookNotifier(brand) if WebhookNotifier else None
         self.brand_dir = DATABASES_DIR / brand
         self.brand_dir.mkdir(parents=True, exist_ok=True)
         self._ensure_file("ideas.json", [])
@@ -70,7 +76,7 @@ class ApprovalQueue:
             self._write("ideas.json", ideas)
             if status == "approved":
                 if not any(i.get("id") == idea_id for i in approved):
-                    approved.append(updated)
+                    approved.append(updated) # type: ignore
                 self._write("approved.json", approved)
             else:
                 filtered = [i for i in approved if i.get("id") != idea_id]
@@ -91,6 +97,18 @@ class ApprovalQueue:
         }
         drafts.append(item)
         self._write("drafts.json", drafts)
+        
+        # Fire webhook in background
+        if self.notifier:
+            topic = item.get("topic") or item.get("idea_text") or "Untitled"
+            platform = item.get("platform", "general")
+            content = item.get("draft") or item.get("content", "")
+            threading.Thread(
+                target=self.notifier.notify_approval_needed, # type: ignore
+                args=(item["id"], topic, platform, content),
+                daemon=True
+            ).start()
+            
         return item
 
     def list_drafts(self) -> List[Dict]:

@@ -12,6 +12,8 @@ Endpoints:
   POST /generate       → Generate content for a topic
   POST /decide         → Multi-agent consensus on a decision
 
+  /                    → Dashboard UI (static files)
+
 Run:
   uvicorn api.server:app --reload --port 8000
 """
@@ -24,8 +26,11 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Depends, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy.orm import Session
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 from typing import Dict, List, Optional
 
@@ -43,7 +48,29 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+from core.infrastructure import InfrastructureMiddleware, logger
+app.add_middleware(InfrastructureMiddleware, max_requests=300, window_seconds=60)
+
+# Initialize Database
+try:
+    from database.session import engine
+    from database.models import Base
+    Base.metadata.create_all(bind=engine)
+    logger.info("Database schema initialized successfully.")
+except Exception as e:
+    logger.error(f"Failed to initialize database: {e}")
+
 BRAND = os.getenv("JAN_BRAND", "janani_ai")
+
+# ── Serve Dashboard ────────────────────────────────────────────────────────────
+DASHBOARD_DIR = PROJECT_ROOT / "dashboard"
+if DASHBOARD_DIR.exists():
+    app.mount("/dashboard", StaticFiles(directory=str(DASHBOARD_DIR), html=True), name="dashboard")
+
+@app.get("/")
+def root_redirect():
+    """Redirect root to dashboard."""
+    return RedirectResponse(url="/dashboard/")
 
 
 # ── Request Models ─────────────────────────────────────────────────────────────
@@ -55,6 +82,47 @@ class GenerateRequest(BaseModel):
 class DecideRequest(BaseModel):
     question: str
     agents: List[str] = ["trend", "strategy", "analytics"]
+
+class BrandCreateRequest(BaseModel):
+    name: str
+    industry: str = ""
+    tone_profile: str = ""
+    target_audience: str = ""
+
+
+# ── Muti-Brand & Subscription (Phase 9) ────────────────────────────────────────
+
+@app.post("/brands")
+def create_brand(req: BrandCreateRequest, user_id: int = 1, db: Session = Depends(lambda: next(getattr(__import__('database.session', fromlist=['get_db']), 'get_db')()))):
+    from core.brand_manager import BrandManager
+    from core.subscription_manager import SubscriptionManager
+    sub_manager = SubscriptionManager(db)
+    brand_manager = BrandManager(db)
+    
+    current_count = len(brand_manager.get_user_brands(user_id))
+    if not sub_manager.can_create_brand(user_id, current_count):
+        raise HTTPException(status_code=403, detail="Brand limit reached for your subscription tier.")
+        
+    brand = brand_manager.create_brand(user_id, req.name, req.industry, req.tone_profile, req.target_audience)
+    return {"status": "success", "brand_id": brand.id, "name": brand.name}
+
+@app.get("/brands")
+def get_brands(user_id: int = 1, db: Session = Depends(lambda: next(getattr(__import__('database.session', fromlist=['get_db']), 'get_db')()))):
+    from core.brand_manager import BrandManager
+    manager = BrandManager(db)
+    brands = manager.get_user_brands(user_id)
+    return {"brands": [{"id": b.id, "name": b.name} for b in brands]}
+
+@app.get("/subscription")
+def get_subscription(user_id: int = 1, db: Session = Depends(lambda: next(getattr(__import__('database.session', fromlist=['get_db']), 'get_db')()))):
+    from core.subscription_manager import SubscriptionManager
+    manager = SubscriptionManager(db)
+    sub = manager.get_subscription(user_id)
+    return {
+        "tier": sub.plan_tier,
+        "posts_used_today": sub.posts_used_today,
+        "limits": manager.LIMITS.get(sub.plan_tier, manager.LIMITS["free"])
+    }
 
 
 # ── GET /status ────────────────────────────────────────────────────────────────
@@ -94,6 +162,32 @@ def get_status():
         "cost_usage": usage,
         "version": "2.0.0",
     }
+
+
+class PublishRequest(BaseModel):
+    draft_id: str
+    brand_id: int = 1
+
+@app.post("/publish")
+def publish_content(req: PublishRequest, db: Session = Depends(lambda: next(getattr(__import__('database.session', fromlist=['get_db']), 'get_db')()))):
+    from agents.publisher_agent import PublisherAgent
+    # Mocking fetching draft directly from DB 
+    drafts = [{"draft": f"Content for {req.draft_id}", "platform": "linkedin", "brand": "janani_ai", "content_type": "post"}]
+    publisher = PublisherAgent()
+    res = publisher.run(drafts=drafts, dry_run=False) # Enable live publishing
+    return {"status": "published", "results": res}
+
+
+# ── GET /assistant/chat ────────────────────────────────────────────────────────
+
+@app.get("/assistant/chat")
+def get_founder_advice(query: str, brand_id: int = 1, db: Session = Depends(lambda: next(getattr(__import__('database.session', fromlist=['get_db']), 'get_db')()))):
+    from agents.founder_agent import FounderAgent
+    
+    agent = FounderAgent()
+    res = agent.run(query=query, brand_id=brand_id, db=db)
+    
+    return {"status": "success", "response": res}
 
 
 # ── GET /ideas ─────────────────────────────────────────────────────────────────
@@ -141,7 +235,7 @@ def get_drafts():
     try:
         from decision_engine.approval_queue import ApprovalQueue
         queue = ApprovalQueue(BRAND)
-        return {"drafts": queue.list_pending(), "brand": BRAND}
+        return {"drafts": queue.list_drafts(), "brand": BRAND}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -154,7 +248,7 @@ def get_approval_queue():
     try:
         from decision_engine.approval_queue import ApprovalQueue
         queue = ApprovalQueue(BRAND)
-        pending = queue.list_pending()
+        pending = queue.list_drafts()
         return {
             "pending_count": len(pending),
             "items": pending,
@@ -178,7 +272,7 @@ def get_content_calendar():
     try:
         from decision_engine.approval_queue import ApprovalQueue
         queue = ApprovalQueue(BRAND)
-        pending = queue.list_pending()
+        pending = queue.list_drafts()
         upcoming = [
             {"topic": d.get("topic", ""), "platform": d.get("platform", ""), "status": "pending"}
             for d in pending[:10]
@@ -273,3 +367,66 @@ def multi_agent_decide(req: DecideRequest):
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+# ── Webhook Endpoints ──────────────────────────────────────────────────────────
+
+@app.get("/webhook/approve/{draft_id}")
+def webhook_approve(draft_id: str):
+    """Approve a draft via GET request from Slack/Discord button."""
+    try:
+        from decision_engine.approval_queue import ApprovalQueue
+        queue = ApprovalQueue(BRAND)
+        published = queue.publish(draft_id)
+        if published:
+            return {"status": "success", "message": f"Draft {draft_id} approved and moved to publishing queue."}
+        else:
+            raise HTTPException(status_code=404, detail="Draft not found in queue.")
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/webhook/reject/{draft_id}")
+def webhook_reject(draft_id: str):
+    """Reject a draft via GET request from Slack/Discord button."""
+    try:
+        from decision_engine.approval_queue import ApprovalQueue
+        queue = ApprovalQueue(BRAND)
+        rejected = queue.reject_draft(draft_id, reason="Rejected via external webhook")
+        if rejected:
+            return {"status": "success", "message": f"Draft {draft_id} rejected."}
+        else:
+            raise HTTPException(status_code=404, detail="Draft not found in queue.")
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ── Automation Engine Endpoints ────────────────────────────────────────────────
+
+@app.get("/automation/status")
+def get_automation_status():
+    from agents.automation_agent import AutomationAgent
+    agent = AutomationAgent(brand=BRAND)
+    return agent.get_status()
+
+@app.post("/automation/start")
+def start_automation(background_tasks: BackgroundTasks, brand_id: int = 1, db: Session = Depends(lambda: next(getattr(__import__('database.session', fromlist=['get_db']), 'get_db')()))):
+    from automation.autonomous_pipeline import AutonomousPipeline
+    
+    def run_bg(b_id: int):
+        bg_db = next(getattr(__import__('database.session', fromlist=['get_db']), 'get_db')())
+        pipeline = AutonomousPipeline(bg_db)
+        pipeline.run_for_brand(b_id)
+        bg_db.close()
+        
+    background_tasks.add_task(run_bg, brand_id)
+    return {"status": "success", "message": "Autonomous pipeline started in background."}
+
+@app.post("/automation/stop")
+def stop_automation():
+    from agents.automation_agent import AutomationAgent
+    agent = AutomationAgent(brand=BRAND)
+    return agent.stop_engine()

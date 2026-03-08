@@ -1,85 +1,156 @@
 # -*- coding: utf-8 -*-
-"""Automation Agent — Executes tasks through MCP tools, browser automation, and APIs.
+"""Automation Agent — Executes tasks through a background scheduling loop.
 
-Wraps MCP tool calls and automation workflows. Can schedule posts,
-trigger publishing, and execute tool-based tasks.
+Wraps tool calls, executes scheduled workflows (Morning Intake -> Research -> Plan -> Draft),
+and manages the background automation engine state.
 """
 
+import logging
+import time
+import threading
 from typing import Any, Dict, List
 
 from agents.base_agent import BaseAgent
 from agents.agent_registry import register
-from agents import mcp_tools
-from automation import scheduler
+from core.jan_manager import JanManager
 
+logger = logging.getLogger("agent.automation")
 
 @register
 class AutomationAgent(BaseAgent):
     name = "automation"
     role = "automator"
     description = (
-        "Executes tasks through MCP tools, browser automation, APIs, and local scripts. "
-        "Supports publishing, content scheduling, and data collection."
+        "Background automation engine. Triggers scheduled workflows and publishing loops."
     )
-    tools = list(mcp_tools.available_tools()) if mcp_tools.is_available() else []
+    tools = []
+    
+    _instance = None
+    _engine_thread = None
+    _engine_running = False
+    _last_run = None
+    _next_run = None
+    
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = super(AutomationAgent, cls).__new__(cls)
+        return cls._instance
+
+    def __init__(self, brand: str = "janani_ai"):
+        if not hasattr(self, "_initialized"):
+            super().__init__(brand=brand)
+            self.manager = JanManager(brand=self.brand)
+            self.check_interval_seconds = 60 * 60  # Default check every hour
+            AutomationAgent._initialized = True
 
     def run(self, **kwargs) -> Dict[str, Any]:
-        """Execute an automation action.
-
-        Expected kwargs:
-            action (str): 'mcp_call', 'schedule', 'list_tools' (default: 'list_tools')
-            tool_name (str): MCP tool name (for mcp_call action).
-            tool_args (dict): Arguments for the MCP tool.
-
-        Returns:
-            Dict with automation results.
+        """Execute automation actions.
+        Expected kwargs: action (str) -> "start", "stop", "status"
         """
-        action = kwargs.get("action", "list_tools")
+        action = kwargs.get("action", "status")
 
-        if action == "mcp_call":
-            return self._call_mcp(
-                tool_name=kwargs.get("tool_name", ""),
-                tool_args=kwargs.get("tool_args", {}),
-            )
-        elif action == "schedule":
-            return self._get_schedule()
+        if action == "start":
+            return self.start_engine()
+        elif action == "stop":
+            return self.stop_engine()
         else:
-            return self._list_tools()
+            return self.get_status()
 
-    def _call_mcp(self, tool_name: str, tool_args: dict) -> Dict[str, Any]:
-        """Execute an MCP tool call."""
-        if not tool_name:
-            return {"status": "error", "error": "No tool_name specified."}
-        result = mcp_tools.call_tool(tool_name, **tool_args)
-        return {"status": "success", "tool": tool_name, "result": result}
-
-    def _get_schedule(self) -> Dict[str, Any]:
-        """Get the default publishing schedule."""
+    def get_status(self) -> Dict[str, Any]:
         return {
             "status": "success",
-            "schedule": scheduler.default_schedule(),
+            "is_running": AutomationAgent._engine_running,
+            "last_run": AutomationAgent._last_run,
+            "next_run": AutomationAgent._next_run,
         }
 
-    def _list_tools(self) -> Dict[str, Any]:
-        """List available automation tools."""
-        return {
-            "status": "success",
-            "mcp_available": mcp_tools.is_available(),
-            "mcp_tools": mcp_tools.available_tools(),
-        }
+    def start_engine(self) -> Dict[str, Any]:
+        if AutomationAgent._engine_running:
+            return {"status": "success", "message": "Engine is already running."}
+            
+        AutomationAgent._engine_running = True
+        AutomationAgent._engine_thread = threading.Thread(
+            target=self._background_loop,
+            daemon=True,
+            name="AutomationEngineLoop"
+        )
+        AutomationAgent._engine_thread.start()
+        logger.info("Automation engine started.")
+        return {"status": "success", "message": "Automation engine started."}
+
+    def stop_engine(self) -> Dict[str, Any]:
+        if not AutomationAgent._engine_running:
+            return {"status": "success", "message": "Engine is already stopped."}
+            
+        AutomationAgent._engine_running = False
+        logger.info("Automation engine stopped.")
+        return {"status": "success", "message": "Automation engine stopped."}
+
+    def _background_loop(self):
+        """The core background observe-think-act loop."""
+        while AutomationAgent._engine_running:
+            try:
+                # Observe
+                import datetime
+                now = datetime.datetime.now()
+                
+                # Simple condition for MVP: run full pipeline at 8:00 AM once a day
+                # For demo purposes, we will trigger it if _last_run is None
+                # or if a full day has passed. 
+                
+                trigger = False
+                if AutomationAgent._last_run is None:
+                    trigger = True
+                else:
+                    last_time = datetime.datetime.fromisoformat(AutomationAgent._last_run)
+                    if (now - last_time).total_seconds() > 86400: # 24 hours
+                        trigger = True
+                        
+                # Think & Act
+                if trigger:
+                    logger.info("Automation loop triggered. Starting daily workflow...")
+                    self._execute_daily_pipeline()
+                    AutomationAgent._last_run = now.isoformat()
+                    
+                AutomationAgent._next_run = (now + datetime.timedelta(seconds=self.check_interval_seconds)).isoformat()
+                
+                # Sleep in small chunks to allow quick cancellation
+                for _ in range(self.check_interval_seconds):
+                    if not AutomationAgent._engine_running:
+                        break
+                    time.sleep(1)
+
+            except Exception as e:
+                logger.error(f"Automation loop error: {str(e)}")
+                time.sleep(60) # Backoff on error
+    
+    def _execute_daily_pipeline(self):
+        """Executes the morning intake -> trends -> idea -> plan -> draft -> review -> queue."""
+        logger.info("Automation: Running trends and ideas...")
+        self.manager.trends()
+        
+        logger.info("Automation: Planning today...")
+        self.manager.plan_today()
+        
+        logger.info("Automation: Generating drafts...")
+        self.manager.generate_drafts()
+        
+        logger.info("Automation: Reviewing drafts...")
+        self.manager.review_drafts()
+        
+        # At this point, passed drafts are automatically added to the ActionQueue or ApprovalQueue
+        # depending on where review_drafts leaves them. Wait, currently review_drafts returns "passed"
+        # but the JanManager needs to queue them. Let's do that:
+        passed = self.manager._drafts
+        from decision_engine.approval_queue import ApprovalQueue
+        queue = ApprovalQueue(self.brand)
+        for draft in passed:
+            queue.add_draft(draft)
+            
+        logger.info(f"Automation: Pipeline complete. {len(passed)} drafts added to queue.")
 
     def format_output(self, data: Any) -> str:
-        if "tool" in data:
-            return f"⚙️ MCP Tool '{data['tool']}': {data.get('result', {}).get('status', 'unknown')}"
-        if "schedule" in data:
-            import json
-            return f"📅 Publishing Schedule:\n{json.dumps(data['schedule'], indent=2)}"
-        if "mcp_tools" in data:
-            tools = data.get("mcp_tools", [])
-            lines = [f"🔧 Available Automation Tools ({len(tools)}):"]
-            for t in tools:
-                lines.append(f"  • {t}")
-            if not tools:
-                lines.append("  (No MCP tools installed)")
-            return "\n".join(lines)
+        if isinstance(data, dict):
+            status = "🟢 RUNNING" if data.get("is_running") else "🛑 STOPPED"
+            return f"🤖 Automation Engine: {status}\nLast Run: {data.get('last_run')}\nNext Run:{data.get('next_run')}"
         return str(data)

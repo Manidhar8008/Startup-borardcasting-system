@@ -14,6 +14,31 @@ from agents.agent_registry import register
 from distribution import publisher_router
 from memory import topic_memory
 
+try:
+    from distribution.linkedin_api import LinkedInAPI
+except ImportError:
+    LinkedInAPI = None
+
+try:
+    from distribution.twitter_api import TwitterAPI
+except ImportError:
+    TwitterAPI = None
+
+try:
+    from distribution.instagram_api import InstagramAPI
+except ImportError:
+    InstagramAPI = None
+
+try:
+    from distribution.youtube_api import YouTubeAPI
+except ImportError:
+    YouTubeAPI = None
+
+try:
+    from distribution.newsletter_api import NewsletterAPI
+except ImportError:
+    NewsletterAPI = None
+
 logger = logging.getLogger("agent.publisher")
 
 
@@ -57,10 +82,68 @@ class PublisherAgent(BaseAgent):
                 "brand": brand,
                 "content_type": content_type,
                 "channels": channels,
-                "status": "simulated" if dry_run else "published",
+                "status": "simulated",
                 "published_at": timestamp,
                 "dry_run": dry_run,
+                "api_responses": {}
             }
+            
+            # Live publishing
+            if not dry_run:
+                # Use draft platform if provided, otherwise default channels
+                target_platforms = [draft.get("platform")] if draft.get("platform") else channels
+                result["status"] = "published"
+                
+                content = draft.get("draft") or draft.get("content", "")
+                
+                if "linkedin" in target_platforms and LinkedInAPI:
+                    li = LinkedInAPI()
+                    if li.is_configured():
+                        li_res = li.publish_post(content)
+                        result["api_responses"]["linkedin"] = li_res
+                        if li_res.get("status") == "error":
+                            result["status"] = "partial_error"
+                            logger.error(f"LinkedIn API error: {li_res}")
+                            
+                if "twitter" in target_platforms and TwitterAPI:
+                    tw = TwitterAPI()
+                    if tw.is_configured():
+                        # Simple detection for thread vs single
+                        if "\n\n" in content and len(content) > 300:
+                            tweets = content.split("\n\n")
+                            tw_res = tw.publish_thread(tweets)
+                        else:
+                            tw_res = tw.publish_tweet(content)
+                        result["api_responses"]["twitter"] = tw_res
+                        if tw_res.get("status") == "error":
+                            result["status"] = "partial_error"
+                            logger.error(f"Twitter API error: {tw_res}")
+
+                if "instagram" in target_platforms and InstagramAPI:
+                    ig = InstagramAPI()
+                    # Assuming image_url in draft or blank
+                    ig_res = ig.publish_post(image_url=draft.get("image_url", ""), caption=content)
+                    result["api_responses"]["instagram"] = ig_res
+                    if ig_res.get("status") == "error":
+                        result["status"] = "partial_error"
+                        logger.error(f"Instagram API error: {ig_res}")
+
+                if "youtube" in target_platforms and YouTubeAPI:
+                    yt = YouTubeAPI()
+                    yt_res = yt.publish_community_post(channel_id=draft.get("channel_id", "default"), text=content)
+                    result["api_responses"]["youtube"] = yt_res
+                    if yt_res.get("status") == "error":
+                        result["status"] = "partial_error"
+                        logger.error(f"YouTube API error: {yt_res}")
+
+                if "newsletter" in target_platforms and NewsletterAPI:
+                    nl = NewsletterAPI()
+                    nl_res = nl.publish_campaign(subject=topic, html_content=content)
+                    result["api_responses"]["newsletter"] = nl_res
+                    if nl_res.get("status") == "error":
+                        result["status"] = "partial_error"
+                        logger.error(f"Newsletter API error: {nl_res}")
+
             results.append(result)
 
             # Record topic usage in memory

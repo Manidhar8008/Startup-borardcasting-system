@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """Twitter/X publishing with basic retry support."""
 import os
 import time
@@ -12,7 +14,7 @@ BACKOFF = 1.5
 
 
 def format_tweet(text: str) -> str:
-    return shorten(text.replace("\n", " "), width=270, placeholder="…")
+    return shorten(text.replace("\n", " "), width=270, placeholder="...")
 
 
 def _post(payload: Dict, token: str) -> Dict:

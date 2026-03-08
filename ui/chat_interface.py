@@ -11,27 +11,38 @@ BANNER = r"""
  ╚════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝
 
   Your AI Broadcasting Manager
-  Brand: {brand}  |  LLM: llama3 (Ollama)  |  Topic Intelligence: ON
-  Type 'help' for commands.
+  Brand: {brand}  |  LLM: llama3 (Ollama)  |  Workflow Mode: ON
+  Type 'help' or just:  do create 3 threads about AI agents
 """
 
 HELP_TEXT = """
-Available Commands:
-  morning briefing    Read notes, research, score topics, build plan  (LLM)
-  research <topic>    Research a topic and gather content ideas
-  plan today          Build LLM+scored content plan from last research
-  generate drafts     Generate LLM drafts (Hook / Insight / Example / CTA)
-  publish drafts      Simulate publishing → records topic memory  (dry-run)
-  topic insights      Show top performing, recent & recommended topics
-  status              Show pipeline and memory state
-  brand <name>        Switch active brand
-  help                Show this help message
-  exit                Quit JAN
+━━━  WORKFLOW (one command does everything)  ━━━━━━━━━━━━━━━━━━
+  do <message>         Natural language — JAN handles the rest
+
+  Examples:
+    do create 3 reels about AI agents
+    do write 2 linkedin posts on LLM fine tuning
+    do make a tutorial on building RAG pipelines
+    do research prompt engineering trends
+
+━━━  STEP-BY-STEP COMMANDS  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  morning briefing     Read notes + score topics + LLM plan
+  research <topic>     Research a topic
+  plan today           Build scored + LLM content plan
+  generate drafts      LLM drafts (Hook / Insight / Example / CTA)
+  publish drafts       Simulate publishing → records topic memory
+  topic insights       Top / recent / recommended topics
+
+━━━  SYSTEM  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  status               Pipeline + memory state
+  brand <name>         Switch brand
+  help                 This menu
+  exit                 Quit JAN
 """
 
 
 def print_separator():
-    print("\n" + "─" * 60)
+    print("\n" + "━" * 60)
 
 
 def _thinking(msg: str):
@@ -59,17 +70,32 @@ def run(brand: str = "janani_ai"):
 
         print_separator()
 
+        # ── Exit ──────────────────────────────────────────────────────────────
         if cmd in ("exit", "quit"):
             print("Goodbye! 👋")
             sys.exit(0)
 
+        # ── Help ──────────────────────────────────────────────────────────────
         elif cmd == "help":
             print(HELP_TEXT)
 
+        # ── Workflow shortcut: do <message> ───────────────────────────────────
+        elif cmd == "do":
+            if not arg:
+                print(
+                    "⚠️  Usage: do <message>\n"
+                    "   Example: do create 3 reels about AI agents"
+                )
+            else:
+                _thinking(f"Interpreting: \"{arg}\" ...")
+                print(jan.execute_workflow(arg))
+
+        # ── Morning briefing ──────────────────────────────────────────────────
         elif full_cmd == "morning briefing":
-            _thinking("Reading notes + scoring topics + building strategy with LLM ...")
+            _thinking("Reading notes + scoring topics + building strategy ...")
             print(jan.morning_briefing())
 
+        # ── Research ──────────────────────────────────────────────────────────
         elif cmd == "research":
             if not arg:
                 print("⚠️  Usage: research <topic>")
@@ -77,24 +103,30 @@ def run(brand: str = "janani_ai"):
                 _thinking(f"Researching: {arg} ...")
                 print(jan.research(arg))
 
+        # ── Plan ──────────────────────────────────────────────────────────────
         elif full_cmd == "plan today":
-            _thinking("Scoring topics with Topic Intelligence + building LLM plan ...")
+            _thinking("Scoring topics + building LLM plan ...")
             print(jan.plan_today())
 
+        # ── Generate ──────────────────────────────────────────────────────────
         elif full_cmd == "generate drafts":
-            _thinking("Writing drafts with LLM (Hook / Insight / Example / CTA) ...")
+            _thinking("Writing drafts with LLM ...")
             print(jan.generate_drafts())
 
+        # ── Publish ───────────────────────────────────────────────────────────
         elif full_cmd == "publish drafts":
             _thinking("Simulating publish + recording topic memory ...")
             print(jan.publish_drafts(dry_run=True))
 
+        # ── Topic insights ────────────────────────────────────────────────────
         elif full_cmd == "topic insights":
             print(jan.topic_insights())
 
+        # ── Status ────────────────────────────────────────────────────────────
         elif cmd == "status":
             print(jan.status())
 
+        # ── Brand switch ──────────────────────────────────────────────────────
         elif cmd == "brand":
             if not arg:
                 print(f"Current brand: {jan.brand}")
@@ -102,8 +134,9 @@ def run(brand: str = "janani_ai"):
                 jan = JanManager(brand=arg)
                 print(f"✅ Switched to brand: {arg}")
 
+        # ── Unknown ───────────────────────────────────────────────────────────
         else:
             print(f"❓ Unknown command: '{raw}'")
-            print("   Type 'help' to see available commands.")
+            print(f"   Tip: Try  do {raw}  to run it as a workflow.")
 
         print_separator()

@@ -22,6 +22,39 @@ logger = logging.getLogger("orchestrator")
 # Each pipeline is an ordered list of step names that the AgentRouter resolves.
 
 PIPELINES: Dict[str, List[str]] = {
+    # ── Department pipelines ──────────────────────────────────────────────
+    "mvp_linkedin": [
+        "intake",
+        "research",
+        "strategy",
+        "linkedin_writer",
+        "review",
+        "publish",
+        "analytics",
+    ],
+    "full_department": [
+        "intake",
+        "research",
+        "strategy",
+        "content",
+        "review",
+        "publish",
+        "analytics",
+    ],
+    # ── Writer-specific pipelines ─────────────────────────────────────────
+    "linkedin_write": [
+        "linkedin_writer",
+        "review",
+    ],
+    "twitter_write": [
+        "twitter_writer",
+        "review",
+    ],
+    "youtube_write": [
+        "youtube_writer",
+        "review",
+    ],
+    # ── Legacy pipelines ──────────────────────────────────────────────────
     "full": [
         "research",
         "strategy",

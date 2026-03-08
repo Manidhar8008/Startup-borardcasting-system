@@ -17,15 +17,25 @@ logger = logging.getLogger("orchestrator")
 # Map workflow step names → agent registry names
 # This decouples workflow definitions from agent implementation details.
 STEP_TO_AGENT = {
-    "controller": "controller",
-    "research":   "research",
-    "strategy":   "strategy",
-    "content":    "content",
-    "multiply":   "content",
-    "automation": "automation",
-    "publish":    "publisher",
-    "analytics":  "analytics",
-    "memory":     "memory",
+    "controller":        "controller",
+    "intake":            "intake",
+    "trend":             "trend",
+    "topic_ranker":      "topic_ranker",
+    "idea_generator":    "idea_generator",
+    "research":          "research",
+    "strategy":          "strategy",
+    "content":           "content",
+    "multiply":          "content",
+    "review":            "review",
+    "linkedin_writer":   "linkedin_writer",
+    "twitter_writer":    "twitter_writer",
+    "instagram_writer":  "instagram_writer",
+    "youtube_writer":    "youtube_writer",
+    "newsletter_writer": "newsletter_writer",
+    "automation":        "automation",
+    "publish":           "publisher",
+    "analytics":         "analytics",
+    "memory":            "memory",
 }
 
 

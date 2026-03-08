@@ -49,24 +49,40 @@ def generate(
     Returns:
         Generated text string.
     """
+    # Cost control check
+    try:
+        from ai_core.cost_controller import get_controller, CostLimitExceeded
+        cc = get_controller()
+        cc.check()
+    except CostLimitExceeded as exc:
+        logger.error("Cost limit exceeded: %s", exc)
+        return f"[Cost limit exceeded: {exc}]"
+    except ImportError:
+        cc = None
+
     provider = provider or os.getenv("LLM_PROVIDER", PROVIDER_AUTO).lower()
     if provider not in VALID_PROVIDERS:
         logger.warning("Unknown provider '%s', defaulting to 'auto'", provider)
         provider = PROVIDER_AUTO
 
+    result = ""
     if provider == PROVIDER_GEMINI:
-        return _call_gemini(prompt, model=model, temperature=temperature, max_tokens=max_tokens)
+        result = _call_gemini(prompt, model=model, temperature=temperature, max_tokens=max_tokens)
+    elif provider == PROVIDER_OLLAMA:
+        result = _call_ollama(prompt, model=model, temperature=temperature)
+    else:
+        # AUTO: Gemini → Ollama fallback
+        result = _call_gemini(prompt, model=model, temperature=temperature, max_tokens=max_tokens)
+        if not result:
+            logger.info("Gemini unavailable, falling back to Ollama")
+            result = _call_ollama(prompt, model=model, temperature=temperature)
 
-    if provider == PROVIDER_OLLAMA:
-        return _call_ollama(prompt, model=model, temperature=temperature)
+    # Record usage
+    if cc and result:
+        estimated_tokens = len(prompt.split()) + len(result.split())
+        cc.record_call(tokens=estimated_tokens)
 
-    # AUTO: Gemini → Ollama fallback
-    result = _call_gemini(prompt, model=model, temperature=temperature, max_tokens=max_tokens)
-    if result:
-        return result
-
-    logger.info("Gemini unavailable, falling back to Ollama")
-    return _call_ollama(prompt, model=model, temperature=temperature)
+    return result
 
 
 def _call_gemini(prompt: str, *, model: str = "", temperature: float = 0.7, max_tokens: int = 2048) -> str:

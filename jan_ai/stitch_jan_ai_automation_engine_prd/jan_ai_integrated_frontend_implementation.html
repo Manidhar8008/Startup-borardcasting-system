@@ -1,0 +1,106 @@
+# JAN AI — Integrated Frontend Implementation (React + Vite)
+
+This guide provides the core component logic to connect the designed screens into a working application.
+
+## 1. App Shell & Navigation (src/components/layout/AppShell.tsx)
+```tsx
+import { Outlet } from 'react-router-dom';
+import { SideNavBar, TopNavBar } from '../navigation';
+import { useAccountStore } from '../../store/accountStore';
+
+export const AppShell = () => {
+  const { activeAccount } = useAccountStore();
+
+  return (
+    <div className="flex h-screen bg-[#11131c] text-[#e1e1ef] font-manrope">
+      <SideNavBar />
+      <div className="flex-1 flex flex-col overflow-hidden">
+        <TopNavBar accountName={activeAccount.name} />
+        <main className="flex-1 overflow-y-auto p-8">
+          <Outlet />
+        </main>
+      </div>
+    </div>
+  );
+};
+```
+
+## 2. Pipeline Execution Logic (src/hooks/usePipeline.ts)
+```tsx
+import { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
+export const usePipeline = () => {
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const triggerAutomation = async (inputText: string) => {
+    setLoading(true);
+    try {
+      const response = await axios.post('/pipeline/process-input', { text: inputText });
+      // Update global state with generated plan and content
+      // Redirect to Strategy Forge to see the result
+      navigate('/strategy');
+    } catch (error) {
+      console.error("Pipeline failed", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { triggerAutomation, loading };
+};
+```
+
+## 3. Dynamic Strategy Rendering (src/pages/StrategyForge.tsx)
+Mapping the backend `weekly_plan` JSON to the operational timeline UI.
+
+```tsx
+export const StrategyForge = ({ planData }) => {
+  return (
+    <div className="space-y-8">
+      <header className="flex justify-between items-end">
+        <div>
+          <h1 className="text-4xl font-black">Strategy Forge</h1>
+          <p className="text-[#bbc6e2]">Multi-channel synchronization for {planData.account_name}</p>
+        </div>
+        <button className="bg-[#4cd6ff] text-[#11131c] px-6 py-3 font-bold rounded">
+          Auto-Fill Calendar
+        </button>
+      </header>
+
+      <div className="grid gap-4">
+        {planData.days.map((day) => (
+          <div key={day.id} className="bg-[#1d1f29] p-6 border-l-4 border-[#4cd6ff] flex justify-between items-center">
+             <div className="flex gap-12">
+               <div className="w-16"><p className="text-xs uppercase opacity-50">Day {day.number}</p><p className="font-bold">{day.label}</p></div>
+               <div><p className="text-xs uppercase opacity-50">Platform</p><p>{day.platform}</p></div>
+               <div><p className="text-xs uppercase opacity-50">Format</p><p>{day.format}</p></div>
+             </div>
+             <div className="text-right">
+               <p className="text-xs uppercase opacity-50">Post Time</p>
+               <p className="font-mono text-[#4cd6ff]">{day.time}</p>
+             </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+```
+
+## 4. State Store (src/store/accountStore.ts)
+```ts
+import { create } from 'zustand';
+
+interface AccountState {
+  activeAccount: { id: number; name: string };
+  setActiveAccount: (account: { id: number; name: string }) => void;
+}
+
+export const useAccountStore = create<AccountState>((set) => ({
+  activeAccount: { id: 1, name: "B2B SaaS Automation" },
+  setActiveAccount: (account) => set({ activeAccount: account }),
+}));
+```

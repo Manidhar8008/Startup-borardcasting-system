@@ -1,0 +1,28 @@
+# Production Blueprint: JAN AI — Automation Engine
+
+## 1. Core Principles
+- **Stability & Clean Architecture:** Modular design using FastAPI and React.
+- **Real Execution Flow:** APScheduler-driven background tasks with PostgreSQL persistence.
+- **Observability:** Centralized logging with real-time status tracking (Success, Pending, Failed).
+
+## 2. Technical Stack
+- **Frontend:** React (Vite), Tailwind CSS, Axios, Zustand/Context.
+- **Backend:** FastAPI, PostgreSQL (SQLAlchemy), APScheduler.
+
+## 3. Modular Services (Architecture)
+- `task_service`: CRUD and persistence logic.
+- `scheduler_service`: Job management and execution triggers.
+- `logging_service`: Centralized event capture.
+- `suggestion_service`: Rule-based analysis of task logs.
+
+## 4. Feature Set
+- **Task Management:** One-time and recurring (Daily/Weekly) support.
+- **Execution Engine:** Automatic triggers with detailed DB logging.
+- **Suggestion Engine:** Analyzes missed tasks or consistency to provide proactive feedback.
+- **Settings & Control:** Feature toggles (Scheduler/Suggestions), API key UI, and system health monitoring.
+
+## 5. UI Requirements
+- **Dashboard:** Operational overview.
+- **Tasks Page:** Clean CRUD interface.
+- **Suggestions Page:** Categorized insights.
+- **Settings Page:** System toggles + Searchable/Filterable Logs.

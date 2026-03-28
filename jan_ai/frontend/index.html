@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Jan.ai Control Panel</title>
+    <style>
+        body { font-family: -apple-system, sans-serif; background: #121212; color: #fff; margin: 2rem; display: flex; justify-content: center; align-items: center; min-height: 80vh;}
+        .card { background: #1e1e1e; padding: 2.5rem; border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.5); width: 100%; max-width: 600px;}
+        h1 { color: #bb86fc; font-weight: 300; letter-spacing: 1px; margin-bottom: 2rem;}
+        .input-group { margin-bottom: 1.5rem; }
+        label { display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: #bbb;}
+        input, select, textarea { width: 100%; padding: 0.75rem; border: 1px solid #333; background: #2d2d2d; color: white; border-radius: 6px; box-sizing: border-box; font-size: 1rem;}
+        input:focus, select:focus { outline: none; border-color: #bb86fc; }
+        button { background: linear-gradient(135deg, #bb86fc 0%, #7f39fb 100%); color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 6px; cursor: pointer; font-size: 1rem; font-weight: bold; width: 100%; transition: transform 0.2s;}
+        button:hover { transform: translateY(-2px); }
+        #result { margin-top: 1.5rem; padding: 1.5rem; background: #2d2d2d; border-radius: 6px; display: none; border: 1px solid #444;}
+        #finalContent { font-family: monospace; white-space: pre-wrap; display: block; margin-bottom: 1rem; color: #e0e0e0;}
+        #publishStatus { margin-top: 1rem; font-weight: bold;}
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Jan.ai - Media Manager</h1>
+        <form id="genForm">
+            <div class="input-group">
+                <label>Topic</label>
+                <input type="text" id="topic" placeholder="e.g. The future of AI in marketing" required>
+            </div>
+            <div class="input-group">
+                <label>Tone</label>
+                <select id="tone">
+                    <option value="professional">Professional</option>
+                    <option value="casual">Casual</option>
+                    <option value="humorous">Humorous</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label>Target Platform</label>
+                <select id="platform">
+                    <option value="linkedin">LinkedIn</option>
+                    <option value="twitter">Twitter (X)</option>
+                    <option value="reddit">Reddit</option>
+                </select>
+            </div>
+            <button type="submit">1. Generate Smart Content</button>
+        </form>
+        
+        <div id="result">
+            <strong id="finalContent"></strong>
+            <button onclick="saveAndPost()" style="background: linear-gradient(135deg, #03dac6 0%, #018786 100%);">2. Save & Auto-Publish via Playwright</button>
+            <p id="publishStatus"></p>
+        </div>
+    </div>
+
+    <script>
+        let currentContent = "";
+        let currentTopic = "";
+        let currentPlatform = "";
+
+        document.getElementById('genForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            btn.innerText = "Generating...";
+            
+            const topic = document.getElementById('topic').value;
+            const tone = document.getElementById('tone').value;
+            const platform = document.getElementById('platform').value;
+
+            currentTopic = topic;
+            currentPlatform = platform;
+
+            try {
+                const res = await fetch('/generate-content', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({topic, tone, platform})
+                });
+                const data = await res.json();
+                currentContent = data.content;
+                
+                document.getElementById('result').style.display = 'block';
+                document.getElementById('finalContent').innerText = currentContent;
+            } catch(e) {
+                alert("Error generating content");
+            } finally {
+                btn.innerText = "1. Generate Smart Content";
+            }
+        };
+
+        async function saveAndPost() {
+            const statusNode = document.getElementById('publishStatus');
+            statusNode.innerText = "Launching Automation Pipeline...";
+            
+            try {
+                // 1. Create Post
+                let res = await fetch('/posts', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({topic: currentTopic, content: currentContent, platform: currentPlatform})
+                });
+                let post = await res.json();
+
+                // 2. Trigger Auto Post
+                statusNode.innerText = `Post saved (ID: ${post.id}). Starting Playwright on ${currentPlatform}...`;
+                let publishRes = await fetch(`/auto-post?post_id=${post.id}`, { method: 'POST' });
+                let publishData = await publishRes.json();
+                
+                statusNode.style.color = publishData.success ? "#03dac6" : "#cf6679";
+                statusNode.innerText = publishData.success ? 
+                    "✔ Successfully published via Playwright!" : 
+                    "✖ Playwright failed to post.";
+            } catch(e) {
+                statusNode.style.color = "#cf6679";
+                statusNode.innerText = "✖ Server error during setup.";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@700;800&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-fixed": "#b7eaff",
+              "background": "#11131c",
+              "secondary-container": "#2f4865",
+              "inverse-primary": "#545e76",
+              "secondary-fixed": "#d1e4ff",
+              "on-primary-fixed-variant": "#3c475d",
+              "surface-tint": "#bbc6e2",
+              "primary-fixed-dim": "#bbc6e2",
+              "tertiary-container": "#001d26",
+              "tertiary": "#4cd6ff",
+              "outline": "#8e9196",
+              "surface-container-lowest": "#0c0e17",
+              "primary-fixed": "#d7e2ff",
+              "on-tertiary-container": "#008eae",
+              "surface-container": "#1d1f29",
+              "primary-container": "#0f1a2e",
+              "surface-container-high": "#282933",
+              "secondary-fixed-dim": "#afc9ea",
+              "surface-dim": "#11131c",
+              "surface-container-highest": "#32343e",
+              "on-secondary": "#17324d",
+              "on-primary-container": "#78839c",
+              "outline-variant": "#44474c",
+              "on-secondary-fixed": "#001d36",
+              "secondary": "#afc9ea",
+              "surface-variant": "#32343e",
+              "on-surface-variant": "#c4c6cc",
+              "on-secondary-fixed-variant": "#2f4865",
+              "on-tertiary": "#003543",
+              "inverse-surface": "#e1e1ef",
+              "on-background": "#e1e1ef",
+              "surface": "#11131c",
+              "on-surface": "#e1e1ef",
+              "on-primary-fixed": "#101b30",
+              "on-tertiary-fixed-variant": "#004e60",
+              "error-container": "#93000a",
+              "on-tertiary-fixed": "#001f28",
+              "error": "#ffb4ab",
+              "primary": "#bbc6e2",
+              "surface-bright": "#373943",
+              "tertiary-fixed-dim": "#4cd6ff",
+              "on-primary": "#263046",
+              "inverse-on-surface": "#2e303a",
+              "surface-container-low": "#191b24",
+              "on-secondary-container": "#9eb7d8",
+              "on-error-container": "#ffdad6",
+              "on-error": "#690005"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Space Grotesk"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .writing-dna-grid {
+            background-image: radial-gradient(circle at 2px 2px, rgba(76, 214, 255, 0.05) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-tertiary selection:text-on-tertiary">
+<!-- SideNavBar (Execution from JSON) -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-[#11131c] dark:bg-[#11131c] flex flex-col h-full py-8 px-4 z-50">
+<div class="mb-12 px-4">
+<h1 class="font-space-grotesk text-xl font-bold tracking-tighter text-[#bbc6e2]">JAN AI</h1>
+<p class="font-label text-[10px] text-on-tertiary-container uppercase tracking-widest mt-1">v2.4.0 Active</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#4cd6ff] bg-[#1d1f29] font-bold border-r-2 border-[#4cd6ff] transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label text-sm tracking-wide">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#bbc6e2]/60 hover:text-[#bbc6e2] hover:bg-[#1d1f29] transition-all" href="#">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="font-label text-sm tracking-wide">Content Studio</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#bbc6e2]/60 hover:text-[#bbc6e2] hover:bg-[#1d1f29] transition-all" href="#">
+<span class="material-symbols-outlined">insights</span>
+<span class="font-label text-sm tracking-wide">Strategy</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#bbc6e2]/60 hover:text-[#bbc6e2] hover:bg-[#1d1f29] transition-all" href="#">
+<span class="material-symbols-outlined">account_tree</span>
+<span class="font-label text-sm tracking-wide">Pipeline</span>
+</a>
+</nav>
+<div class="mt-auto pt-8 space-y-2">
+<button class="w-full bg-gradient-to-br from-tertiary to-on-tertiary-container text-on-tertiary font-label text-xs font-bold py-3 rounded-lg mb-6 uppercase tracking-wider scale-95 active:scale-90 transition-transform">
+                Create Project
+            </button>
+<a class="flex items-center gap-3 px-4 py-2 text-[#bbc6e2]/60 hover:text-[#bbc6e2] transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label text-xs uppercase tracking-widest">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-[#bbc6e2]/60 hover:text-[#bbc6e2] transition-colors" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span class="font-label text-xs uppercase tracking-widest">Support</span>
+</a>
+</div>
+</aside>
+<!-- TopNavBar (Execution from JSON) -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 flex items-center justify-between px-8 bg-[#11131c]/80 backdrop-blur-xl z-40 border-none bg-[#1d1f29]">
+<div class="flex items-center gap-8">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="bg-surface-container-lowest border-none text-xs font-label uppercase tracking-widest pl-10 pr-4 py-2 rounded-full w-64 focus:ring-1 focus:ring-tertiary outline-none transition-all" placeholder="Global View Search..." type="text"/>
+</div>
+<nav class="hidden lg:flex gap-6">
+<a class="font-inter text-xs font-medium uppercase tracking-widest text-[#4cd6ff] font-bold" href="#">Global View</a>
+<a class="font-inter text-xs font-medium uppercase tracking-widest text-[#bbc6e2]/50 hover:text-[#4cd6ff] transition-colors" href="#">System Health</a>
+<a class="font-inter text-xs font-medium uppercase tracking-widest text-[#bbc6e2]/50 hover:text-[#4cd6ff] transition-colors" href="#">Logs</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<button class="font-label text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-1.5 border border-outline-variant/30 text-primary hover:border-tertiary transition-all">Run Pipeline</button>
+<div class="flex items-center gap-4 text-on-surface-variant">
+<span class="material-symbols-outlined cursor-pointer hover:text-tertiary transition-colors">notifications_active</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-tertiary transition-colors">dns</span>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant/30">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="close up headshot of a professional system architect with neutral expression in soft studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_W0cNv8OL1moYKMxdMZmjQrRlwW-eREf9ib1huORZN8p5hnlNh07LYxxUOw4YYX1QDn9SLoh3Ymh7wwc0-urW2XrX65HxBYOGo0O_HtJB1FJe4Flszbbvdm373s4sOhWOb7JpnZXhsabcUeelu__-ywEjgtA9JWwnZeKyzwQaxzIneIXfT_OhKz3GYx6jafd5J5b9X1nrcgjOo9ov0UODXB8a85kPiKW3TrFGRi-D6DcAOCMh4SSs5_z_ZuL4h3nkL1pSrBoHbLAb"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-24 pb-12 px-12 min-h-screen">
+<!-- Dashboard Header -->
+<section class="mb-14">
+<span class="font-label text-xs text-tertiary uppercase tracking-[0.3em] mb-2 block">System Intelligence // v2.4</span>
+<h2 class="font-headline text-5xl font-extrabold tracking-tight text-on-surface mb-4">User Profile Intelligence</h2>
+<p class="font-body text-on-surface-variant max-w-2xl leading-relaxed">Analyzing latent patterns in editorial output to optimize future content trajectories and prevent conceptual redundancy.</p>
+</section>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-12 gap-8">
+<!-- 1. Writing DNA (Heat Map Concept) -->
+<div class="col-span-12 lg:col-span-7 bg-surface-container-low p-8 rounded-xl writing-dna-grid relative overflow-hidden">
+<div class="flex justify-between items-start mb-8 relative z-10">
+<div>
+<h3 class="font-headline text-xl font-bold mb-1">Writing DNA Matrix</h3>
+<p class="font-label text-[10px] uppercase text-on-surface-variant tracking-widest">Multi-dimensional tone &amp; topic mapping</p>
+</div>
+<div class="flex gap-2">
+<span class="bg-tertiary/10 text-tertiary px-3 py-1 font-label text-[10px] uppercase tracking-widest rounded-full">Analytical Focus</span>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-4 h-64">
+<!-- Column AI -->
+<div class="flex flex-col gap-2">
+<div class="flex-1 bg-tertiary/20 rounded-lg flex items-center justify-center border-b-4 border-tertiary shadow-[0_0_20px_rgba(76,214,255,0.1)]">
+<span class="font-label text-xs uppercase font-bold text-tertiary">AI Logic</span>
+</div>
+<div class="h-1/3 bg-surface-container-high rounded-lg opacity-40"></div>
+<div class="h-1/4 bg-surface-container-highest rounded-lg opacity-20"></div>
+</div>
+<!-- Column Tech -->
+<div class="flex flex-col gap-2">
+<div class="h-1/4 bg-surface-container-high rounded-lg opacity-40"></div>
+<div class="flex-1 bg-primary/20 rounded-lg flex items-center justify-center border-b-4 border-primary">
+<span class="font-label text-xs uppercase font-bold text-primary">Tech Stacks</span>
+</div>
+<div class="h-1/4 bg-surface-container-highest rounded-lg opacity-20"></div>
+</div>
+<!-- Column Business -->
+<div class="flex flex-col gap-2">
+<div class="h-1/5 bg-surface-container-high rounded-lg opacity-20"></div>
+<div class="h-1/3 bg-surface-container-highest rounded-lg opacity-40"></div>
+<div class="flex-1 bg-on-tertiary-container/20 rounded-lg flex items-center justify-center border-b-4 border-on-tertiary-container">
+<span class="font-label text-xs uppercase font-bold text-on-tertiary-container">Strategic</span>
+</div>
+</div>
+</div>
+<div class="mt-8 flex justify-between items-end">
+<div class="flex gap-8">
+<div>
+<span class="block font-label text-[10px] text-on-surface-variant uppercase tracking-widest mb-1">Dominant Tone</span>
+<span class="font-headline text-lg font-bold">Analytical</span>
+</div>
+<div>
+<span class="block font-label text-[10px] text-on-surface-variant uppercase tracking-widest mb-1">Cohesion Score</span>
+<span class="font-headline text-lg font-bold text-tertiary">94.2%</span>
+</div>
+</div>
+<div class="w-32 h-1 bg-surface-container-highest relative">
+<div class="absolute inset-y-0 left-0 w-3/4 bg-tertiary"></div>
+</div>
+</div>
+</div>
+<!-- 2. Content Memory (Previous Ideas) -->
+<div class="col-span-12 lg:col-span-5 bg-surface-container p-8 rounded-xl flex flex-col">
+<div class="mb-8">
+<h3 class="font-headline text-xl font-bold mb-1">Content Memory</h3>
+<p class="font-label text-[10px] uppercase text-on-surface-variant tracking-widest">Latent Idea Archive &amp; Similarity Index</p>
+</div>
+<div class="space-y-4 flex-1 overflow-y-auto pr-2 custom-scrollbar">
+<div class="p-4 bg-surface-container-low rounded-lg group hover:bg-surface-container-high transition-colors">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-body text-sm font-semibold">The Rise of Sovereign AI Agents</h4>
+<span class="font-label text-[10px] text-tertiary">89% SIMILARITY</span>
+</div>
+<p class="text-xs text-on-surface-variant line-clamp-1">Exploring the shift from copilots to autonomous digital entities...</p>
+</div>
+<div class="p-4 bg-surface-container-low rounded-lg group hover:bg-surface-container-high transition-colors">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-body text-sm font-semibold">Decentralized Compute Pipelines</h4>
+<span class="font-label text-[10px] text-primary">42% SIMILARITY</span>
+</div>
+<p class="text-xs text-on-surface-variant line-clamp-1">Analysis of GPU clusters and low-latency inference networks...</p>
+</div>
+<div class="p-4 bg-surface-container-low rounded-lg group hover:bg-surface-container-high transition-colors">
+<div class="flex justify-between items-start mb-2">
+<h4 class="font-body text-sm font-semibold">Editorial Automation Strategies</h4>
+<span class="font-label text-[10px] text-error">96% CONFLICT</span>
+</div>
+<p class="text-xs text-on-surface-variant line-clamp-1">How JAN AI is reshaping the newsroom with predictive nodes...</p>
+</div>
+</div>
+<div class="mt-8">
+<button class="w-full py-3 border border-outline-variant/20 rounded-lg font-label text-[10px] uppercase tracking-[0.2em] hover:bg-surface-container-highest transition-all">Scan New Entry For Redundancy</button>
+</div>
+</div>
+<!-- 3. Frequency & Growth (Visual Flow) -->
+<div class="col-span-12 lg:col-span-8 bg-surface-container-low p-8 rounded-xl">
+<div class="flex justify-between items-center mb-10">
+<div>
+<h3 class="font-headline text-xl font-bold mb-1">Velocity &amp; Saturation</h3>
+<p class="font-label text-[10px] uppercase text-on-surface-variant tracking-widest">30-day content frequency trajectory</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-tertiary"></div>
+<span class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">Output</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-outline-variant"></div>
+<span class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">Target</span>
+</div>
+</div>
+</div>
+<div class="h-48 relative flex items-end justify-between gap-1 px-4">
+<!-- Fake Line Graph Using SVG + CSS Masks -->
+<div class="absolute inset-x-0 bottom-0 h-full overflow-hidden opacity-20 pointer-events-none">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 100 100">
+<path d="M0,80 Q10,75 20,85 T40,60 T60,40 T80,70 T100,50 L100,100 L0,100 Z" fill="url(#grad1)"></path>
+<defs>
+<lineargradient id="grad1" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:var(--tertiary);stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:transparent;stop-opacity:0"></stop>
+</lineargradient>
+</defs>
+</svg>
+</div>
+<!-- Chart Bars -->
+<div class="w-full h-32 bg-surface-container-high/30 rounded-t-sm flex items-end">
+<div class="w-full h-[60%] bg-tertiary rounded-t-sm transition-all hover:brightness-125"></div>
+</div>
+<div class="w-full h-32 bg-surface-container-high/30 rounded-t-sm flex items-end">
+<div class="w-full h-[45%] bg-tertiary rounded-t-sm transition-all hover:brightness-125"></div>
+</div>
+<div class="w-full h-32 bg-surface-container-high/30 rounded-t-sm flex items-end">
+<div class="w-full h-[85%] bg-tertiary rounded-t-sm transition-all hover:brightness-125 shadow-[0_0_15px_rgba(76,214,255,0.2)]"></div>
+</div>
+<div class="w-full h-32 bg-surface-container-high/30 rounded-t-sm flex items-end">
+<div class="w-full h-[70%] bg-tertiary rounded-t-sm transition-all hover:brightness-125"></div>
+</div>
+<div class="w-full h-32 bg-surface-container-high/30 rounded-t-sm flex items-end">
+<div class="w-full h-[30%] bg-tertiary rounded-t-sm transition-all hover:brightness-125"></div>
+</div>
+<div class="w-full h-32 bg-surface-container-high/30 rounded-t-sm flex items-end">
+<div class="w-full h-[95%] bg-tertiary rounded-t-sm transition-all hover:brightness-125 shadow-[0_0_15px_rgba(76,214,255,0.2)]"></div>
+</div>
+<div class="w-full h-32 bg-surface-container-high/30 rounded-t-sm flex items-end">
+<div class="w-full h-[55%] bg-tertiary rounded-t-sm transition-all hover:brightness-125"></div>
+</div>
+</div>
+<div class="flex justify-between mt-4 font-label text-[10px] text-on-surface-variant uppercase tracking-widest px-4">
+<span>Week 1</span>
+<span>Week 2</span>
+<span>Week 3</span>
+<span>Week 4</span>
+</div>
+</div>
+<!-- 4. Strategic Suggestions -->
+<div class="col-span-12 lg:col-span-4 flex flex-col gap-6">
+<div class="p-6 bg-surface-container-highest rounded-xl border-l-4 border-tertiary flex-1 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-tertiary">auto_stories</span>
+<span class="font-label text-[10px] uppercase tracking-widest text-tertiary">Strategic Alpha</span>
+</div>
+<h4 class="font-headline text-lg font-bold mb-2">Create a series</h4>
+<p class="text-sm text-on-surface-variant leading-relaxed">Your content on 'Sovereign Agents' has high latent engagement. We suggest a 4-part deep dive.</p>
+</div>
+<button class="mt-4 py-2 px-4 bg-tertiary/10 text-tertiary rounded font-label text-[10px] uppercase tracking-widest hover:bg-tertiary/20 transition-all text-left">Deploy Series Skeleton</button>
+</div>
+<div class="p-6 bg-surface-container rounded-xl flex-1 flex flex-col justify-between">
+<div>
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-primary">account_tree</span>
+<span class="font-label text-[10px] uppercase tracking-widest text-primary">Pipeline Optimization</span>
+</div>
+<h4 class="font-headline text-lg font-bold mb-2">Turn into a thread</h4>
+<p class="text-sm text-on-surface-variant leading-relaxed">The 'Editorial Automation' piece is data-dense. Repurposing as a technical thread will maximize reach.</p>
+</div>
+<button class="mt-4 py-2 px-4 bg-primary/10 text-primary rounded font-label text-[10px] uppercase tracking-widest hover:bg-primary/20 transition-all text-left">Generate Thread Draft</button>
+</div>
+</div>
+</div>
+<!-- System Architecture Metadata (Footer Decoration) -->
+<footer class="mt-16 pt-8 border-t border-outline-variant/10 flex justify-between items-center opacity-40">
+<div class="flex gap-12">
+<div>
+<span class="block font-label text-[8px] uppercase tracking-[0.3em]">Processing Node</span>
+<span class="font-label text-xs">US-EAST-01 // KINETIC-ARCH-v4</span>
+</div>
+<div>
+<span class="block font-label text-[8px] uppercase tracking-[0.3em]">Security Protocol</span>
+<span class="font-label text-xs">AES-256-QUANTUM-LOCKED</span>
+</div>
+</div>
+<div class="font-label text-[10px] uppercase tracking-[0.4em]">JAN AI © 2024 SYSTEM INTELLIGENCE LAYER</div>
+</footer>
+</main>
+<!-- Contextual FAB (Suppressed on Details as per rule, but this is a Dashboard so we keep it) -->
+<div class="fixed bottom-8 right-8 group">
+<button class="bg-gradient-to-r from-tertiary to-on-tertiary-container w-14 h-14 rounded-full flex items-center justify-center shadow-xl hover:scale-110 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-on-tertiary" style="font-variation-settings: 'FILL' 1;">add</span>
+</button>
+<span class="absolute right-16 top-1/2 -translate-y-1/2 bg-surface-container-highest px-4 py-2 rounded-lg text-xs font-label uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">Start New Analysis</span>
+</div>
+</body></html>

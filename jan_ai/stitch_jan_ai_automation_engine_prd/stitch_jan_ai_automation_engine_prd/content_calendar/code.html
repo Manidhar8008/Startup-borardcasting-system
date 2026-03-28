@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>JAN AI - Content Pipeline</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;family=Space+Grotesk:wght@500;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-tertiary-fixed": "#001f28",
+                        "surface-container": "#1d1f29",
+                        "on-secondary-fixed-variant": "#2f4865",
+                        "tertiary": "#4cd6ff",
+                        "on-tertiary-container": "#008eae",
+                        "on-tertiary": "#003543",
+                        "on-primary": "#263046",
+                        "secondary-fixed-dim": "#afc9ea",
+                        "surface-container-lowest": "#0c0e17",
+                        "secondary-fixed": "#d1e4ff",
+                        "outline-variant": "#44474c",
+                        "surface-container-high": "#282933",
+                        "inverse-surface": "#e1e1ef",
+                        "primary-fixed": "#d7e2ff",
+                        "inverse-primary": "#545e76",
+                        "surface": "#11131c",
+                        "primary-container": "#0f1a2e",
+                        "inverse-on-surface": "#2e303a",
+                        "on-surface-variant": "#c4c6cc",
+                        "tertiary-container": "#001d26",
+                        "secondary-container": "#2f4865",
+                        "on-secondary-container": "#9eb7d8",
+                        "tertiary-fixed": "#b7eaff",
+                        "surface-container-highest": "#32343e",
+                        "on-error": "#690005",
+                        "primary": "#bbc6e2",
+                        "surface-bright": "#373943",
+                        "background": "#11131c",
+                        "on-secondary": "#17324d",
+                        "surface-dim": "#11131c",
+                        "tertiary-fixed-dim": "#4cd6ff",
+                        "on-surface": "#e1e1ef",
+                        "surface-variant": "#32343e",
+                        "error-container": "#93000a",
+                        "outline": "#8e9196",
+                        "on-primary-fixed": "#101b30",
+                        "surface-tint": "#bbc6e2",
+                        "on-primary-container": "#78839c",
+                        "on-primary-fixed-variant": "#3c475d",
+                        "on-background": "#e1e1ef",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-low": "#191b24",
+                        "on-tertiary-fixed-variant": "#004e60",
+                        "error": "#ffb4ab",
+                        "primary-fixed-dim": "#bbc6e2",
+                        "secondary": "#afc9ea",
+                        "on-secondary-fixed": "#001d36"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .pipeline-track {
+            position: relative;
+        }
+        .pipeline-track::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #44474c;
+            opacity: 0.2;
+            transform: translateX(-50%);
+        }
+        .glass-sidebar {
+            background: rgba(55, 57, 67, 0.6);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body antialiased">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-surface overflow-x-hidden">
+<!-- Shared TopAppBar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-outline-variant/30 px-10 py-4 bg-surface-container-lowest">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-primary">
+<div class="size-6">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M39.475 21.6262C40.358 21.4363 40.6863 21.5589 40.7581 21.5934C40.7876 21.655 40.8547 21.857 40.8082 22.3336C40.7408 23.0255 40.4502 24.0046 39.8572 25.2301C38.6799 27.6631 36.5085 30.6631 33.5858 33.5858C30.6631 36.5085 27.6632 38.6799 25.2301 39.8572C24.0046 40.4502 23.0255 40.7407 22.3336 40.8082C21.8571 40.8547 21.6551 40.7875 21.5934 40.7581C21.5589 40.6863 21.4363 30.358 21.6262 39.475C21.8562 38.4054 22.4689 36.9657 23.5038 35.2817C24.7575 33.2417 26.5497 30.9744 28.7621 28.762C30.9744 26.5497 33.2417 24.7574 35.2817 23.5037C36.9657 22.4689 38.4054 21.8562 39.475 21.6262ZM4.41189 29.2403L18.7597 43.5881C19.8813 44.7097 21.4027 44.9179 22.7217 44.7893C24.0585 44.659 25.5148 44.1631 26.9723 43.4579C29.9052 42.0387 33.2618 39.5667 36.4142 36.4142C39.5667 33.2618 42.0387 29.9052 43.4579 26.9723C44.1631 25.5148 44.659 24.0585 44.7893 22.7217C44.9179 21.4027 44.7097 19.8813 43.5881 18.7597L29.2403 4.41187C27.8527 3.02428 25.8765 3.02573 24.2861 3.36776C22.6081 3.72863 20.7334 4.58419 18.8396 5.74801C16.4978 7.18716 13.9881 9.18353 11.5858 11.5858C9.18354 13.988 7.18717 16.4978 5.74802 18.8396C4.58421 20.7334 3.72865 22.6081 3.36778 24.2861C3.02574 25.8765 3.02429 27.8527 4.41189 29.2403Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-on-surface text-xl font-headline font-bold tracking-tight">JAN AI</h2>
+</div>
+<nav class="flex items-center gap-9">
+<a class="text-on-surface-variant hover:text-primary transition-colors text-sm font-label font-bold uppercase tracking-widest" href="#">Calendar</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors text-sm font-label font-bold uppercase tracking-widest" href="#">Analytics</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors text-sm font-label font-bold uppercase tracking-widest" href="#">Library</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors text-sm font-label font-bold uppercase tracking-widest" href="#">Accounts</a>
+</nav>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<div class="flex items-center bg-surface-container rounded px-3 py-1.5 w-64">
+<span class="material-symbols-outlined text-on-surface-variant text-lg" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-on-surface placeholder:text-outline text-sm w-full font-body" placeholder="Search pipeline..." type="text"/>
+</div>
+<button class="p-2 hover:bg-surface-container-high rounded transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border border-outline-variant/20">
+<img class="w-full h-full object-cover" data-alt="professional portrait of a creative director in a dark studio setting with soft key light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBa9CPumBzhTcEU7lEaN_t45jef3Z-Qgr3cYZcgNsDsOQszv-ZVNzrfL35ahE3SYA7GvN4pb2ms3BOMC408xBIw1YB7NyCa230Q4RA0fIP-Z-ZrOF0h3biXVxYLc-SP6BgpzWezb55UFeebiHedynHgDambn7tMEH9JhCuVi3F6UnYS68tNFfVNF3AdMBeqeaKNxGN9x-1KcKe0mWuea7q2hy4oC3V6C3Z3z5eWtdCweWDKHxywukQrHeUH9lZIOP9RIpUGzFvbA_ny"/>
+</div>
+</div>
+</header>
+<main class="flex flex-1 overflow-hidden">
+<!-- Sidebar: Recommended Slots -->
+<aside class="w-80 glass-sidebar border-r border-outline-variant/10 p-8 flex flex-col gap-8">
+<div class="flex flex-col gap-2">
+<h3 class="text-tertiary font-label font-bold text-xs uppercase tracking-[0.2em]">Engine Insights</h3>
+<h2 class="text-on-surface font-headline text-2xl font-bold leading-tight">Recommended Slots</h2>
+<p class="text-on-surface-variant text-sm font-body leading-relaxed opacity-80">Machine-learned windows for maximum engagement across linked accounts.</p>
+</div>
+<div class="flex flex-col gap-6">
+<!-- Slot Card -->
+<div class="flex items-start gap-4 group">
+<div class="pipeline-track h-full min-h-[60px] flex flex-col items-center">
+<div class="size-3 rounded-full bg-tertiary shadow-[0_0_12px_rgba(76,214,255,0.4)]"></div>
+</div>
+<div class="flex-1 pb-4">
+<div class="bg-surface-container-lowest p-4 rounded-lg group-hover:bg-surface-container transition-all cursor-pointer">
+<span class="text-tertiary font-label text-[10px] font-bold uppercase tracking-wider">High Probability</span>
+<div class="flex justify-between items-end mt-1">
+<span class="text-on-surface font-headline text-lg font-bold">10:45 AM</span>
+<span class="text-on-surface-variant font-label text-xs">LinkedIn</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-start gap-4 group">
+<div class="pipeline-track h-full min-h-[60px] flex flex-col items-center">
+<div class="size-3 rounded-full bg-primary/40 border border-primary"></div>
+</div>
+<div class="flex-1 pb-4">
+<div class="bg-surface-container-lowest p-4 rounded-lg group-hover:bg-surface-container transition-all cursor-pointer">
+<span class="text-on-secondary-container font-label text-[10px] font-bold uppercase tracking-wider">Moderate</span>
+<div class="flex justify-between items-end mt-1">
+<span class="text-on-surface font-headline text-lg font-bold">02:15 PM</span>
+<span class="text-on-surface-variant font-label text-xs">Instagram</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-start gap-4 group">
+<div class="pipeline-track h-full min-h-[60px] flex flex-col items-center">
+<div class="size-3 rounded-full bg-primary/40 border border-primary"></div>
+</div>
+<div class="flex-1 pb-4">
+<div class="bg-surface-container-lowest p-4 rounded-lg group-hover:bg-surface-container transition-all cursor-pointer">
+<span class="text-on-secondary-container font-label text-[10px] font-bold uppercase tracking-wider">Viral Spike</span>
+<div class="flex justify-between items-end mt-1">
+<span class="text-on-surface font-headline text-lg font-bold">06:00 PM</span>
+<span class="text-on-surface-variant font-label text-xs">X / Twitter</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<button class="mt-auto py-4 bg-gradient-to-br from-tertiary to-on-tertiary-container text-on-tertiary font-label font-bold text-xs uppercase tracking-widest rounded shadow-lg transition-transform active:scale-95">
+                Apply Smart Logic
+            </button>
+</aside>
+<!-- Main Content Area: Calendar Grid -->
+<section class="flex-1 p-10 overflow-y-auto bg-surface">
+<div class="flex justify-between items-end mb-12">
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-3">
+<h1 class="text-on-surface font-headline text-4xl font-bold">January 2024</h1>
+<span class="bg-surface-container px-3 py-1 rounded text-primary font-label text-sm font-bold">WEEK 03</span>
+</div>
+<p class="text-on-surface-variant font-body">Managing 14 active content threads across 4 platforms</p>
+</div>
+<div class="flex bg-surface-container-low p-1 rounded-lg">
+<button class="px-6 py-2 rounded font-label text-xs font-bold uppercase tracking-wider bg-surface-container-highest text-on-surface shadow-sm">Weekly</button>
+<button class="px-6 py-2 rounded font-label text-xs font-bold uppercase tracking-wider text-on-surface-variant hover:text-on-surface">Monthly</button>
+<button class="px-6 py-2 rounded font-label text-xs font-bold uppercase tracking-wider text-on-surface-variant hover:text-on-surface">Timeline</button>
+</div>
+</div>
+<!-- Calendar Grid -->
+<div class="grid grid-cols-7 gap-4">
+<!-- Day Column Headers -->
+<div class="flex flex-col gap-1 pb-4">
+<span class="text-on-tertiary-container font-label text-[10px] font-bold uppercase tracking-[0.2em]">Monday</span>
+<span class="text-on-surface font-headline text-2xl font-bold">15</span>
+</div>
+<div class="flex flex-col gap-1 pb-4">
+<span class="text-on-surface-variant font-label text-[10px] font-bold uppercase tracking-[0.2em]">Tuesday</span>
+<span class="text-on-surface font-headline text-2xl font-bold">16</span>
+</div>
+<div class="flex flex-col gap-1 pb-4 border-b-2 border-tertiary">
+<span class="text-tertiary font-label text-[10px] font-bold uppercase tracking-[0.2em]">Wednesday</span>
+<span class="text-on-surface font-headline text-2xl font-bold">17</span>
+</div>
+<div class="flex flex-col gap-1 pb-4">
+<span class="text-on-surface-variant font-label text-[10px] font-bold uppercase tracking-[0.2em]">Thursday</span>
+<span class="text-on-surface font-headline text-2xl font-bold">18</span>
+</div>
+<div class="flex flex-col gap-1 pb-4">
+<span class="text-on-surface-variant font-label text-[10px] font-bold uppercase tracking-[0.2em]">Friday</span>
+<span class="text-on-surface font-headline text-2xl font-bold">19</span>
+</div>
+<div class="flex flex-col gap-1 pb-4">
+<span class="text-on-surface-variant font-label text-[10px] font-bold uppercase tracking-[0.2em]">Saturday</span>
+<span class="text-on-surface font-headline text-2xl font-bold opacity-40">20</span>
+</div>
+<div class="flex flex-col gap-1 pb-4">
+<span class="text-on-surface-variant font-label text-[10px] font-bold uppercase tracking-[0.2em]">Sunday</span>
+<span class="text-on-surface font-headline text-2xl font-bold opacity-40">21</span>
+</div>
+<!-- Day 1 Content -->
+<div class="space-y-4">
+<div class="bg-surface-container-low hover:bg-surface-container-high transition-colors p-4 rounded-xl flex flex-col gap-3 group">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="auto_awesome">auto_awesome</span>
+<span class="text-[10px] font-label font-bold text-on-surface-variant bg-surface-container-highest px-2 py-0.5 rounded">09:00</span>
+</div>
+<h4 class="text-on-surface font-headline text-sm font-bold leading-tight">Brand Launch Visuals</h4>
+<div class="flex items-center gap-2 mt-2">
+<div class="size-5 rounded-full bg-gradient-to-tr from-purple-500 to-pink-500"></div>
+<span class="text-[10px] text-on-surface-variant font-label uppercase">Instagram</span>
+</div>
+</div>
+</div>
+<!-- Day 2 Content -->
+<div class="space-y-4">
+<div class="bg-surface-container-low hover:bg-surface-container-high transition-colors p-4 rounded-xl flex flex-col gap-3 group">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="terminal">terminal</span>
+<span class="text-[10px] font-label font-bold text-on-surface-variant bg-surface-container-highest px-2 py-0.5 rounded">11:30</span>
+</div>
+<h4 class="text-on-surface font-headline text-sm font-bold leading-tight">V2.4 Tech Update</h4>
+<div class="flex items-center gap-2 mt-2">
+<div class="size-5 rounded-full bg-white flex items-center justify-center">
+<span class="text-[8px] font-bold text-black">X</span>
+</div>
+<span class="text-[10px] text-on-surface-variant font-label uppercase">X Platform</span>
+</div>
+</div>
+</div>
+<!-- Day 3 Content (Today) -->
+<div class="space-y-4 bg-surface-container-lowest/30 p-2 -m-2 rounded-2xl">
+<div class="bg-surface-container hover:bg-surface-container-high transition-colors p-4 rounded-xl flex flex-col gap-3 border border-tertiary/20">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-tertiary text-xl" data-icon="videocam" style="font-variation-settings: 'FILL' 1;">videocam</span>
+<span class="text-[10px] font-label font-bold text-tertiary bg-tertiary-container px-2 py-0.5 rounded">NOW</span>
+</div>
+<h4 class="text-on-surface font-headline text-sm font-bold leading-tight">Product Reveal Reel</h4>
+<div class="flex items-center gap-2 mt-2">
+<div class="size-5 rounded-full bg-gradient-to-tr from-purple-500 to-pink-500"></div>
+<span class="text-[10px] text-on-surface-variant font-label uppercase">Instagram</span>
+</div>
+</div>
+<div class="bg-surface-container-low hover:bg-surface-container-high transition-colors p-4 rounded-xl flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="analytics">analytics</span>
+<span class="text-[10px] font-label font-bold text-on-surface-variant bg-surface-container-highest px-2 py-0.5 rounded">17:00</span>
+</div>
+<h4 class="text-on-surface font-headline text-sm font-bold leading-tight">Quarterly Recap Thread</h4>
+<div class="flex items-center gap-2 mt-2">
+<div class="size-5 rounded-full bg-white flex items-center justify-center">
+<span class="text-[8px] font-bold text-black">X</span>
+</div>
+<span class="text-[10px] text-on-surface-variant font-label uppercase">X Platform</span>
+</div>
+</div>
+</div>
+<!-- Day 4 Content -->
+<div class="space-y-4">
+<div class="bg-surface-container-low hover:bg-surface-container-high transition-colors p-4 rounded-xl flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="article">article</span>
+<span class="text-[10px] font-label font-bold text-on-surface-variant bg-surface-container-highest px-2 py-0.5 rounded">10:00</span>
+</div>
+<h4 class="text-on-surface font-headline text-sm font-bold leading-tight">AI Ethical Manifesto</h4>
+<div class="flex items-center gap-2 mt-2">
+<div class="size-5 rounded-full bg-blue-600 flex items-center justify-center">
+<span class="text-[8px] font-bold text-white">in</span>
+</div>
+<span class="text-[10px] text-on-surface-variant font-label uppercase">LinkedIn</span>
+</div>
+</div>
+</div>
+<!-- Day 5 Content -->
+<div class="space-y-4">
+<div class="bg-surface-container-low hover:bg-surface-container-high transition-colors p-4 rounded-xl flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="podcasts">podcasts</span>
+<span class="text-[10px] font-label font-bold text-on-surface-variant bg-surface-container-highest px-2 py-0.5 rounded">15:30</span>
+</div>
+<h4 class="text-on-surface font-headline text-sm font-bold leading-tight">Podcast Snippets</h4>
+<div class="flex items-center gap-2 mt-2">
+<div class="size-5 rounded-full bg-red-600 flex items-center justify-center">
+<span class="material-symbols-outlined text-[12px] text-white" data-icon="play_arrow" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+<span class="text-[10px] text-on-surface-variant font-label uppercase">YouTube</span>
+</div>
+</div>
+</div>
+<!-- Weekend Slots -->
+<div class="border border-dashed border-outline-variant/30 rounded-xl flex items-center justify-center h-24">
+<button class="flex flex-col items-center gap-1 group">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors" data-icon="add">add</span>
+<span class="text-[10px] font-label font-bold text-outline uppercase tracking-wider group-hover:text-on-surface">Plan Post</span>
+</button>
+</div>
+<div class="border border-dashed border-outline-variant/30 rounded-xl flex items-center justify-center h-24">
+<button class="flex flex-col items-center gap-1 group">
+<span class="material-symbols-outlined text-outline group-hover:text-primary transition-colors" data-icon="add">add</span>
+<span class="text-[10px] font-label font-bold text-outline uppercase tracking-wider group-hover:text-on-surface">Plan Post</span>
+</button>
+</div>
+</div>
+<!-- Pipeline Status Bar -->
+<div class="mt-20 bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/10">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-headline font-bold text-on-surface">Pipeline Health</h3>
+<div class="flex gap-4">
+<div class="flex items-center gap-2">
+<div class="size-2 rounded-full bg-tertiary"></div>
+<span class="text-[10px] font-label text-on-surface-variant uppercase">Scheduled</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="size-2 rounded-full bg-primary"></div>
+<span class="text-[10px] font-label text-on-surface-variant uppercase">Drafts</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="size-2 rounded-full bg-error"></div>
+<span class="text-[10px] font-label text-on-surface-variant uppercase">Action Required</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-2 h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-tertiary" style="width: 65%;"></div>
+<div class="h-full bg-primary" style="width: 20%;"></div>
+<div class="h-full bg-error" style="width: 5%;"></div>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>

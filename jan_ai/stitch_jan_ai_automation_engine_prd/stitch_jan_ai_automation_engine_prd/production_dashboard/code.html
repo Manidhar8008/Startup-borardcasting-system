@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>JAN AI - Automation Engine Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-dim": "#11131c",
+                        "inverse-primary": "#545e76",
+                        "surface": "#11131c",
+                        "error": "#ffb4ab",
+                        "primary-fixed-dim": "#bbc6e2",
+                        "secondary-container": "#2f4865",
+                        "outline-variant": "#44474c",
+                        "on-secondary-fixed-variant": "#2f4865",
+                        "outline": "#8e9196",
+                        "on-tertiary-fixed-variant": "#004e60",
+                        "on-primary": "#263046",
+                        "secondary-fixed-dim": "#afc9ea",
+                        "error-container": "#93000a",
+                        "on-primary-container": "#78839c",
+                        "on-secondary": "#17324d",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-container": "#9eb7d8",
+                        "background": "#11131c",
+                        "tertiary": "#4cd6ff",
+                        "on-tertiary-fixed": "#001f28",
+                        "on-surface": "#e1e1ef",
+                        "surface-container-high": "#282933",
+                        "surface-container-lowest": "#0c0e17",
+                        "surface-container-low": "#191b24",
+                        "on-surface-variant": "#c4c6cc",
+                        "on-primary-fixed-variant": "#3c475d",
+                        "primary-container": "#0f1a2e",
+                        "tertiary-fixed-dim": "#4cd6ff",
+                        "secondary": "#afc9ea",
+                        "primary-fixed": "#d7e2ff",
+                        "inverse-on-surface": "#2e303a",
+                        "tertiary-container": "#001d26",
+                        "surface-variant": "#32343e",
+                        "surface-tint": "#bbc6e2",
+                        "inverse-surface": "#e1e1ef",
+                        "primary": "#bbc6e2",
+                        "surface-container": "#1d1f29",
+                        "on-tertiary-container": "#008eae",
+                        "on-error": "#690005",
+                        "tertiary-fixed": "#b7eaff",
+                        "surface-container-highest": "#32343e",
+                        "secondary-fixed": "#d1e4ff",
+                        "on-background": "#e1e1ef",
+                        "surface-bright": "#373943",
+                        "on-primary-fixed": "#101b30",
+                        "on-tertiary": "#003543",
+                        "on-secondary-fixed": "#001d36"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #11131c;
+            color: #e1e1ef;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="font-body antialiased selection:bg-tertiary/30 selection:text-tertiary">
+<!-- Sidebar Navigation -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-[#11131c] dark:bg-[#11131c] z-50 border-r border-outline-variant/10">
+<div class="flex flex-col h-full p-6 space-y-8 font-['Manrope'] antialiased tracking-tight">
+<!-- Brand -->
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-gradient-to-br from-tertiary to-on-tertiary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-tertiary text-xl" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+<div>
+<h1 class="text-xl font-bold tracking-tighter text-[#bbc6e2]">JAN AI</h1>
+<p class="text-[10px] uppercase tracking-[0.2em] text-[#e1e1ef]/40">Automation Engine</p>
+</div>
+</div>
+<!-- Nav Items -->
+<nav class="flex-1 space-y-2">
+<a class="text-[#4cd6ff] font-semibold flex items-center gap-3 px-4 py-3 rounded-lg bg-[#1d1f29] transition-all duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="text-sm">Dashboard</span>
+</a>
+<a class="text-[#e1e1ef]/60 flex items-center gap-3 px-4 py-3 rounded-lg hover:text-[#e1e1ef] hover:bg-[#282933] transition-all duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="text-sm">Tasks</span>
+</a>
+<a class="text-[#e1e1ef]/60 flex items-center gap-3 px-4 py-3 rounded-lg hover:text-[#e1e1ef] hover:bg-[#282933] transition-all duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-sm">Observability</span>
+</a>
+<a class="text-[#e1e1ef]/60 flex items-center gap-3 px-4 py-3 rounded-lg hover:text-[#e1e1ef] hover:bg-[#282933] transition-all duration-200 active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm">Settings</span>
+</a>
+</nav>
+<!-- Profile & CTA -->
+<div class="space-y-4 pt-4">
+<button class="w-full py-3 px-4 rounded-xl bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold text-sm transition-all duration-200 hover:opacity-90 active:scale-[0.98]">
+                    Run Pipeline
+                </button>
+<div class="flex items-center gap-3 px-2 border-t border-outline-variant/10 pt-4">
+<img alt="User Profile Avatar" class="w-10 h-10 rounded-full bg-surface-container-high" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDz6ZlFb81-IY2tEv9Q5CUaVz7-NRIqx-ApdAZn2vBPC79E_VO9NRRivV3eYyek7SeXryhVCaRaNP51ktj__RAUCo3F5_2-vwBiVHzmqk0ZHeV1oSwB1duyIfqFJF3re-1JY8zoWQ3kKeI2kHI5J60cK7e1YNq7vqCsPh362fnPa73VPbXpOpH0nj2HLi56QaTynUjRFcUOb4RTkMUKzUe31bmcKj93pt3SFfPEmGuzWn5k_k7UBxE7rgv5r0KxGZU8RhXros2fRTSa"/>
+<div class="overflow-hidden">
+<p class="text-sm font-semibold truncate">Alex Rivera</p>
+<p class="text-[10px] text-[#e1e1ef]/40 truncate">System Admin</p>
+</div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 min-h-screen">
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] z-40 bg-[#11131c]/80 backdrop-blur-md dark:bg-[#11131c]/80 border-b border-outline-variant/10">
+<div class="flex justify-between items-center h-20 px-12 font-['Inter'] text-sm">
+<div class="flex items-center gap-4 flex-1 max-w-xl">
+<div class="relative w-full group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline/50 group-focus-within:text-tertiary transition-colors">search</span>
+<input class="w-full bg-surface-container-lowest border-none rounded-xl py-3 pl-12 pr-4 text-on-surface placeholder:text-outline/40 focus:ring-2 focus:ring-[#4cd6ff]/30 transition-all outline-none" placeholder="Search logs, tasks, or system metrics..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6 ml-8">
+<div class="flex items-center gap-2 px-3 py-1.5 bg-tertiary/10 rounded-full border border-tertiary/20">
+<div class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></div>
+<span class="text-[10px] font-bold text-tertiary uppercase tracking-wider">Live Monitoring</span>
+</div>
+<button class="text-[#e1e1ef] hover:text-[#4cd6ff] transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full border-2 border-surface"></span>
+</button>
+<div class="h-8 w-[1px] bg-outline-variant/30"></div>
+<img alt="User Profile" class="w-8 h-8 rounded-full border border-outline-variant/30" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjYIaWiMvea-hbPsyqJPSYxV9xZUwirLWAuT-vabmsJz9lXXVPF-kxEPlI3whUvF5i17tp9kYWB3zljpci13slPbdQJs_hawY57QVYlqtN6jG_sYZ9JX0h7BL6B2GIOhxCY7dk9CDQS4HNC78Epu40MzQtcNJRGgZla0A9qdtUdXfFonzFDoIEhZbewJ5A0nb3iKLUGmBFpxKfnC-Tvbsdk2ADQ2HN2CEEIQMU1vqxQ10flf80rypXa9jMwY9EHLFJEh65V7MRo11I"/>
+</div>
+</div>
+</header>
+<!-- Scrollable Canvas -->
+<div class="pt-28 px-12 pb-12 space-y-8">
+<!-- Hero / System Health Summary -->
+<section class="flex flex-col lg:flex-row justify-between items-start gap-8">
+<div class="space-y-2">
+<h2 class="font-headline text-4xl font-extrabold tracking-tight text-on-surface">System Status: <span class="text-tertiary">Stable</span></h2>
+<p class="font-body text-on-surface-variant max-w-lg">Production environment is healthy. All core services are operating within normal latency thresholds.</p>
+</div>
+<!-- System Health Section -->
+<div class="grid grid-cols-2 gap-4 w-full lg:w-auto">
+<div class="bg-surface-container border border-outline-variant/10 p-4 rounded-xl flex items-center gap-4 min-w-[200px]">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-xl">database</span>
+</div>
+<div>
+<p class="text-[10px] text-outline uppercase font-bold tracking-widest">PostgreSQL</p>
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+<span class="text-sm font-semibold">Connected</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container border border-outline-variant/10 p-4 rounded-xl flex items-center gap-4 min-w-[200px]">
+<div class="w-10 h-10 rounded-lg bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-xl">schedule</span>
+</div>
+<div>
+<p class="text-[10px] text-outline uppercase font-bold tracking-widest">Scheduler</p>
+<div class="flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+<span class="text-sm font-semibold">Active</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Dashboard Grid -->
+<div class="grid grid-cols-12 gap-8">
+<!-- Left Column: Tasks & Observability -->
+<div class="col-span-12 lg:col-span-8 space-y-8">
+<!-- Today's Tasks with Production Statuses -->
+<div class="bg-surface-container rounded-xl p-8 border border-outline-variant/5">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-headline text-xl font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary">task_alt</span>
+                                Today's Task Cycle
+                            </h3>
+<div class="flex gap-2">
+<span class="text-[10px] px-2 py-0.5 rounded bg-surface-container-high text-outline font-bold">Total: 24</span>
+</div>
+</div>
+<div class="space-y-3">
+<!-- Success State -->
+<div class="group flex items-center justify-between p-4 bg-surface-container-low rounded-lg border-l-4 border-tertiary">
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 rounded-full bg-tertiary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div>
+<p class="font-body text-sm font-medium">Morning Cloud Sync</p>
+<p class="font-label text-[10px] text-outline uppercase tracking-wider">Infrastructure • 06:00 AM</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-label text-[10px] font-bold px-2 py-1 rounded bg-tertiary/10 text-tertiary border border-tertiary/20 uppercase tracking-widest">Success</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface">chevron_right</span>
+</div>
+</div>
+<!-- Pending/In Progress State -->
+<div class="group flex items-center justify-between p-4 bg-surface-container-low rounded-lg border-l-4 border-primary">
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center animate-spin-slow">
+<span class="material-symbols-outlined text-primary text-lg">sync</span>
+</div>
+<div>
+<p class="font-body text-sm font-medium">Editorial Pipeline Run</p>
+<p class="font-label text-[10px] text-outline uppercase tracking-wider">Content • 10:00 AM</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-label text-[10px] font-bold px-2 py-1 rounded bg-primary/10 text-primary border border-primary/20 uppercase tracking-widest">Pending</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface">chevron_right</span>
+</div>
+</div>
+<!-- Failed State -->
+<div class="group flex items-center justify-between p-4 bg-surface-container-low rounded-lg border-l-4 border-error">
+<div class="flex items-center gap-4">
+<div class="w-8 h-8 rounded-full bg-error/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-error text-lg">error</span>
+</div>
+<div>
+<p class="font-body text-sm font-medium">Daily Analytics Export</p>
+<p class="font-label text-[10px] text-outline uppercase tracking-wider">Data • 08:30 AM</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-[10px] font-bold text-error border border-error/30 px-2 py-1 rounded hover:bg-error/10 transition-colors uppercase tracking-widest">Failed</button>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Recent Logs (Observability Section) -->
+<div class="bg-surface-container rounded-xl overflow-hidden border border-outline-variant/5">
+<div class="p-8 border-b border-outline-variant/10 flex justify-between items-center">
+<h3 class="font-headline text-xl font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">terminal</span>
+                                Recent Runtime Logs
+                            </h3>
+<button class="text-xs text-primary font-bold uppercase tracking-widest hover:underline">Full Log Stream</button>
+</div>
+<div class="bg-black/20 p-4 font-mono text-[11px] leading-relaxed max-h-64 overflow-y-auto scrollbar-hide">
+<div class="flex gap-4 border-b border-white/5 py-2">
+<span class="text-outline">12:04:31</span>
+<span class="text-tertiary">[INFO]</span>
+<span class="text-on-surface/80">Worker node 04 assigned to task 'EditorialPipeline'</span>
+</div>
+<div class="flex gap-4 border-b border-white/5 py-2">
+<span class="text-outline">12:04:15</span>
+<span class="text-primary">[DB]</span>
+<span class="text-on-surface/80">Connection pool optimized: 4 active connections released</span>
+</div>
+<div class="flex gap-4 border-b border-white/5 py-2">
+<span class="text-outline">11:58:22</span>
+<span class="text-error">[WARN]</span>
+<span class="text-error/80">API Latency spike detected in 'ExportService' (450ms)</span>
+</div>
+<div class="flex gap-4 border-b border-white/5 py-2">
+<span class="text-outline">11:55:00</span>
+<span class="text-tertiary">[INFO]</span>
+<span class="text-on-surface/80">Successfully synchronized PostgreSQL schema v2.4.1</span>
+</div>
+<div class="flex gap-4 py-2">
+<span class="text-outline">11:52:10</span>
+<span class="text-tertiary">[INFO]</span>
+<span class="text-on-surface/80">Scheduler heartbeat: OK</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Performance & Insights -->
+<div class="col-span-12 lg:col-span-4 space-y-8">
+<!-- Stability Metrics Card -->
+<div class="bg-surface-container rounded-xl p-8 space-y-8 flex flex-col items-center border border-outline-variant/5">
+<h3 class="font-headline text-lg font-bold self-start">Pipeline Stability</h3>
+<div class="relative w-48 h-48 flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container-high" cx="96" cy="96" fill="transparent" r="88" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-tertiary" cx="96" cy="96" fill="transparent" r="88" stroke="currentColor" stroke-dasharray="552" stroke-dashoffset="40" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-headline text-4xl font-extrabold text-on-surface">92%</span>
+<span class="font-label text-[10px] text-outline uppercase tracking-widest">Up-Time Score</span>
+</div>
+</div>
+<div class="w-full space-y-4">
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-low p-3 rounded-lg border border-outline-variant/10">
+<p class="text-[10px] text-outline uppercase font-bold mb-1">Success</p>
+<p class="text-lg font-bold text-tertiary">1,242</p>
+</div>
+<div class="bg-surface-container-low p-3 rounded-lg border border-outline-variant/10">
+<p class="text-[10px] text-outline uppercase font-bold mb-1">Failed</p>
+<p class="text-lg font-bold text-error">12</p>
+</div>
+</div>
+<div class="pt-2">
+<div class="flex justify-between mb-1">
+<span class="text-[10px] text-outline uppercase">Resource Utilization</span>
+<span class="text-[10px] text-on-surface">64%</span>
+</div>
+<div class="h-1 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 64%;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- AI Observability Insight -->
+<div class="bg-surface-container-high relative overflow-hidden rounded-xl p-8 group transition-all duration-300 border border-tertiary/10">
+<div class="absolute -right-12 -top-12 w-32 h-32 bg-tertiary/10 blur-3xl rounded-full"></div>
+<div class="relative z-10 space-y-4">
+<div class="flex items-center gap-2 text-tertiary">
+<span class="material-symbols-outlined text-lg">auto_awesome</span>
+<span class="font-label text-xs uppercase tracking-widest font-bold">Predictive Alert</span>
+</div>
+<p class="font-body text-sm leading-relaxed text-on-surface">
+                                "Anomalous latency detected in <span class="text-tertiary font-bold">PostgreSQL</span> query response times. System suggests index optimization on 'task_logs' table to maintain stability."
+                            </p>
+<div class="pt-4 flex gap-3">
+<button class="flex-1 py-2 px-4 bg-tertiary/20 text-tertiary text-xs font-bold rounded-lg hover:bg-tertiary/30 transition-colors">Optimize Now</button>
+<button class="py-2 px-3 bg-surface-container-low text-on-surface-variant text-xs rounded-lg hover:bg-surface-container-lowest transition-colors">Ignore</button>
+</div>
+</div>
+</div>
+<!-- Connectivity Grid -->
+<div class="bg-surface-container rounded-xl p-8 space-y-4 border border-outline-variant/5">
+<h4 class="font-label text-xs text-outline uppercase tracking-widest">Cluster Health</h4>
+<div class="grid grid-cols-4 gap-2">
+<div class="aspect-square bg-tertiary rounded flex items-center justify-center" title="Node 01: Healthy"></div>
+<div class="aspect-square bg-tertiary rounded flex items-center justify-center" title="Node 02: Healthy"></div>
+<div class="aspect-square bg-tertiary rounded flex items-center justify-center" title="Node 03: Healthy"></div>
+<div class="aspect-square bg-primary rounded flex items-center justify-center animate-pulse" title="Node 04: Active"></div>
+<div class="aspect-square bg-tertiary rounded flex items-center justify-center" title="Node 05: Healthy"></div>
+<div class="aspect-square bg-error rounded flex items-center justify-center" title="Node 06: Error Detected"></div>
+<div class="aspect-square bg-outline-variant/20 rounded flex items-center justify-center" title="Node 07: Offline"></div>
+<div class="aspect-square bg-outline-variant/20 rounded flex items-center justify-center" title="Node 08: Offline"></div>
+</div>
+<p class="text-[10px] text-outline-variant text-center pt-2 italic">6 nodes online • 1 warning</p>
+</div>
+</div>
+</div>
+<!-- Footer Observability Widgets -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-4">
+<div class="bg-surface-container-low p-6 rounded-xl border-l-2 border-primary/40">
+<span class="material-symbols-outlined text-primary mb-4">analytics</span>
+<h5 class="font-headline font-bold text-lg mb-2 text-on-surface">Throughput</h5>
+<p class="text-xs text-on-surface-variant leading-relaxed">Processing 14.2k requests/min. Average response time stabilized at 122ms across all global endpoints.</p>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl border-l-2 border-tertiary/40">
+<span class="material-symbols-outlined text-tertiary mb-4">memory</span>
+<h5 class="font-headline font-bold text-lg mb-2 text-on-surface">Resource Leak Check</h5>
+<p class="text-xs text-on-surface-variant leading-relaxed">No memory leaks detected in last 24h. GC sweep performed at 04:00 UTC with 0.02s pause time.</p>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl border-l-2 border-on-secondary/40">
+<span class="material-symbols-outlined text-on-secondary mb-4">history</span>
+<h5 class="font-headline font-bold text-lg mb-2 text-on-surface">Stability Log</h5>
+<p class="text-xs text-on-surface-variant leading-relaxed">System uptime: 14 days, 6 hours. Last failover event: 3 months ago. Kernel version: 5.15.0-prod-stable.</p>
+</div>
+</section>
+</div>
+</main>
+<style>
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+            animation: spin-slow 8s linear infinite;
+        }
+    </style>
+</body></html>

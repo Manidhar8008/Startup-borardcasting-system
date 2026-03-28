@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>JAN AI | Account Manager</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@700;800&amp;family=Space+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-tertiary-fixed": "#001f28",
+                        "surface-container": "#1d1f29",
+                        "on-secondary-fixed-variant": "#2f4865",
+                        "tertiary": "#4cd6ff",
+                        "on-tertiary-container": "#008eae",
+                        "on-tertiary": "#003543",
+                        "on-primary": "#263046",
+                        "secondary-fixed-dim": "#afc9ea",
+                        "surface-container-lowest": "#0c0e17",
+                        "secondary-fixed": "#d1e4ff",
+                        "outline-variant": "#44474c",
+                        "surface-container-high": "#282933",
+                        "inverse-surface": "#e1e1ef",
+                        "primary-fixed": "#d7e2ff",
+                        "inverse-primary": "#545e76",
+                        "surface": "#11131c",
+                        "primary-container": "#0f1a2e",
+                        "inverse-on-surface": "#2e303a",
+                        "on-surface-variant": "#c4c6cc",
+                        "tertiary-container": "#001d26",
+                        "secondary-container": "#2f4865",
+                        "on-secondary-container": "#9eb7d8",
+                        "tertiary-fixed": "#b7eaff",
+                        "surface-container-highest": "#32343e",
+                        "on-error": "#690005",
+                        "primary": "#bbc6e2",
+                        "surface-bright": "#373943",
+                        "background": "#11131c",
+                        "on-secondary": "#17324d",
+                        "surface-dim": "#11131c",
+                        "tertiary-fixed-dim": "#4cd6ff",
+                        "on-surface": "#e1e1ef",
+                        "surface-variant": "#32343e",
+                        "error-container": "#93000a",
+                        "outline": "#8e9196",
+                        "on-primary-fixed": "#101b30",
+                        "surface-tint": "#bbc6e2",
+                        "on-primary-container": "#78839c",
+                        "on-primary-fixed-variant": "#3c475d",
+                        "on-background": "#e1e1ef",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-low": "#191b24",
+                        "on-tertiary-fixed-variant": "#004e60",
+                        "error": "#ffb4ab",
+                        "primary-fixed-dim": "#bbc6e2",
+                        "secondary": "#afc9ea",
+                        "on-secondary-fixed": "#001d36"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Space Grotesk"]
+                    },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #11131c;
+            color: #e1e1ef;
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-tertiary selection:text-on-tertiary">
+<div class="relative flex min-h-screen w-full flex-col bg-surface overflow-x-hidden">
+<div class="layout-container flex h-full grow flex-col">
+<header class="flex items-center justify-between whitespace-nowrap border-b border-outline-variant px-10 py-3 bg-surface-container-low">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4 text-on-surface">
+<div class="size-6 text-tertiary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M39.475 21.6262C40.358 21.4363 40.6863 21.5589 40.7581 21.5934C40.7876 21.655 40.8547 21.857 40.8082 22.3336C40.7408 23.0255 40.4502 24.0046 39.8572 25.2301C38.6799 27.6631 36.5085 30.6631 33.5858 33.5858C30.6631 36.5085 27.6632 38.6799 25.2301 39.8572C24.0046 40.4502 23.0255 40.7407 22.3336 40.8082C21.8571 40.8547 21.6551 40.7875 21.5934 40.7581C21.5589 40.6863 21.4363 40.358 21.6262 39.475C21.8562 38.4054 22.4689 36.9657 23.5038 35.2817C24.7575 33.2417 26.5497 30.9744 28.7621 28.762C30.9744 26.5497 33.2417 24.7574 35.2817 23.5037C36.9657 22.4689 38.4054 21.8562 39.475 21.6262ZM4.41189 29.2403L18.7597 43.5881C19.8813 44.7097 21.4027 44.9179 22.7217 44.7893C24.0585 44.659 25.5148 44.1631 26.9723 43.4579C29.9052 42.0387 33.2618 39.5667 36.4142 36.4142C39.5667 33.2618 42.0387 29.9052 43.4579 26.9723C44.1631 25.5148 44.659 24.0585 44.7893 22.7217C44.9179 21.4027 44.7097 19.8813 43.5881 18.7597L29.2403 4.41187C27.8527 3.02428 25.8765 3.02573 24.2861 3.36776C22.6081 3.72863 20.7334 4.58419 18.8396 5.74801C16.4978 7.18716 13.9881 9.18353 11.5858 11.5858C9.18354 13.988 7.18717 16.4978 5.74802 18.8396C4.58421 20.7334 3.72865 22.6081 3.36778 24.2861C3.02574 25.8765 3.02429 27.8527 4.41189 29.2403Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-on-surface text-lg font-headline font-bold leading-tight tracking-[-0.015em]">JAN AI</h2>
+</div>
+<label class="flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded h-full">
+<div class="text-on-surface-variant flex border-none bg-surface-container-highest items-center justify-center pl-4 rounded-l border-r-0">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded text-on-surface focus:outline-0 focus:ring-0 border-none bg-surface-container-highest focus:border-none h-full placeholder:text-on-surface-variant px-4 rounded-l-none border-l-0 pl-2 text-base font-normal leading-normal" placeholder="Search brands..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<div class="flex gap-2">
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded h-10 bg-surface-container-highest text-on-surface gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded h-10 bg-surface-container-highest text-on-surface gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border border-outline-variant" data-alt="Abstract portrait silhouette with neon highlights on a dark background" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBZpaHrjXme6mrQemTPK-yU5905jAAkXTVdlE7LoT5OixV0L_SHb7mFbFvMlLMtwDFunwnYdC8zD8OdE7oIV9I8s7nRYy1HT0-P_5BYpmmRpGTMvRjxFrj6A6A5U-yFrKYCmM_hwI70zeN2-yhcx0NAtuHtQRw7RzqcrNGJri6qFBhLhfsnUL-dC2kHXjEEAfEe6Rn1Q4neKGDWpErynBGVO8NfWDGm7Ocg4S9gT_R6h-fdRC437E5ewcgzlkcCtsR-QrZFG33REDwu");'></div>
+</div>
+</header>
+<main class="flex flex-1 overflow-hidden">
+<aside class="w-64 flex flex-col border-r border-outline-variant bg-surface-container-low p-4 gap-6">
+<div class="flex flex-col gap-1">
+<h3 class="text-on-surface-variant text-xs font-label uppercase tracking-widest px-3 mb-2">Navigation</h3>
+<nav class="flex flex-col gap-1">
+<div class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer rounded">
+<span class="material-symbols-outlined">dashboard</span>
+<p class="text-sm font-medium">Dashboard</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-tertiary bg-surface-container-highest rounded border-l-2 border-tertiary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+<p class="text-sm font-medium">Account Manager</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer rounded">
+<span class="material-symbols-outlined">account_tree</span>
+<p class="text-sm font-medium">Content Pipeline</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-colors cursor-pointer rounded">
+<span class="material-symbols-outlined">analytics</span>
+<p class="text-sm font-medium">Analytics</p>
+</div>
+</nav>
+</div>
+<div class="mt-auto p-4 rounded-xl bg-gradient-to-br from-primary-container to-surface-container border border-outline-variant/30">
+<p class="text-xs font-label text-tertiary mb-1">PRO PLAN</p>
+<p class="text-sm text-on-surface font-medium mb-3">8 of 10 slots used</p>
+<div class="w-full bg-surface-container-highest h-1 rounded-full overflow-hidden">
+<div class="bg-tertiary h-full w-[80%]"></div>
+</div>
+</div>
+</aside>
+<section class="flex-1 flex flex-col overflow-y-auto bg-surface">
+<div class="flex flex-wrap justify-between items-end gap-6 p-10">
+<div class="flex flex-col gap-2">
+<h1 class="text-on-surface text-5xl font-headline font-extrabold leading-tight tracking-tight">Account Manager</h1>
+<p class="text-on-surface-variant text-lg font-body max-w-xl">Centralized orchestration for your brand identity pipeline and platform distribution nodes.</p>
+</div>
+<button class="flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-tertiary to-on-tertiary-container text-on-tertiary rounded-full font-bold text-sm tracking-wide shadow-lg shadow-tertiary/10 hover:brightness-110 transition-all">
+<span class="material-symbols-outlined">add</span>
+<span>Add New Brand</span>
+</button>
+</div>
+<div class="px-10 pb-6">
+<div class="flex border-b border-outline-variant gap-10">
+<a class="flex items-center gap-2 border-b-2 border-tertiary text-on-surface pb-4 pt-2" href="#">
+<p class="text-sm font-bold uppercase font-label">All Brands</p>
+<span class="bg-surface-container-highest px-2 py-0.5 rounded text-[10px]">12</span>
+</a>
+<a class="flex items-center gap-2 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface pb-4 pt-2 transition-colors" href="#">
+<p class="text-sm font-bold uppercase font-label">Active</p>
+</a>
+<a class="flex items-center gap-2 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface pb-4 pt-2 transition-colors" href="#">
+<p class="text-sm font-bold uppercase font-label">Archived</p>
+</a>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 p-10 pt-4">
+<div class="group flex flex-col bg-surface-container-low rounded-xl overflow-hidden hover:bg-surface-container transition-all cursor-pointer">
+<div class="h-40 w-full relative overflow-hidden">
+<div class="absolute inset-0 bg-center bg-cover transition-transform duration-500 group-hover:scale-110" data-alt="High-tech futuristic circuit patterns with glowing blue lines on deep black background" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuApXU3_wYHQew34QD-bhQj0u6Pj4MYHT7_Lvcn6FrEUKj2zpsXXnKga5PL4KwdhN-pAc4m3luVjR3NE8Tp_DWIqxWBpMjM0XcVloinumYlow4TwArdLnGfxvp-DGhY9diwweuUcBwLr8SAS2K2m3Ef8085DeuegLRU1WToy5Nd6P398XI2fmrasWtYmZuuN0OeJhuh8GG4AhV6mMocCxDe_LTbk2Eef-OrswYC9GhTqDQaYldWzQMS4pQrY9jwS_1Belh2P2J8JnPGj");'></div>
+<div class="absolute top-4 right-4 flex gap-2">
+<span class="bg-surface/80 backdrop-blur-md px-2 py-1 rounded text-[10px] font-label text-tertiary border border-tertiary/20 uppercase">Analytical</span>
+</div>
+</div>
+<div class="p-6 flex flex-col gap-4">
+<div>
+<h3 class="text-xl font-headline font-bold text-on-surface">Quantum Tech</h3>
+<p class="text-sm text-on-surface-variant font-body">AI SaaS &amp; Cloud Infra</p>
+</div>
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<p class="text-xs font-label text-on-surface-variant uppercase">Connections</p>
+<span class="text-[10px] text-tertiary font-label">ACTIVE</span>
+</div>
+<div class="flex gap-2">
+<div class="size-8 rounded bg-surface-container-highest flex items-center justify-center text-tertiary" title="LinkedIn">
+<span class="material-symbols-outlined text-lg">share</span>
+</div>
+<div class="size-8 rounded bg-surface-container-highest flex items-center justify-center text-tertiary" title="X (Twitter)">
+<span class="material-symbols-outlined text-lg">close</span>
+</div>
+<div class="size-8 rounded bg-surface-container-highest flex items-center justify-center text-outline" title="Instagram">
+<span class="material-symbols-outlined text-lg">photo_camera</span>
+</div>
+<div class="size-8 rounded bg-surface-container-highest flex items-center justify-center text-outline" title="Reddit">
+<span class="material-symbols-outlined text-lg">forum</span>
+</div>
+</div>
+</div>
+<div class="pt-4 border-t border-outline-variant flex justify-between items-center">
+<button class="text-xs font-label text-primary hover:text-white transition-colors">Edit Brand</button>
+<span class="material-symbols-outlined text-on-surface-variant text-sm">more_horiz</span>
+</div>
+</div>
+</div>
+<div class="group flex flex-col bg-surface-container-low rounded-xl overflow-hidden hover:bg-surface-container transition-all cursor-pointer">
+<div class="h-40 w-full relative overflow-hidden">
+<div class="absolute inset-0 bg-center bg-cover transition-transform duration-500 group-hover:scale-110" data-alt="Vibrant organic abstract shapes with flowing green and orange gradients representing sustainable energy" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBS2Hh-Td6QeJyQGZmUifjCZZ_gpOvHYkxgrPPUDaBFi6E59cN7NEg-aRS25hVrlX6vHuzkrk6szrxL5DMAO4BercYi9Nrte67Q2R_V0zdIMvGqLFsO51VTTuA9guxSOvQZsguaF-C8D8HwpPRDIcsMzxLjuwGxZPuwOa6bjKxJYUhk0huoYVyke8Ro_2NJ-0wRK19c9-6asNur58KZzyc4SWesf2HpguUs9qNzL0szKV5qoebVUhghjmT7TyEbXPSQcq-h7_hC3XoT");'></div>
+<div class="absolute top-4 right-4 flex gap-2">
+<span class="bg-surface/80 backdrop-blur-md px-2 py-1 rounded text-[10px] font-label text-error border border-error/20 uppercase">Bold</span>
+</div>
+</div>
+<div class="p-6 flex flex-col gap-4">
+<div>
+<h3 class="text-xl font-headline font-bold text-on-surface">EcoStyle</h3>
+<p class="text-sm text-on-surface-variant font-body">Sustainable Fashion</p>
+</div>
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<p class="text-xs font-label text-on-surface-variant uppercase">Connections</p>
+<span class="text-[10px] text-tertiary font-label">ACTIVE</span>
+</div>
+<div class="flex gap-2">
+<div class="size-8 rounded bg-surface-container-highest flex items-center justify-center text-outline" title="LinkedIn">
+<span class="material-symbols-outlined text-lg">share</span>
+</div>
+<div class="size-8 rounded bg-surface-container-highest flex items-center justify-center text-outline" title="X (Twitter)">
+<span class="material-symbols-outlined text-lg">close</span>
+</div>
+<div class="size-8 rounded bg-surface-container-highest flex items-center justify-center text-tertiary" title="Instagram">
+<span class="material-symbols-outlined text-lg">photo_camera</span>
+</div>
+<div class="size-8 rounded bg-surface-container-highest flex items-center justify-center text-on-tertiary-container" title="Reddit (Pending)">
+<span class="material-symbols-outlined text-lg">pending</span>
+</div>
+</div>
+</div>
+<div class="pt-4 border-t border-outline-variant flex justify-between items-center">
+<button class="text-xs font-label text-primary hover:text-white transition-colors">Edit Brand</button>
+<span class="material-symbols-outlined text-on-surface-variant text-sm">more_horiz</span>
+</div>
+</div>
+</div>
+<div class="group flex flex-col bg-surface-container-low rounded-xl overflow-hidden hover:bg-surface-container transition-all cursor-pointer">
+<div class="h-40 w-full relative overflow-hidden">
+<div class="absolute inset-0 bg-center bg-cover transition-transform duration-500 group-hover:scale-110" data-alt="Minimalist dark grey geometry with thin silver lines suggesting sophisticated financial systems" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBlyI0W80oYrqHux8FoJ57ZjkTH5SnOn_i_dH-Q0SsTOSdAQmpsZ4TJ7jI6naZtcedm_kAKCKddDXbMynPNqD_XY0rvo_9se3aTd3nY0oic7C-VMH59Ffc0bnHxKJpZIZ9HQR2PcYHendcro7Htjg3aEPHcVSq08yht_GTCO3xOQGpv5W3wUkYvPIkwLYK5-gqTwtOMykkOwFCyhMppLlTyajljwsDB2r6h5KIWBdQ8H_wDxOWyXdULs-27j3QmS-Z4oKc_4oZlH1i7");'></div>
+<div class="absolute top-4 right-4 flex gap-2">
+<span class="bg-surface/80 backdrop-blur-md px-2 py-1 rounded text-[10px] font-label text-primary border border-primary/20 uppercase">Professional</span>
+</div>
+</div>
+<div class="p-6 flex flex-col gap-4">
+<div>
+<h3 class="text-xl font-headline font-bold text-on-surface">FinEdge</h3>
+<p class="text-sm text-on-surface-variant font-body">Fintech Solutions</p>
+</div>
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<p class="text-xs font-label text-on-surface-variant uppercase">Connections</p>
+<span class="text-[10px] text-on-tertiary-container font-label uppercase">Incomplete</span>
+</div>
+<div class="flex gap-2">
+<div class="size-8 rounded bg-surface-container-highest flex items-center justify-center text-tertiary" title="LinkedIn">
+<span class="material-symbols-outlined text-lg">share</span>
+</div>
+<div class="size-8 rounded bg-surface-container-highest flex items-center justify-center text-on-tertiary-container" title="X (Twitter)">
+<span class="material-symbols-outlined text-lg">pending</span>
+</div>
+<div class="size-8 rounded bg-surface-container-highest flex items-center justify-center text-outline" title="Instagram">
+<span class="material-symbols-outlined text-lg">photo_camera</span>
+</div>
+<div class="size-8 rounded bg-surface-container-highest flex items-center justify-center text-outline" title="Reddit">
+<span class="material-symbols-outlined text-lg">forum</span>
+</div>
+</div>
+</div>
+<div class="pt-4 border-t border-outline-variant flex justify-between items-center">
+<button class="text-xs font-label text-primary hover:text-white transition-colors">Edit Brand</button>
+<span class="material-symbols-outlined text-on-surface-variant text-sm">more_horiz</span>
+</div>
+</div>
+</div>
+<div class="group flex flex-col bg-surface-container-low rounded-xl overflow-hidden hover:bg-surface-container transition-all cursor-pointer">
+<div class="h-40 w-full relative overflow-hidden">
+<div class="absolute inset-0 bg-center bg-cover transition-transform duration-500 group-hover:scale-110" data-alt="Industrial blueprint aesthetic with white lines on dark navy grid representing aerospace engineering" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDtpIRAca3i9auklFDTBs0-v1QgCtTHuGWTG87lqLlH8wQofIhxMcoLFzbUrFqrG8hDDLluZt6bWutz_v8GgEhHXgNKoqkKYS9o5Bj57jWzsreZi6CURTEVT5bq7q35FsK0rdGPic3qjWH4lwhy61NJyeSZ_MAb5Aq-vR8VOjZpIGaEeIadKTp6-MR5Zcf4bTsWgla5AJ_MVFGZ3NvLl-_oAi4X_ZFOYxmjW1yupOJbgzysarl-j-Kwj6SNTfcbgyvvItRzlPaeZ9Jx");'></div>
+<div class="absolute top-4 right-4 flex gap-2">
+<span class="bg-surface/80 backdrop-blur-md px-2 py-1 rounded text-[10px] font-label text-secondary border border-secondary/20 uppercase">Technical</span>
+</div>
+</div>
+<div class="p-6 flex flex-col gap-4">
+<div>
+<h3 class="text-xl font-headline font-bold text-on-surface">AeroDynamics</h3>
+<p class="text-sm text-on-surface-variant font-body">Aerospace Tech</p>
+</div>
+<div class="flex flex-col gap-3">
+<div class="flex items-center justify-between">
+<p class="text-xs font-label text-on-surface-variant uppercase">Connections</p>
+<span class="text-[10px] text-tertiary font-label uppercase">Active</span>
+</div>
+<div class="flex gap-2">
+<div class="size-8 rounded bg-surface-container-highest flex items-center justify-center text-tertiary" title="LinkedIn">
+<span class="material-symbols-outlined text-lg">share</span>
+</div>
+<div class="size-8 rounded bg-surface-container-highest flex items-center justify-center text-outline" title="X (Twitter)">
+<span class="material-symbols-outlined text-lg">close</span>
+</div>
+<div class="size-8 rounded bg-surface-container-highest flex items-center justify-center text-outline" title="Instagram">
+<span class="material-symbols-outlined text-lg">photo_camera</span>
+</div>
+<div class="size-8 rounded bg-surface-container-highest flex items-center justify-center text-tertiary" title="Reddit">
+<span class="material-symbols-outlined text-lg">forum</span>
+</div>
+</div>
+</div>
+<div class="pt-4 border-t border-outline-variant flex justify-between items-center">
+<button class="text-xs font-label text-primary hover:text-white transition-colors">Edit Brand</button>
+<span class="material-symbols-outlined text-on-surface-variant text-sm">more_horiz</span>
+</div>
+</div>
+</div>
+<div class="border-2 border-dashed border-outline-variant flex flex-col items-center justify-center p-10 rounded-xl hover:border-tertiary hover:bg-surface-container-low transition-all cursor-pointer group min-h-[400px]">
+<div class="size-16 rounded-full bg-surface-container-highest flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-tertiary text-3xl">add</span>
+</div>
+<p class="text-on-surface font-headline font-bold">Initialize New Brand</p>
+<p class="text-on-surface-variant text-sm font-label mt-2">Scale your reach today.</p>
+</div>
+</div>
+</section>
+</main>
+</div>
+</div>
+</body></html>

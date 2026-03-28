@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>JAN AI - Content Strategy &amp; Performance</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@700;800&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-tertiary-fixed-variant": "#004e60",
+                        "outline-variant": "#44474c",
+                        "secondary-fixed-dim": "#afc9ea",
+                        "tertiary-fixed-dim": "#4cd6ff",
+                        "on-tertiary-fixed": "#001f28",
+                        "tertiary": "#4cd6ff",
+                        "surface-container-low": "#191b24",
+                        "surface-variant": "#32343e",
+                        "primary-container": "#0f1a2e",
+                        "on-surface-variant": "#c4c6cc",
+                        "error-container": "#93000a",
+                        "secondary-container": "#2f4865",
+                        "on-secondary-fixed-variant": "#2f4865",
+                        "surface-container-lowest": "#0c0e17",
+                        "surface-container-highest": "#32343e",
+                        "outline": "#8e9196",
+                        "surface-container": "#1d1f29",
+                        "on-primary": "#263046",
+                        "on-error-container": "#ffdad6",
+                        "background": "#11131c",
+                        "error": "#ffb4ab",
+                        "primary-fixed-dim": "#bbc6e2",
+                        "on-secondary-container": "#9eb7d8",
+                        "on-primary-container": "#78839c",
+                        "primary": "#bbc6e2",
+                        "surface-tint": "#bbc6e2",
+                        "surface-bright": "#373943",
+                        "secondary-fixed": "#d1e4ff",
+                        "surface": "#11131c",
+                        "secondary": "#afc9ea",
+                        "on-primary-fixed": "#101b30",
+                        "surface-dim": "#11131c",
+                        "on-background": "#e1e1ef",
+                        "on-surface": "#e1e1ef",
+                        "on-secondary-fixed": "#001d36",
+                        "inverse-on-surface": "#2e303a",
+                        "on-tertiary": "#003543",
+                        "surface-container-high": "#282933",
+                        "primary-fixed": "#d7e2ff",
+                        "on-tertiary-container": "#008eae",
+                        "tertiary-container": "#001d26",
+                        "on-primary-fixed-variant": "#3c475d",
+                        "on-error": "#690005",
+                        "inverse-surface": "#e1e1ef",
+                        "on-secondary": "#17324d",
+                        "tertiary-fixed": "#b7eaff",
+                        "inverse-primary": "#545e76"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Space Grotesk"]
+                    },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #11131c;
+            color: #e1e1ef;
+        }
+        .pipeline-track {
+            background: linear-gradient(to bottom, #4cd6ff 0%, rgba(76, 214, 255, 0.1) 100%);
+        }
+    </style>
+</head>
+<body class="font-body selection:bg-tertiary selection:text-on-tertiary">
+<div class="flex min-h-screen">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col p-4 gap-2 h-screen w-64 left-0 border-r-0 bg-[#11131c] fixed z-50">
+<div class="px-4 py-6 mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<div>
+<h1 class="font-headline font-bold text-[#bbc6e2]">JAN AI</h1>
+<p class="font-label text-[10px] uppercase tracking-widest text-on-tertiary-container">Intelligence Engine</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-[#bbc6e2] hover:text-white hover:bg-[#282933] transition-all rounded-lg cursor-pointer active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-body text-[0.875rem]">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-[#1d1f29] text-[#4cd6ff] rounded-lg cursor-pointer active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-body text-[0.875rem]">Content Studio</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#bbc6e2] hover:text-white hover:bg-[#282933] transition-all rounded-lg cursor-pointer active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="calendar_today">calendar_today</span>
+<span class="font-body text-[0.875rem]">Strategy</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#bbc6e2] hover:text-white hover:bg-[#282933] transition-all rounded-lg cursor-pointer active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-body text-[0.875rem]">Settings</span>
+</a>
+</nav>
+<button class="mt-4 mx-4 py-3 bg-gradient-to-r from-tertiary to-on-tertiary-container text-on-tertiary font-label text-sm font-bold rounded-xl shadow-lg active:scale-95 transition-transform">
+                New Thought
+            </button>
+<div class="mt-auto space-y-1 pt-4 border-t border-outline-variant/20">
+<a class="flex items-center gap-3 px-4 py-3 text-[#bbc6e2] hover:text-white hover:bg-[#282933] transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+<span class="font-body text-[0.875rem]">Support</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#bbc6e2] hover:text-white hover:bg-[#282933] transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="manage_accounts">manage_accounts</span>
+<span class="font-body text-[0.875rem]">Account</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center h-16 px-8 w-full bg-[#11131c] sticky top-0 z-40">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold tracking-tighter text-[#bbc6e2] font-headline md:hidden">JAN AI</span>
+<nav class="hidden lg:flex items-center gap-6">
+<a class="text-[#bbc6e2] opacity-70 hover:opacity-100 transition-opacity font-['Manrope'] text-sm tracking-tight" href="#">Dashboard</a>
+<a class="text-[#4cd6ff] font-semibold border-b-2 border-[#4cd6ff] pb-1 font-['Manrope'] text-sm tracking-tight" href="#">Content Studio</a>
+<a class="text-[#bbc6e2] opacity-70 hover:opacity-100 transition-opacity font-['Manrope'] text-sm tracking-tight" href="#">Strategy</a>
+<a class="text-[#bbc6e2] opacity-70 hover:opacity-100 transition-opacity font-['Manrope'] text-sm tracking-tight" href="#">Settings</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<input class="bg-surface-container-lowest border-none rounded-full px-4 py-1.5 text-sm w-64 focus:ring-1 focus:ring-tertiary font-body" placeholder="Search insights..." type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm" data-icon="search">search</span>
+</div>
+<button class="p-2 text-[#bbc6e2] hover:bg-[#1d1f29] rounded-md transition-colors active:scale-95">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-[#bbc6e2] hover:bg-[#1d1f29] rounded-md transition-colors active:scale-95">
+<span class="material-symbols-outlined" data-icon="bolt">bolt</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img alt="User Profile Avatar" class="w-full h-full object-cover" data-alt="close-up portrait of a professional man with a neutral expression and clean studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeYVAx2l-H4c8UfOxmv9Rwvvi6yn5phaQ5ogRuyVSoDlfpZLfr9Fa2DQaXcZujjyVJ3EtcRa_jxt9oFwCokI1KneyXbpcuoc-kJyTghOOxZIMjc02rfePSpMej9uCPPTcRinNlTEjpxrTKmDodMr8KcFmsfBTlno4ldV_KEmWhp6Z9qgMm9YKmMjSTc3WTsrlw8EmMWidOihbZboGC5ayKArVlo1vhJPXwzbAN6KmEL0vhorbRMPmwH3aeeEpQC2jjszNLwXO0uLVz"/>
+</div>
+</div>
+</header>
+<!-- Page Content -->
+<div class="p-8 max-w-7xl mx-auto w-full space-y-12">
+<!-- Editorial Header -->
+<section class="space-y-2">
+<span class="font-label text-tertiary text-sm tracking-[0.2em] uppercase">Intelligence Engine</span>
+<h2 class="font-headline text-5xl font-extrabold text-on-surface tracking-tight">Strategy Forge</h2>
+<p class="font-body text-on-surface-variant max-w-2xl text-lg leading-relaxed">Your content ecosystem is evolving. We've mapped your performance metadata to uncover high-impact growth paths.</p>
+</section>
+<!-- Bento Grid: Strategy Insights -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Top Performing Topics (Large Bento) -->
+<div class="md:col-span-8 bg-surface-container rounded-xl p-8 flex flex-col justify-between min-h-[400px]">
+<div class="flex justify-between items-start mb-8">
+<div>
+<h3 class="font-headline text-2xl font-bold text-on-surface">Top Performing Topics</h3>
+<p class="font-body text-on-surface-variant text-sm">Real-time resonance score based on engagement velocity.</p>
+</div>
+<span class="font-label text-[10px] bg-tertiary-container text-tertiary px-3 py-1 rounded-full border border-tertiary/20">LIVE METRICS</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="bg-surface-container-high p-6 rounded-lg group hover:bg-surface-bright transition-colors cursor-pointer">
+<div class="flex items-center justify-between mb-4">
+<span class="font-label text-xs text-on-tertiary-container">LOGIC &amp; FLOW</span>
+<span class="material-symbols-outlined text-tertiary text-xl" data-icon="trending_up">trending_up</span>
+</div>
+<h4 class="font-headline text-xl font-bold text-on-surface mb-2">Systems Thinking</h4>
+<div class="w-full bg-surface-container-low h-1 rounded-full overflow-hidden">
+<div class="bg-tertiary h-full w-[88%]"></div>
+</div>
+<p class="mt-3 font-label text-[10px] text-on-surface-variant uppercase tracking-widest">+24% Reach this week</p>
+</div>
+<div class="bg-surface-container-high p-6 rounded-lg group hover:bg-surface-bright transition-colors cursor-pointer">
+<div class="flex items-center justify-between mb-4">
+<span class="font-label text-xs text-on-tertiary-container">PRODUCTIVITY</span>
+<span class="material-symbols-outlined text-tertiary text-xl" data-icon="bolt">bolt</span>
+</div>
+<h4 class="font-headline text-xl font-bold text-on-surface mb-2">Deep Work Routines</h4>
+<div class="w-full bg-surface-container-low h-1 rounded-full overflow-hidden">
+<div class="bg-tertiary h-full w-[72%]"></div>
+</div>
+<p class="mt-3 font-label text-[10px] text-on-surface-variant uppercase tracking-widest">+12% Interaction rate</p>
+</div>
+</div>
+<div class="mt-8 pt-8 border-t border-outline-variant/10 flex items-center justify-between">
+<div class="flex -space-x-3">
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-surface-container-highest flex items-center justify-center"><span class="material-symbols-outlined text-xs" data-icon="hub">hub</span></div>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-surface-container-highest flex items-center justify-center"><span class="material-symbols-outlined text-xs" data-icon="share">share</span></div>
+<div class="w-8 h-8 rounded-full border-2 border-surface bg-surface-container-highest flex items-center justify-center"><span class="material-symbols-outlined text-xs" data-icon="forum">forum</span></div>
+</div>
+<button class="text-tertiary font-label text-xs flex items-center gap-2 hover:underline">
+                                VIEW DETAILED TOPIC MAP <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Tone Refinement (Vertical Bento) -->
+<div class="md:col-span-4 bg-primary-container rounded-xl p-8 flex flex-col relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-tertiary/5 rounded-full blur-3xl -mr-16 -mt-16"></div>
+<h3 class="font-headline text-2xl font-bold text-primary-fixed mb-2">Tone Refinement</h3>
+<p class="font-body text-on-primary-container text-sm mb-8">Adaptive style feedback for platform-specific resonance.</p>
+<div class="space-y-6 flex-1">
+<div class="p-4 bg-surface-container-lowest/40 rounded-lg border-l-2 border-tertiary">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-tertiary text-lg" data-icon="analytics">analytics</span>
+<span class="font-label text-xs text-primary-fixed">LINKEDIN INSIGHT</span>
+</div>
+<p class="font-body text-on-surface text-sm italic">"Your posts are 1.4x more engaging when they use an <strong>Analytical</strong> tone versus a Narrative one."</p>
+</div>
+<div class="p-4 bg-surface-container-lowest/40 rounded-lg border-l-2 border-primary">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary text-lg" data-icon="contract">contract</span>
+<span class="font-label text-xs text-primary-fixed">X (TWITTER) INSIGHT</span>
+</div>
+<p class="font-body text-on-surface text-sm italic">"<strong>Contrarian</strong> hooks are driving 3x more profile visits than educational threads."</p>
+</div>
+</div>
+<div class="mt-8">
+<button class="w-full py-3 bg-surface-container-highest text-on-surface font-label text-xs rounded-lg hover:bg-surface-bright transition-colors">
+                                AUTO-ADAPT MY DRAFTS
+                            </button>
+</div>
+</div>
+</div>
+<!-- Engagement Patterns & Missed Opportunities -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+<!-- Missed Opportunities (The Kinetic Pipeline) -->
+<div class="md:col-span-5 bg-surface-container-low rounded-xl p-8">
+<h3 class="font-headline text-2xl font-bold text-on-surface mb-8">Missed Opportunities</h3>
+<div class="relative space-y-10 pl-8">
+<!-- Vertical Track -->
+<div class="absolute left-[11px] top-2 bottom-2 w-[2px] pipeline-track"></div>
+<!-- Node 1 -->
+<div class="relative">
+<div class="absolute -left-[27px] top-1 w-4 h-4 rounded-full bg-error border-4 border-surface shadow-[0_0_15px_rgba(255,180,171,0.5)]"></div>
+<div class="space-y-1">
+<h4 class="font-headline text-lg text-error font-bold italic">Discipline Gap</h4>
+<p class="font-body text-on-surface-variant text-sm">You haven't written about <strong>Discipline</strong> in 3 days. This topic has a 92% affinity with your top subscribers.</p>
+<button class="font-label text-[10px] text-tertiary uppercase tracking-tighter mt-2 flex items-center gap-1">GENERATE DRAFT <span class="material-symbols-outlined text-[10px]" data-icon="bolt">bolt</span></button>
+</div>
+</div>
+<!-- Node 2 -->
+<div class="relative">
+<div class="absolute -left-[27px] top-1 w-4 h-4 rounded-full bg-primary border-4 border-surface"></div>
+<div class="space-y-1">
+<h4 class="font-headline text-lg text-on-surface font-bold">SEO Blindspot: Web3</h4>
+<p class="font-body text-on-surface-variant text-sm">Keyword "Decentralized Governance" is trending in your niche. Your current content coverage is 0%.</p>
+</div>
+</div>
+<!-- Node 3 -->
+<div class="relative">
+<div class="absolute -left-[27px] top-1 w-4 h-4 rounded-full bg-outline-variant border-4 border-surface opacity-50"></div>
+<div class="space-y-1">
+<h4 class="font-headline text-lg text-on-surface-variant font-bold">Video Short-form</h4>
+<p class="font-body text-on-surface-variant text-sm italic">Upcoming opportunity: Repurpose your 'Systems' thread into a 60s script.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Engagement Patterns Chart Card -->
+<div class="md:col-span-7 bg-surface-container rounded-xl p-8 flex flex-col">
+<div class="flex justify-between items-center mb-10">
+<div>
+<h3 class="font-headline text-2xl font-bold text-on-surface">Interest Growth</h3>
+<p class="font-body text-on-surface-variant text-sm">Audience attention cycles over the last 30 days.</p>
+</div>
+<div class="flex bg-surface-container-lowest p-1 rounded-lg">
+<button class="px-4 py-1.5 text-xs font-label bg-surface-container-high rounded text-on-surface">30D</button>
+<button class="px-4 py-1.5 text-xs font-label text-on-surface-variant hover:text-on-surface">90D</button>
+</div>
+</div>
+<!-- Abstract Visualization -->
+<div class="flex-1 relative flex items-end gap-2 pb-6 min-h-[240px]">
+<div class="flex-1 bg-surface-container-high rounded-t-lg h-[40%] hover:h-[45%] transition-all duration-500 relative group">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-tertiary text-on-tertiary text-[10px] px-2 py-1 rounded font-label">WK 1</div>
+</div>
+<div class="flex-1 bg-tertiary/20 rounded-t-lg h-[65%] hover:h-[70%] transition-all duration-500 relative group">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-tertiary text-on-tertiary text-[10px] px-2 py-1 rounded font-label">WK 2</div>
+</div>
+<div class="flex-1 bg-tertiary/40 rounded-t-lg h-[55%] hover:h-[60%] transition-all duration-500 relative group"></div>
+<div class="flex-1 bg-tertiary/60 rounded-t-lg h-[85%] hover:h-[90%] transition-all duration-500 relative group">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-tertiary text-on-tertiary text-[10px] px-2 py-1 rounded font-label">PEAK</div>
+</div>
+<div class="flex-1 bg-tertiary rounded-t-lg h-[100%] transition-all duration-500 relative group"></div>
+<div class="flex-1 bg-surface-container-high rounded-t-lg h-[60%] transition-all duration-500 relative group"></div>
+<div class="flex-1 bg-surface-container-high rounded-t-lg h-[45%] transition-all duration-500 relative group"></div>
+<!-- Legend / Grid -->
+<div class="absolute bottom-0 left-0 right-0 h-[1px] bg-outline-variant/30"></div>
+</div>
+<div class="flex justify-between mt-6">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-tertiary"></div>
+<span class="font-label text-[10px] text-on-surface-variant">DIRECT ENGAGEMENT</span>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-3 h-3 rounded-full bg-surface-container-high"></div>
+<span class="font-label text-[10px] text-on-surface-variant">PASSIVE VIEWS</span>
+</div>
+</div>
+<span class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest">Efficiency: 8.4x</span>
+</div>
+</div>
+</div>
+<!-- Strategic Recommendations (Glassmorphic) -->
+<section class="bg-surface-bright/20 backdrop-blur-xl border border-white/5 rounded-2xl p-8">
+<div class="flex flex-col md:flex-row gap-12 items-center">
+<div class="md:w-1/3">
+<h3 class="font-headline text-3xl font-extrabold text-on-surface tracking-tight mb-4">The Next Sprint</h3>
+<p class="font-body text-on-surface-variant text-base leading-relaxed">JAN AI has calculated your optimal publishing window and topic clusters for the coming 48 hours.</p>
+</div>
+<div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+<div class="bg-surface-container-highest/60 p-6 rounded-xl hover:translate-y-[-4px] transition-transform duration-300">
+<span class="material-symbols-outlined text-tertiary mb-3" data-icon="schedule">schedule</span>
+<h5 class="font-headline text-lg font-bold text-on-surface mb-1">Optimal Window</h5>
+<p class="font-body text-sm text-on-surface-variant">Thursday, 08:15 AM EST. High overlap with European decision-makers.</p>
+</div>
+<div class="bg-surface-container-highest/60 p-6 rounded-xl hover:translate-y-[-4px] transition-transform duration-300">
+<span class="material-symbols-outlined text-tertiary mb-3" data-icon="auto_fix_high">auto_fix_high</span>
+<h5 class="font-headline text-lg font-bold text-on-surface mb-1">Content Pivot</h5>
+<p class="font-body text-sm text-on-surface-variant">Shift 'AI Ethics' thread towards 'Economic Impact' for 2x reach.</p>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</div>
+</body></html>

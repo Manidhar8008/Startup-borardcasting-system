@@ -1,0 +1,126 @@
+# JAN AI — Automation Engine: Front-End Implementation Guide
+
+## 1. Project Initialization (Vite + React)
+```bash
+# Create the project
+npm create vite@latest jan-ai-frontend -- --template react-ts
+cd jan-ai-frontend
+
+# Install dependencies
+npm install axios lucide-react react-router-dom clsx tailwind-merge
+npm install -D tailwindcss autoprefixer postcss
+npx tailwindcss init -p
+```
+
+## 2. Directory Structure
+```text
+src/
+├── api/             # Axios instances and endpoint definitions
+├── components/      # Shared UI components (TopNav, SideNav, Cards)
+├── context/         # App state (Auth, Workspace, Global Settings)
+├── hooks/           # Custom hooks for fetching and state
+├── pages/           # Screen implementations
+│   ├── Dashboard/
+│   ├── Accounts/
+│   ├── Pipeline/
+│   ├── Calendar/
+│   ├── IdeaBank/
+│   ├── Studio/
+│   └── Settings/
+├── types/           # TS Interfaces
+└── App.tsx          # Router and Global Providers
+```
+
+## 3. Core State Architecture (Context API)
+We will use a `GlobalContext` to manage the currently active **Account**, **Workspace**, and **System Status** across the sidebar and header.
+
+```typescript
+// src/context/GlobalContext.tsx
+import React, { createContext, useContext, useState } from 'react';
+
+interface GlobalState {
+  activeAccount: string | null;
+  systemHealth: 'healthy' | 'warning' | 'error';
+  isSchedulerActive: boolean;
+}
+
+const GlobalContext = createContext<any>(null);
+
+export const GlobalProvider = ({ children }: { children: React.ReactNode }) => {
+  const [state, setState] = useState<GlobalState>({
+    activeAccount: 'Quantum Tech',
+    systemHealth: 'healthy',
+    isSchedulerActive: true,
+  });
+
+  return (
+    <GlobalContext.Provider value={{ state, setState }}>
+      {children}
+    </GlobalContext.Provider>
+  );
+};
+```
+
+## 4. Mapping Design to Code (Screen References)
+
+### Navigation & Shell (SideNavBar & TopNavBar)
+- **Reference:** {{DATA:COMPONENTS:COMPONENTS_31}}
+- **Logic:** Fixed Sidebar with dynamic active states. TopBar with global search and 'Run Pipeline' trigger.
+
+### Workspace Dashboard
+- **Reference:** {{DATA:SCREEN:SCREEN_30}}
+- **Logic:** Aggregates metrics from `/logs` and `/tasks` APIs.
+
+### Account Manager
+- **Reference:** {{DATA:SCREEN:SCREEN_36}}
+- **Logic:** CRUD operations for `/accounts`. Links to specific brand profiles.
+
+### Content Pipeline OS
+- **Reference:** {{DATA:SCREEN:SCREEN_26}}
+- **Logic:** Multi-stage form (Input -> Extraction -> Generation) using `POST /content/score`.
+
+### Evaluative Content Studio
+- **Reference:** {{DATA:SCREEN:SCREEN_18}}
+- **Logic:** Integration with `scoring_engine` and `improvement_engine`. Interactive score breakdown cards.
+
+### Settings & Logs Viewer
+- **Reference:** {{DATA:SCREEN:SCREEN_12}}
+- **Logic:** Real-time polling of `GET /logs` with frontend filtering and search logic.
+
+## 5. Mock API & Integration Strategy
+While the backend is being finalized, the frontend will use an `api.ts` service with Axios interceptors to point to `http://localhost:8000`.
+
+```typescript
+// src/api/client.ts
+import axios from 'axios';
+
+const client = axios.create({
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8000',
+});
+
+export const getLogs = (params?: any) => client.get('/logs', { params });
+export const runPipeline = (data: any) => client.post('/content/score', data);
+```
+
+## 6. CSS & Theme (Tailwind Configuration)
+Configuring the **Pipeline Kinetic** theme as primary tokens.
+
+```javascript
+// tailwind.config.js
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        background: '#11131c',
+        surface: '#1d1f29',
+        primary: '#4cd6ff',
+        textMain: '#e1e1ef',
+        textMuted: '#bbc6e2',
+      },
+      fontFamily: {
+        manrope: ['Manrope', 'sans-serif'],
+      },
+    },
+  },
+}
+```

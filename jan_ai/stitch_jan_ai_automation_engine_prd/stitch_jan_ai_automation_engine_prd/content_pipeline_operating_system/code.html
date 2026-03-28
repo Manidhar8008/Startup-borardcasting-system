@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@700;800&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-fixed": "#b7eaff",
+              "background": "#11131c",
+              "secondary-container": "#2f4865",
+              "inverse-primary": "#545e76",
+              "secondary-fixed": "#d1e4ff",
+              "on-primary-fixed-variant": "#3c475d",
+              "surface-tint": "#bbc6e2",
+              "primary-fixed-dim": "#bbc6e2",
+              "tertiary-container": "#001d26",
+              "tertiary": "#4cd6ff",
+              "outline": "#8e9196",
+              "surface-container-lowest": "#0c0e17",
+              "primary-fixed": "#d7e2ff",
+              "on-tertiary-container": "#008eae",
+              "surface-container": "#1d1f29",
+              "primary-container": "#0f1a2e",
+              "surface-container-high": "#282933",
+              "secondary-fixed-dim": "#afc9ea",
+              "surface-dim": "#11131c",
+              "surface-container-highest": "#32343e",
+              "on-secondary": "#17324d",
+              "on-primary-container": "#78839c",
+              "outline-variant": "#44474c",
+              "on-secondary-fixed": "#001d36",
+              "secondary": "#afc9ea",
+              "surface-variant": "#32343e",
+              "on-surface-variant": "#c4c6cc",
+              "on-secondary-fixed-variant": "#2f4865",
+              "on-tertiary": "#003543",
+              "inverse-surface": "#e1e1ef",
+              "on-background": "#e1e1ef",
+              "surface": "#11131c",
+              "on-surface": "#e1e1ef",
+              "on-primary-fixed": "#101b30",
+              "on-tertiary-fixed-variant": "#004e60",
+              "error-container": "#93000a",
+              "on-tertiary-fixed": "#001f28",
+              "error": "#ffb4ab",
+              "primary": "#bbc6e2",
+              "surface-bright": "#373943",
+              "tertiary-fixed-dim": "#4cd6ff",
+              "on-primary": "#263046",
+              "inverse-on-surface": "#2e303a",
+              "surface-container-low": "#191b24",
+              "on-secondary-container": "#9eb7d8",
+              "on-error-container": "#ffdad6",
+              "on-error": "#690005"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Space Grotesk"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #32343e; border-radius: 10px; }
+        .pipeline-track {
+            background: linear-gradient(180deg, rgba(76, 214, 255, 0.2) 0%, rgba(187, 198, 226, 0.05) 100%);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body overflow-x-hidden selection:bg-tertiary/30">
+<!-- SideNavBar Shell -->
+<aside class="h-screen w-64 fixed left-0 top-0 flex flex-col py-8 px-4 bg-[#11131c] dark:bg-[#11131c] font-manrope text-sm tracking-wide z-50">
+<div class="mb-12 px-2">
+<h1 class="font-space-grotesk text-xl font-bold tracking-tighter text-[#bbc6e2]">JAN AI</h1>
+<p class="text-[10px] uppercase tracking-[0.2em] text-on-primary-container mt-1">v2.4.0 Active</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#bbc6e2]/60 hover:text-[#bbc6e2] transition-colors hover:bg-[#1d1f29] transition-all duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#4cd6ff] bg-[#1d1f29] font-bold border-r-2 border-[#4cd6ff]" href="#">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span>Content Studio</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#bbc6e2]/60 hover:text-[#bbc6e2] transition-colors hover:bg-[#1d1f29] transition-all duration-200" href="#">
+<span class="material-symbols-outlined">insights</span>
+<span>Strategy</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#bbc6e2]/60 hover:text-[#bbc6e2] transition-colors hover:bg-[#1d1f29] transition-all duration-200" href="#">
+<span class="material-symbols-outlined">account_tree</span>
+<span>Pipeline</span>
+</a>
+</nav>
+<div class="mt-auto pt-8 border-t border-outline-variant/10 space-y-2">
+<button class="w-full bg-gradient-to-br from-tertiary to-on-tertiary-container text-on-tertiary py-3 rounded-lg font-bold mb-6 flex items-center justify-center gap-2 scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined">add</span>
+                Create Project
+            </button>
+<a class="flex items-center gap-3 px-4 py-2 text-[#bbc6e2]/60 hover:text-[#bbc6e2]" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-[#bbc6e2]/60 hover:text-[#bbc6e2]" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span>Support</span>
+</a>
+</div>
+</aside>
+<!-- TopNavBar Shell -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] h-16 flex items-center justify-between px-8 bg-[#11131c]/80 backdrop-blur-xl border-none bg-[#1d1f29] z-40">
+<div class="flex items-center gap-6">
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-on-surface-variant text-sm">search</span>
+<input class="bg-surface-container-lowest border-none rounded-full py-1.5 pl-10 pr-4 text-[10px] font-label tracking-widest focus:ring-1 focus:ring-tertiary w-64" placeholder="SEARCH PIPELINE..." type="text"/>
+</div>
+<nav class="flex items-center gap-8 font-inter text-xs font-medium uppercase tracking-widest">
+<a class="text-[#bbc6e2]/50 hover:text-[#4cd6ff] cursor-pointer transition-opacity" href="#">Global View</a>
+<a class="text-[#4cd6ff] font-bold transition-opacity" href="#">System Health</a>
+<a class="text-[#bbc6e2]/50 hover:text-[#4cd6ff] cursor-pointer transition-opacity" href="#">Logs</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-tertiary transition-colors">notifications_active</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-tertiary transition-colors">dns</button>
+<div class="h-8 w-[1px] bg-outline-variant/20 mx-2"></div>
+<button class="bg-tertiary/10 text-tertiary px-4 py-1.5 rounded text-[10px] font-label font-bold tracking-widest border border-tertiary/20 hover:bg-tertiary/20 transition-all">
+                RUN PIPELINE
+            </button>
+<img alt="User Profile" class="w-8 h-8 rounded-full border border-outline-variant/30" data-alt="Close up portrait of a professional system architect in a dark studio with blue ambient lighting reflecting on their face" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDf_C6UucxS6V3LyRmnxyc8u5Kf5QMKobEPamyCUT_wrq9ny9mfzoZTgrAJhc413jZqb7I7yjhuL4Cr4USMrf3bll3sBeY17gVYqSl1fHaKMXZD4TKCU5Ibq9bT7VpwCdqUqRzLRiavL8C1Rlr6tAaCezJ0GqxTyehY7PeaTfxK29N2mxPBFYiXbBgBHOF2J9B1sXFZzy__0e6nbVtr0sua1_estVFVImDBqGaMqvL7rE11p_glR1bKPkC2FtgBKu8EZKWRwhe0RLZJ"/>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-16 min-h-screen">
+<div class="p-12 max-w-[1600px] mx-auto">
+<!-- Page Header -->
+<div class="flex flex-col gap-2 mb-16">
+<span class="font-label text-tertiary text-xs tracking-[0.3em]">ORCHESTRATION ENGINE</span>
+<h2 class="font-headline text-5xl font-extrabold text-on-surface tracking-tighter">Content Pipeline</h2>
+<p class="text-on-surface-variant font-body max-w-xl mt-2">Transform raw data and creative intent into high-performance editorial assets through our multi-stage neural refining engine.</p>
+</div>
+<!-- Pipeline Visual Flow -->
+<div class="relative grid grid-cols-12 gap-8">
+<!-- Pipeline Vertical Track (Decorative) -->
+<div class="absolute left-[50%] top-0 bottom-0 w-px pipeline-track hidden xl:block opacity-20"></div>
+<!-- Stage 1: Input -->
+<section class="col-span-12 xl:col-span-7 space-y-8">
+<div class="bg-surface-container-low rounded-xl p-8 relative overflow-hidden group">
+<div class="flex justify-between items-center mb-6">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center border border-primary/20">
+<span class="material-symbols-outlined text-primary text-xl">edit_note</span>
+</div>
+<div>
+<h3 class="font-headline text-xl text-on-surface">1. Raw Input</h3>
+<p class="font-label text-[10px] text-on-surface-variant/60 uppercase tracking-widest">Initial Creative Spark</p>
+</div>
+</div>
+<div class="flex gap-2">
+<button class="px-3 py-1 bg-surface-container-highest rounded text-[10px] font-label text-on-surface-variant hover:text-tertiary transition-colors">IMPORT FILE</button>
+<button class="px-3 py-1 bg-surface-container-highest rounded text-[10px] font-label text-on-surface-variant hover:text-tertiary transition-colors">SCRAPE URL</button>
+</div>
+</div>
+<div class="relative">
+<textarea class="w-full h-80 bg-surface-container-lowest border-none focus:ring-0 rounded-lg p-6 font-body text-on-surface leading-relaxed resize-none transition-all placeholder:text-on-surface-variant/30" placeholder="Type or paste your raw content here. The engine will automatically begin the extraction phase as you pause..."></textarea>
+<div class="absolute bottom-4 right-4 flex items-center gap-3">
+<span class="font-label text-[10px] text-on-surface-variant/50">WORD COUNT: 1,242</span>
+<div class="flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary animate-pulse"></span>
+<span class="font-label text-[10px] text-tertiary">SYNCING</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Stage 2: Extraction (Bento Style) -->
+<div class="grid grid-cols-2 gap-6">
+<div class="bg-surface-container-low rounded-xl p-6">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-tertiary text-lg">label</span>
+<h4 class="font-headline text-sm font-bold text-on-surface">Extracted Topics</h4>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1.5 bg-primary-container text-primary text-[10px] font-label rounded-full border border-primary/10">#AI_ETHICS</span>
+<span class="px-3 py-1.5 bg-primary-container text-primary text-[10px] font-label rounded-full border border-primary/10">#FUTURE_OF_WORK</span>
+<span class="px-3 py-1.5 bg-primary-container text-primary text-[10px] font-label rounded-full border border-primary/10">#AUTOMATION</span>
+<span class="px-3 py-1.5 bg-surface-container-highest text-on-surface-variant text-[10px] font-label rounded-full border border-outline-variant/20">+ ADD TOPIC</span>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-xl p-6">
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-tertiary text-lg">psychology</span>
+<h4 class="font-headline text-sm font-bold text-on-surface">Tone Analysis</h4>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between items-center text-[10px] font-label">
+<span class="text-on-surface-variant">AUTHORITATIVE</span>
+<span class="text-tertiary">85%</span>
+</div>
+<div class="w-full h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="w-[85%] h-full bg-tertiary"></div>
+</div>
+<div class="flex justify-between items-center text-[10px] font-label">
+<span class="text-on-surface-variant">ANALYTICAL</span>
+<span class="text-secondary">62%</span>
+</div>
+<div class="w-full h-1 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="w-[62%] h-full bg-secondary"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Stage 3 & 4: Refinement & Scoring (Sidebar/Flow) -->
+<aside class="col-span-12 xl:col-span-5 space-y-8">
+<!-- Scoring Hub -->
+<div class="bg-surface-container-high rounded-xl p-8 border-l-4 border-tertiary">
+<div class="flex justify-between items-start mb-8">
+<div>
+<h3 class="font-headline text-xl text-on-surface">Pipeline Score</h3>
+<p class="font-label text-[10px] text-on-surface-variant/60 uppercase tracking-widest">Real-time Performance Gauge</p>
+</div>
+<div class="text-right">
+<span class="font-headline text-4xl font-extrabold text-tertiary">88</span>
+<span class="text-on-surface-variant/40 text-sm">/100</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-6">
+<div class="space-y-2">
+<p class="font-label text-[10px] text-on-surface-variant uppercase">Clarity</p>
+<div class="flex items-center gap-3">
+<div class="flex-1 h-1.5 bg-surface-container-lowest rounded-full">
+<div class="w-[92%] h-full bg-tertiary"></div>
+</div>
+<span class="font-label text-xs text-on-surface">92</span>
+</div>
+</div>
+<div class="space-y-2">
+<p class="font-label text-[10px] text-on-surface-variant uppercase">Engagement</p>
+<div class="flex items-center gap-3">
+<div class="flex-1 h-1.5 bg-surface-container-lowest rounded-full">
+<div class="w-[74%] h-full bg-primary"></div>
+</div>
+<span class="font-label text-xs text-on-surface">74</span>
+</div>
+</div>
+<div class="space-y-2">
+<p class="font-label text-[10px] text-on-surface-variant uppercase">Originality</p>
+<div class="flex items-center gap-3">
+<div class="flex-1 h-1.5 bg-surface-container-lowest rounded-full">
+<div class="w-[88%] h-full bg-tertiary"></div>
+</div>
+<span class="font-label text-xs text-on-surface">88</span>
+</div>
+</div>
+<div class="space-y-2">
+<p class="font-label text-[10px] text-on-surface-variant uppercase">Platform Fit</p>
+<div class="flex items-center gap-3">
+<div class="flex-1 h-1.5 bg-surface-container-lowest rounded-full">
+<div class="w-[65%] h-full bg-secondary"></div>
+</div>
+<span class="font-label text-xs text-on-surface">65</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Refinement Stage -->
+<div class="bg-surface-container-low rounded-xl p-8">
+<h3 class="font-headline text-lg text-on-surface mb-6">Refinement Controls</h3>
+<div class="space-y-6">
+<div>
+<label class="font-label text-[10px] text-on-surface-variant uppercase tracking-widest block mb-3">Target Platform</label>
+<div class="grid grid-cols-3 gap-2">
+<button class="bg-surface-container-highest p-3 rounded-lg border-2 border-tertiary flex flex-col items-center gap-2">
+<span class="material-symbols-outlined text-tertiary">share</span>
+<span class="font-label text-[10px]">LINKEDIN</span>
+</button>
+<button class="bg-surface-container-lowest p-3 rounded-lg border border-outline-variant/20 hover:border-primary/40 flex flex-col items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">bolt</span>
+<span class="font-label text-[10px]">TWITTER</span>
+</button>
+<button class="bg-surface-container-lowest p-3 rounded-lg border border-outline-variant/20 hover:border-primary/40 flex flex-col items-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant">article</span>
+<span class="font-label text-[10px]">SUBSTACK</span>
+</button>
+</div>
+</div>
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-xs font-body text-on-surface">AI Rewrite Intensity</span>
+<span class="text-xs font-label text-tertiary">MODERATE</span>
+</div>
+<input class="w-full h-1 bg-surface-container-lowest rounded-lg appearance-none cursor-pointer accent-tertiary" type="range"/>
+</div>
+<div class="flex items-center justify-between p-4 bg-primary-container/20 rounded-lg border border-primary/10">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">auto_fix_high</span>
+<span class="text-xs font-body">Optimize for SEO</span>
+</div>
+<div class="w-8 h-4 bg-primary/20 rounded-full relative">
+<div class="absolute right-0.5 top-0.5 w-3 h-3 bg-primary rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Engagement Simulator -->
+<div class="bg-surface-container-low rounded-xl p-8 relative overflow-hidden">
+<!-- Decorative mesh background -->
+<div class="absolute inset-0 opacity-5 pointer-events-none">
+<div class="absolute top-0 right-0 w-32 h-32 bg-tertiary blur-3xl"></div>
+<div class="absolute bottom-0 left-0 w-32 h-32 bg-primary blur-3xl"></div>
+</div>
+<h3 class="font-headline text-lg text-on-surface mb-2">Engagement Simulator</h3>
+<p class="font-label text-[10px] text-on-surface-variant/60 uppercase tracking-widest mb-6">Historical Prediction Engine</p>
+<div class="flex items-end justify-between h-32 gap-2 mb-6">
+<div class="flex-1 bg-surface-container-highest rounded-t-sm relative group h-[40%]">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity font-label text-[10px]">LOW</div>
+</div>
+<div class="flex-1 bg-surface-container-highest rounded-t-sm relative group h-[65%]">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity font-label text-[10px]">MED</div>
+</div>
+<div class="flex-1 bg-tertiary/60 rounded-t-sm relative group h-[90%]">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 opacity-100 font-label text-[10px] text-tertiary font-bold">HIGH</div>
+</div>
+<div class="flex-1 bg-surface-container-highest rounded-t-sm relative group h-[55%]">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity font-label text-[10px]">MED</div>
+</div>
+<div class="flex-1 bg-surface-container-highest rounded-t-sm relative group h-[30%]">
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity font-label text-[10px]">LOW</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-lg">
+<p class="text-[11px] leading-relaxed text-on-surface-variant">
+<strong class="text-tertiary">PREDICTION:</strong> This content is likely to perform <span class="text-tertiary">2.4x better</span> than your average Tuesday morning posts based on the last 90 days of audience sentiment.
+                            </p>
+</div>
+</div>
+</aside>
+</div>
+<!-- Global Action Bar (Footer Floating) -->
+<div class="fixed bottom-8 left-[calc(16rem+3rem)] right-12 bg-surface-container-highest/80 backdrop-blur-md p-4 rounded-2xl flex items-center justify-between border border-outline-variant/10 z-40">
+<div class="flex items-center gap-6">
+<div class="flex -space-x-2">
+<img alt="Collaborator" class="w-8 h-8 rounded-full border-2 border-surface-container-highest" data-alt="Portrait of a female digital strategist with neon accent lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDj__Zp3lEGWykVJdADGTQh17KD4WVLLNp-IDhRYHzw6dIpWhKzcIiabPYiYLqRKe7arH869D1S89IcbIeBgDsIHwArdtK_quegseXNBDWeG0GZaAJM-nAzrlccObEDyScRfVRg25FozoUAfwHzIpjXs4P0lyQyfdCOp18uK3PFbowMfiHuGO9dhD_if0lAb7iALL3N9UvqNfggsgYZfzIVAIkWH0eg7xdC7aKchtFRS_LRAMn_7Zq7cn-ao_Alht-PbGD2Ge3it84P"/>
+<img alt="Collaborator" class="w-8 h-8 rounded-full border-2 border-surface-container-highest" data-alt="Portrait of a creative director in a minimalist studio environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYIziog1063kZ4tW9b4-ZZ_uk_ZtWoR4Sl3toAtGBpaIi8trseNs8TA3PHgDgnqHVHpce5rWfUpyrGY0oCawtK2axYT00Ez0e4eedgWvE1Q4t2r5weJJ4P9z-zMomIL8mqM7NP68eTiT2kIIUc6Etfj72HGlKlLVA-WwtGTkmQjCCLFr_8vbdk1l8VTzL5he_UOK0NfoALNP5OjDj9qlhkJMA60IhY7tLVuCKf0fMzSHwfZWtVGm4ByzmO0I6pHX6DwJTTZdh2Xs8r"/>
+<div class="w-8 h-8 rounded-full bg-surface-container-low border-2 border-surface-container-highest flex items-center justify-center text-[10px] font-bold text-on-surface-variant">+3</div>
+</div>
+<div class="h-6 w-[1px] bg-outline-variant/20"></div>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span class="text-xs font-label text-on-surface-variant uppercase tracking-widest">Awaiting Deployment</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="px-6 py-2.5 rounded-lg font-label text-[11px] font-bold tracking-widest text-on-surface hover:bg-surface-container-low transition-colors uppercase">Save as Draft</button>
+<button class="px-8 py-2.5 bg-gradient-to-br from-tertiary to-on-tertiary-container text-on-tertiary rounded-lg font-headline text-xs font-extrabold tracking-widest shadow-xl shadow-tertiary/10 hover:shadow-tertiary/20 transition-all uppercase">Finalize &amp; Ship</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Contextual FAB (Hidden on this transactional view per system rules) -->
+<!-- Navigation suppresses for transactional focus -->
+</body></html>

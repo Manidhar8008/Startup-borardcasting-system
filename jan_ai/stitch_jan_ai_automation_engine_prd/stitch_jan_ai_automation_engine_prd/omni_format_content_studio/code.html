@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Content Studio | Editorial Engine</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@700;800&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-dim": "#11131c",
+                        "surface-container-highest": "#32343e",
+                        "surface-container-high": "#282933",
+                        "secondary-fixed-dim": "#afc9ea",
+                        "secondary": "#afc9ea",
+                        "on-secondary-fixed": "#001d36",
+                        "outline-variant": "#44474c",
+                        "on-primary-container": "#78839c",
+                        "on-secondary": "#17324d",
+                        "tertiary": "#4cd6ff",
+                        "tertiary-container": "#001d26",
+                        "primary-fixed-dim": "#bbc6e2",
+                        "surface-tint": "#bbc6e2",
+                        "secondary-fixed": "#d1e4ff",
+                        "on-primary-fixed-variant": "#3c475d",
+                        "secondary-container": "#2f4865",
+                        "inverse-primary": "#545e76",
+                        "tertiary-fixed": "#b7eaff",
+                        "background": "#11131c",
+                        "surface-container": "#1d1f29",
+                        "primary-container": "#0f1a2e",
+                        "primary-fixed": "#d7e2ff",
+                        "on-tertiary-container": "#008eae",
+                        "surface-container-lowest": "#0c0e17",
+                        "outline": "#8e9196",
+                        "surface-bright": "#373943",
+                        "on-error": "#690005",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-low": "#191b24",
+                        "on-secondary-container": "#9eb7d8",
+                        "on-primary": "#263046",
+                        "inverse-on-surface": "#2e303a",
+                        "tertiary-fixed-dim": "#4cd6ff",
+                        "on-background": "#e1e1ef",
+                        "inverse-surface": "#e1e1ef",
+                        "on-tertiary": "#003543",
+                        "on-surface-variant": "#c4c6cc",
+                        "on-secondary-fixed-variant": "#2f4865",
+                        "surface-variant": "#32343e",
+                        "primary": "#bbc6e2",
+                        "on-tertiary-fixed": "#001f28",
+                        "error": "#ffb4ab",
+                        "error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#004e60",
+                        "on-primary-fixed": "#101b30",
+                        "surface": "#11131c",
+                        "on-surface": "#e1e1ef"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #11131c; }
+        ::-webkit-scrollbar-thumb { background: #32343e; border-radius: 10px; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-tertiary selection:text-on-tertiary">
+<!-- SideNavBar Component -->
+<aside class="fixed left-0 top-0 h-full flex flex-col h-screen w-64 border-r-0 bg-[#11131c] dark:bg-[#11131c] z-50">
+<div class="p-6 flex flex-col gap-1">
+<span class="text-xl font-bold tracking-tight text-[#bbc6e2] font-manrope">Editorial Engine</span>
+<span class="font-inter body-md text-[#e1e1ef]/60 text-xs">Automation Pipeline</span>
+</div>
+<nav class="flex-1 px-4 py-4 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#e1e1ef]/60 hover:text-[#e1e1ef] hover:bg-[#1d1f29] transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">workspaces</span>
+<span class="font-space-grotesk label-md">Workspace</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#e1e1ef]/60 hover:text-[#e1e1ef] hover:bg-[#1d1f29] transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">insights</span>
+<span class="font-space-grotesk label-md">Strategy</span>
+</a>
+<!-- Active Tab: Content Studio -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-[#1d1f29] text-[#4cd6ff] font-semibold border-l-4 border-[#4cd6ff] transition-all" href="#">
+<span class="material-symbols-outlined">edit_note</span>
+<span class="font-space-grotesk label-md">Content Studio</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#e1e1ef]/60 hover:text-[#e1e1ef] hover:bg-[#1d1f29] transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-space-grotesk label-md">Calendar</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#e1e1ef]/60 hover:text-[#e1e1ef] hover:bg-[#1d1f29] transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">lightbulb</span>
+<span class="font-space-grotesk label-md">Idea Bank</span>
+</a>
+</nav>
+<div class="p-4 border-t border-outline-variant/10">
+<button class="w-full py-3 bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold rounded-lg mb-6 shadow-lg active:scale-95 transition-all">
+                New Project
+            </button>
+<div class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-2 text-xs text-[#e1e1ef]/50 hover:text-[#e1e1ef]" href="#">
+<span class="material-symbols-outlined text-sm">settings</span>
+<span>Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-xs text-[#e1e1ef]/50 hover:text-[#e1e1ef]" href="#">
+<span class="material-symbols-outlined text-sm">help_outline</span>
+<span>Support</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- TopNavBar Component -->
+<header class="sticky top-0 z-40 flex items-center justify-between px-8 ml-64 w-[calc(100%-16rem)] h-16 bg-[#11131c]/80 backdrop-blur-xl">
+<div class="flex items-center gap-8">
+<span class="text-lg font-black text-[#bbc6e2] font-manrope">Pipeline Logic</span>
+<div class="flex gap-6">
+<a class="font-manrope font-bold text-[#e1e1ef]/70 hover:text-[#e1e1ef] uppercase tracking-wider text-[10px]" href="#">Global View</a>
+<a class="font-manrope font-bold text-[#4cd6ff] border-b-2 border-[#4cd6ff] pb-1 uppercase tracking-wider text-[10px]" href="#">System Health</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex gap-3 mr-4">
+<span class="material-symbols-outlined text-[#e1e1ef]/60 cursor-pointer hover:text-[#4cd6ff]">notifications</span>
+<span class="material-symbols-outlined text-[#e1e1ef]/60 cursor-pointer hover:text-[#4cd6ff]">account_tree</span>
+</div>
+<button class="px-4 py-1.5 rounded text-[10px] font-bold uppercase tracking-widest bg-surface-container-highest text-primary border border-primary/20">Quick Draft</button>
+<button class="px-4 py-1.5 rounded text-[10px] font-bold uppercase tracking-widest bg-gradient-to-br from-[#4cd6ff] to-[#008eae] text-[#001f28] shadow-[0_0_20px_rgba(76,214,255,0.2)]">Run Pipeline</button>
+<img alt="Administrator Profile" class="w-8 h-8 rounded-full bg-surface-container-high border border-outline-variant/30" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBEe_Xp0X-FKcBL81CYroemwbUZZfrhNwxxWrKndNvhebPucjhnErdYY4F8eAShUVoAVw37hlfX17FuLvXi-FT-fiIa9uu5QBp7_b1ASUJfRCXKud9gBasDr79dVi6z0K1r7K4VodZd4HC2ASO7DpI5nlzDLp4xTf1lmB2NZeoC_ncc6F0IAFaAQFM71mAhHs8_GrMBOXn2ltYXvHHPz5i7vZvHPW4APHY3eJHZRPQeyppvy3SZw9y6wz_COUNHSOM8K61_vG8oas5B"/>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 p-8 min-h-screen bg-surface">
+<!-- The Core Idea Section -->
+<section class="mb-12">
+<div class="flex items-center gap-4 mb-4">
+<span class="px-3 py-1 bg-tertiary-container text-tertiary text-[10px] font-bold font-label rounded uppercase tracking-widest">Source Concept</span>
+<div class="h-px flex-1 bg-gradient-to-r from-outline-variant/20 to-transparent"></div>
+</div>
+<div class="bg-surface-container p-8 rounded-xl border-l-4 border-tertiary">
+<h1 class="font-headline text-3xl text-on-surface leading-tight">Leveraging High-Performance Editorial Workflows to 10x Content Output Without Sacrificing Creative Integrity.</h1>
+<p class="mt-4 text-on-surface-variant font-body max-w-3xl">This core idea focuses on the intersection of automation logic and human-centered design principles to redefine content pipelines for modern SaaS companies.</p>
+</div>
+</section>
+<div class="grid grid-cols-12 gap-8">
+<!-- Format Transformation Engine (Central Column) -->
+<div class="col-span-12 lg:col-span-8 space-y-8">
+<!-- Omni-Format Transformation Tabs -->
+<div class="flex flex-wrap gap-2 p-1 bg-surface-container-low rounded-lg">
+<button class="px-4 py-2 rounded font-label text-xs uppercase tracking-wider bg-tertiary text-on-tertiary shadow-sm">LinkedIn Post</button>
+<button class="px-4 py-2 rounded font-label text-xs uppercase tracking-wider text-on-surface-variant hover:bg-surface-container-high transition-all">Twitter Thread</button>
+<button class="px-4 py-2 rounded font-label text-xs uppercase tracking-wider text-on-surface-variant hover:bg-surface-container-high transition-all">IG Caption</button>
+<button class="px-4 py-2 rounded font-label text-xs uppercase tracking-wider text-on-surface-variant hover:bg-surface-container-high transition-all">YT Short</button>
+<button class="px-4 py-2 rounded font-label text-xs uppercase tracking-wider text-on-surface-variant hover:bg-surface-container-high transition-all">Blog Article</button>
+<button class="px-4 py-2 rounded font-label text-xs uppercase tracking-wider text-on-surface-variant hover:bg-surface-container-high transition-all">Newsletter</button>
+</div>
+<!-- Structure-Specific Editor (LinkedIn View) -->
+<div class="bg-surface-container-high rounded-xl overflow-hidden">
+<div class="px-6 py-4 border-b border-outline-variant/10 flex justify-between items-center bg-surface-container-highest/30">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary">edit_square</span>
+<span class="font-label text-xs font-bold uppercase tracking-widest">Live Editor: LinkedIn Protocol</span>
+</div>
+<div class="flex gap-2">
+<span class="w-3 h-3 rounded-full bg-error/40"></span>
+<span class="w-3 h-3 rounded-full bg-primary/40"></span>
+<span class="w-3 h-3 rounded-full bg-tertiary/40"></span>
+</div>
+</div>
+<div class="p-8 space-y-6 font-body text-on-surface leading-relaxed">
+<div class="text-on-tertiary-container font-bold text-lg border-b border-outline-variant/10 pb-2 mb-4 italic">
+                            [HOOK] Stop building dashboards. Start building content pipelines.
+                        </div>
+<p>Most content creators focus on volume. But volume without structure is just noise.</p>
+<p>The "Kinetic Architect" framework allows you to:<br/>
+                        1. Separate data from narrative.<br/>
+                        2. Automate structural transformation.<br/>
+                        3. Maintain editorial authority.</p>
+<p>In the next 5 years, the most successful brands won't be the ones with the biggest budgets, but the ones with the most efficient Editorial Engines.</p>
+<div class="mt-8 pt-6 border-t border-outline-variant/10">
+<p class="text-on-surface-variant">#EditorialEngine #SaaS #ContentStrategy #Automation</p>
+</div>
+</div>
+</div>
+<!-- Strategic Classification -->
+<div class="grid grid-cols-4 gap-4">
+<div class="p-4 bg-surface-container-low rounded-lg border-b-2 border-transparent hover:border-tertiary transition-all cursor-default">
+<span class="font-label text-[10px] text-on-surface-variant block uppercase tracking-widest mb-1">Educational</span>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span class="font-bold text-sm">Active Layer</span>
+</div>
+</div>
+<div class="p-4 bg-surface-container-low/50 rounded-lg opacity-40 grayscale">
+<span class="font-label text-[10px] text-on-surface-variant block uppercase tracking-widest mb-1">Storytelling</span>
+<span class="font-bold text-sm">Inactive</span>
+</div>
+<div class="p-4 bg-surface-container-low/50 rounded-lg opacity-40 grayscale">
+<span class="font-label text-[10px] text-on-surface-variant block uppercase tracking-widest mb-1">Authority</span>
+<span class="font-bold text-sm">Inactive</span>
+</div>
+<div class="p-4 bg-surface-container-low/50 rounded-lg opacity-40 grayscale">
+<span class="font-label text-[10px] text-on-surface-variant block uppercase tracking-widest mb-1">Marketing</span>
+<span class="font-bold text-sm">Inactive</span>
+</div>
+</div>
+</div>
+<!-- Side Intelligence Panel -->
+<div class="col-span-12 lg:col-span-4 space-y-8">
+<!-- Business Adaptation Stats -->
+<div class="bg-surface-container p-6 rounded-xl space-y-6">
+<h3 class="font-headline text-lg border-b border-outline-variant/10 pb-4">Alignment Matrix</h3>
+<div class="space-y-4">
+<div>
+<div class="flex justify-between text-xs font-label uppercase tracking-widest mb-2">
+<span class="text-on-surface-variant">Niche Relevance</span>
+<span class="text-tertiary">94%</span>
+</div>
+<div class="h-1 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-tertiary w-[94%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs font-label uppercase tracking-widest mb-2">
+<span class="text-on-surface-variant">Audience Fit</span>
+<span class="text-primary">82%</span>
+</div>
+<div class="h-1 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary w-[82%]"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs font-label uppercase tracking-widest mb-2">
+<span class="text-on-surface-variant">Goal (Conversion)</span>
+<span class="text-tertiary">67%</span>
+</div>
+<div class="h-1 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-tertiary w-[67%] opacity-60"></div>
+</div>
+</div>
+</div>
+<div class="p-4 bg-surface-container-low rounded-lg space-y-2">
+<span class="text-[10px] font-label text-on-tertiary-container uppercase tracking-widest">Account Insight</span>
+<p class="text-xs text-on-surface-variant leading-relaxed">This format highly resonates with "Tech Decision Makers" in your segment by using structured lists and technical authority markers.</p>
+</div>
+</div>
+<!-- Engagement Prediction & Score -->
+<div class="bg-gradient-to-br from-surface-container to-surface-container-high p-8 rounded-xl relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-4">
+<span class="material-symbols-outlined text-tertiary/20 group-hover:text-tertiary/40 transition-colors text-6xl" style="font-variation-settings: 'FILL' 1;">analytics</span>
+</div>
+<span class="font-label text-xs uppercase tracking-widest text-on-surface-variant mb-4 block">Prediction Engine</span>
+<div class="flex items-baseline gap-2">
+<span class="text-6xl font-headline font-extrabold text-on-surface">88</span>
+<span class="text-xl font-label text-tertiary">/100</span>
+</div>
+<p class="text-sm font-label text-on-tertiary-container mt-2">High Virality Probability</p>
+<div class="mt-8 space-y-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary text-sm">bolt</span>
+<span class="text-xs font-label text-on-surface-variant">Hook strength: Top 5%</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary text-sm">show_chart</span>
+<span class="text-xs font-label text-on-surface-variant">Retain score: 0.82s</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary text-sm">share</span>
+<span class="text-xs font-label text-on-surface-variant">Shareability index: High</span>
+</div>
+</div>
+</div>
+<!-- Strategic Nodes Visualization -->
+<div class="bg-surface-container-low p-6 rounded-xl">
+<span class="font-label text-xs uppercase tracking-widest text-on-surface-variant mb-6 block">Pipeline Nodes</span>
+<div class="relative pl-6 space-y-8">
+<div class="absolute left-[7px] top-1 bottom-1 w-0.5 bg-outline-variant/20"></div>
+<div class="relative">
+<div class="absolute -left-[23px] top-1 w-4 h-4 rounded-full bg-tertiary shadow-[0_0_10px_rgba(76,214,255,0.4)] border-2 border-surface-container-low"></div>
+<span class="block text-xs font-bold font-label text-on-surface">Concept Analysis</span>
+<span class="block text-[10px] text-tertiary uppercase">Completed</span>
+</div>
+<div class="relative">
+<div class="absolute -left-[23px] top-1 w-4 h-4 rounded-full bg-tertiary shadow-[0_0_10px_rgba(76,214,255,0.4)] border-2 border-surface-container-low"></div>
+<span class="block text-xs font-bold font-label text-on-surface">Structural Mapping</span>
+<span class="block text-[10px] text-tertiary uppercase">Completed</span>
+</div>
+<div class="relative">
+<div class="absolute -left-[23px] top-1 w-4 h-4 rounded-full bg-primary border-2 border-surface-container-low"></div>
+<span class="block text-xs font-bold font-label text-on-surface">Content Synthesis</span>
+<span class="block text-[10px] text-primary uppercase">In Progress</span>
+</div>
+<div class="relative">
+<div class="absolute -left-[23px] top-1 w-4 h-4 rounded-full bg-surface-container-highest border-2 border-surface-container-low"></div>
+<span class="block text-xs font-bold font-label text-on-surface-variant">Cross-Platform Relay</span>
+<span class="block text-[10px] text-on-surface-variant uppercase">Pending</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Multi-Format Card Preview Section -->
+<section class="mt-16">
+<h2 class="font-headline text-2xl mb-8">Derivative Assets</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Twitter Thread Card -->
+<div class="bg-surface-container hover:bg-surface-container-high transition-colors p-6 rounded-xl group cursor-pointer border-t border-transparent hover:border-tertiary/30">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-primary">alt_route</span>
+<span class="font-label text-[10px] bg-surface-container-highest px-2 py-0.5 rounded text-on-surface-variant uppercase tracking-widest">Twitter Protocol</span>
+</div>
+<p class="text-sm line-clamp-3 text-on-surface-variant">1/ Build content systems, not calendars. Here is why your 2024 strategy is failing and how to fix it... 🧵</p>
+</div>
+<!-- YT Script Card -->
+<div class="bg-surface-container hover:bg-surface-container-high transition-colors p-6 rounded-xl group cursor-pointer border-t border-transparent hover:border-tertiary/30">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-primary">video_stable</span>
+<span class="font-label text-[10px] bg-surface-container-highest px-2 py-0.5 rounded text-on-surface-variant uppercase tracking-widest">YouTube Short</span>
+</div>
+<p class="text-sm line-clamp-3 text-on-surface-variant">[0:00] Snap fingers. "Are you still writing manually? Watch this..." [Visual: Scrolling terminal]</p>
+</div>
+<!-- Newsletter Card -->
+<div class="bg-surface-container hover:bg-surface-container-high transition-colors p-6 rounded-xl group cursor-pointer border-t border-transparent hover:border-tertiary/30">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined text-primary">mail</span>
+<span class="font-label text-[10px] bg-surface-container-highest px-2 py-0.5 rounded text-on-surface-variant uppercase tracking-widest">The Digest</span>
+</div>
+<p class="text-sm line-clamp-3 text-on-surface-variant">Subject: The Architect's Manifesto... Inside this issue: Why efficiency is the only creative edge that matters.</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Aesthetic Decorative Overlay (Glassmorphism Effect) -->
+<div class="fixed bottom-8 right-8 z-50">
+<button class="flex items-center gap-3 px-6 py-4 bg-tertiary text-on-tertiary rounded-full shadow-2xl hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined">auto_fix</span>
+<span class="font-label text-sm font-bold uppercase tracking-widest">Finalize Pipeline</span>
+</button>
+</div>
+</body></html>

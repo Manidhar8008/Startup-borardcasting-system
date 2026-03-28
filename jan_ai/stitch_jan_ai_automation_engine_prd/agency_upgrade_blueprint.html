@@ -1,0 +1,29 @@
+# Agency Upgrade Blueprint: JAN AI — Multi-Account Content OS
+
+## 1. Core Objective
+Transform JAN AI from a single-user tool into a scalable agency-grade platform for managing multiple brands and content teams.
+
+## 2. Hierarchical Architecture
+- **Workspace:** The agency or organization container.
+- **Accounts:** Individual brands or clients (e.g., Brand A, Client B).
+- **Platforms:** Linked social media profiles (LinkedIn, X, Instagram, Reddit).
+- **Content:** The actual posts, threads, and carousels generated and managed within an Account.
+
+## 3. New Backend Services
+- `account_service.py`: Management of brands, niches, and tones.
+- `platform_service.py`: Simulated connection layer for social profiles.
+- `calendar_service.py`: Scheduling logic and time-based recommendations.
+- `pipeline_service.py`: Workflow management (Draft → Scheduled → Posted).
+
+## 4. Database Expansion
+- `workspaces`: Agency-level settings and team members.
+- `accounts`: Brand profiles, niches, target audiences, and goals.
+- `platform_connections`: Simulated auth and preference storage.
+- `content_schedule`: Time-slots, frequency rules, and queue management.
+- `content_pipeline`: Status tracking for every content piece across the workflow.
+
+## 5. UI/UX Strategy
+- **Workspace Dashboard:** High-level performance across all managed brands.
+- **Account Manager:** CRUD for brands, niche definitions, and platform linking.
+- **Content Calendar:** A unified, multi-brand visual schedule with drag-and-drop capability.
+- **Pipeline Board:** Kanban-style visualization of content status.

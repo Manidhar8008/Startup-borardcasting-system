@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>JAN AI - Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;family=Space+Grotesk:wght@500&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface": "#11131c",
+              "on-surface": "#e1e1ef",
+              "on-tertiary-fixed-variant": "#004e60",
+              "on-primary-fixed": "#101b30",
+              "error-container": "#93000a",
+              "primary": "#bbc6e2",
+              "on-tertiary-fixed": "#001f28",
+              "error": "#ffb4ab",
+              "on-surface-variant": "#c4c6cc",
+              "on-secondary-fixed-variant": "#2f4865",
+              "surface-variant": "#32343e",
+              "on-tertiary": "#003543",
+              "inverse-surface": "#e1e1ef",
+              "on-background": "#e1e1ef",
+              "tertiary-fixed-dim": "#4cd6ff",
+              "on-primary": "#263046",
+              "inverse-on-surface": "#2e303a",
+              "surface-container-low": "#191b24",
+              "on-secondary-container": "#9eb7d8",
+              "on-error": "#690005",
+              "on-error-container": "#ffdad6",
+              "surface-bright": "#373943",
+              "outline": "#8e9196",
+              "surface-container-lowest": "#0c0e17",
+              "surface-container": "#1d1f29",
+              "primary-container": "#0f1a2e",
+              "primary-fixed": "#d7e2ff",
+              "on-tertiary-container": "#008eae",
+              "secondary-container": "#2f4865",
+              "inverse-primary": "#545e76",
+              "tertiary-fixed": "#b7eaff",
+              "background": "#11131c",
+              "surface-tint": "#bbc6e2",
+              "secondary-fixed": "#d1e4ff",
+              "on-primary-fixed-variant": "#3c475d",
+              "primary-fixed-dim": "#bbc6e2",
+              "tertiary": "#4cd6ff",
+              "tertiary-container": "#001d26",
+              "on-secondary": "#17324d",
+              "outline-variant": "#44474c",
+              "on-primary-container": "#78839c",
+              "on-secondary-fixed": "#001d36",
+              "secondary": "#afc9ea",
+              "surface-dim": "#11131c",
+              "surface-container-highest": "#32343e",
+              "surface-container-high": "#282933",
+              "secondary-fixed-dim": "#afc9ea"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Space Grotesk"],
+              "mono": ["JetBrains Mono", "monospace"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.5rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { background-color: #11131c; color: #e1e1ef; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #11131c; }
+        ::-webkit-scrollbar-thumb { background: #282933; border-radius: 10px; }
+    </style>
+</head>
+<body class="font-body selection:bg-tertiary selection:text-on-tertiary">
+<!-- SideNavBar (Authority: JSON & Design System) -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-[#11131c] dark:bg-[#11131c] z-50 font-['Manrope'] antialiased tracking-tight flex flex-col p-6 space-y-8">
+<div class="text-xl font-bold tracking-tighter text-[#bbc6e2] flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary">settings_input_component</span>
+            JAN AI
+        </div>
+<nav class="flex-1 space-y-2">
+<a class="text-[#e1e1ef]/60 flex items-center gap-3 px-4 py-3 hover:text-[#e1e1ef] transition-colors hover:bg-[#282933] rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="text-[#e1e1ef]/60 flex items-center gap-3 px-4 py-3 hover:text-[#e1e1ef] transition-colors hover:bg-[#282933] rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="assignment">assignment</span>
+                Tasks
+            </a>
+<a class="text-[#e1e1ef]/60 flex items-center gap-3 px-4 py-3 hover:text-[#e1e1ef] transition-colors hover:bg-[#282933] rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+                Suggestions
+            </a>
+<a class="text-[#4cd6ff] font-semibold flex items-center gap-3 px-4 py-3 rounded-lg bg-[#1d1f29]" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+</nav>
+<div class="mt-auto pt-6 border-t border-outline-variant/10">
+<button class="w-full bg-gradient-to-br from-tertiary to-on-tertiary-container text-on-tertiary font-label text-sm py-3 px-4 rounded-lg flex items-center justify-center gap-2 active:scale-[0.98] transition-all">
+                Run Pipeline
+                <span class="material-symbols-outlined text-sm">play_arrow</span>
+</button>
+</div>
+</aside>
+<!-- TopNavBar (Authority: JSON & Design System) -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] z-40 bg-[#11131c]/80 backdrop-blur-md dark:bg-[#11131c]/80 flex justify-between items-center h-20 px-12">
+<div class="flex-1 max-w-xl relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="w-full bg-surface-container-lowest border-none rounded-lg pl-12 pr-4 py-2.5 text-sm focus:ring-2 focus:ring-[#4cd6ff]/30 transition-all outline-none text-on-surface" placeholder="Search system configuration..." type="text"/>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4 text-[#e1e1ef]">
+<button class="hover:text-[#4cd6ff] transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="hover:text-[#4cd6ff] transition-colors">
+<span class="material-symbols-outlined" data-icon="bolt">bolt</span>
+</button>
+</div>
+<div class="h-8 w-px bg-outline-variant/20 mx-2"></div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="text-xs font-label text-on-surface-variant">Lead Architect</p>
+<p class="text-sm font-semibold">Alex Rivera</p>
+</div>
+<img alt="User Profile" class="h-10 w-10 rounded-full object-cover ring-2 ring-tertiary/20" data-alt="close-up portrait of a professional man with a confident expression in a clean studio environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaTVzzqpXu8r9N-siDIu8Ro6JQW0h48EHeBJMORZUTdDobPEPuEomqIXc22f4QaAfDXALBn1Se_aT8QyG19SZgOkzaYavRTm-kuf-euEyJp6KDj8SC9lZm8uFyW-nFjdbUoVagOpFRPqFbRxsStXyEbS1UKHo0KdhgHtaxfZbV8uOZi9tYY_8qigcMEe7Ds6ST1Dg5o1E1zH_PfuU5W3D48h58DXlRlokypNIFGwBlZM2GUhpepmWIM7QTIIGn2vytpCaG9mwKdn-f"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-20 min-h-screen px-12 pb-20">
+<div class="max-w-6xl mx-auto py-12">
+<header class="mb-14">
+<h1 class="font-headline text-4xl font-extrabold tracking-tight text-on-surface">System Control</h1>
+<p class="font-body text-on-surface-variant mt-2 max-w-2xl">Refine your editorial automation engine parameters. Changes are deployed to the pipeline in real-time.</p>
+</header>
+<div class="grid grid-cols-12 gap-8">
+<!-- Left Column: User & Appearance -->
+<div class="col-span-12 lg:col-span-5 space-y-8">
+<!-- Profile Settings Card -->
+<section class="bg-surface-container p-8 rounded-lg">
+<h2 class="font-headline text-lg mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">person_outline</span>
+                            Profile Settings
+                        </h2>
+<div class="flex items-center gap-6 mb-8">
+<div class="relative group">
+<img alt="User Avatar" class="h-24 w-24 rounded-full object-cover" data-alt="professional portrait of a male tech executive with a neutral expression and high-end lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJpmncg73ZvWYJFEWbRrtFm2BBSLP8SwiJXKt5Y13_G5nHodk-hndikXOf9wz9T2rNg4V5GI1vptu8bVBVNdKGMmnwEBWlIRVE-bjHc-VfiaE4MrBFhherUu-2Kfnq3nuHyL5pBCuS2PvVZj6EMuuudlSudDk4AYS8YiyQVEHwG1R11ZDnfqTWSk9MdETS7oMHI1PJHRQdrFtZt_h6HYrrrsM6wk4ZzQCEgpRcLHIq862gfdW_qeurCF0zfol_GdrXBgMBsqaWCBa_"/>
+<div class="absolute inset-0 bg-surface/60 rounded-full opacity-0 group-hover:opacity-100 flex items-center justify-center cursor-pointer transition-opacity">
+<span class="material-symbols-outlined text-white">edit</span>
+</div>
+</div>
+<div>
+<h3 class="text-xl font-headline font-bold">Alex Rivera</h3>
+<p class="text-on-surface-variant font-label text-sm uppercase tracking-wider mb-1">Lead Architect</p>
+<p class="text-tertiary text-sm">alex.rivera@jan-ai.engine</p>
+</div>
+</div>
+<button class="w-full py-2.5 px-4 bg-surface-container-high rounded-lg font-label text-xs hover:bg-surface-container-highest transition-colors text-on-surface-variant">Update Credentials</button>
+</section>
+<!-- Appearance Card -->
+<section class="bg-surface-container p-8 rounded-lg">
+<div class="flex justify-between items-start mb-6">
+<h2 class="font-headline text-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">palette</span>
+                                Appearance
+                            </h2>
+<span class="bg-primary-container text-on-primary-container px-3 py-1 rounded-full font-label text-[10px] uppercase tracking-widest">Locked</span>
+</div>
+<div class="relative overflow-hidden rounded-lg bg-surface-container-low p-4 flex items-center gap-4">
+<div class="h-16 w-16 bg-gradient-to-tr from-surface to-tertiary/20 rounded-md flex-shrink-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary">dark_mode</span>
+</div>
+<div>
+<p class="font-headline font-bold">Kinetic Dark</p>
+<p class="text-xs text-on-surface-variant">Optimized for high-performance automation monitoring.</p>
+</div>
+<span class="material-symbols-outlined ml-auto text-tertiary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+</section>
+</div>
+<!-- Right Column: System & Infrastructure -->
+<div class="col-span-12 lg:col-span-7 space-y-8">
+<!-- System Configuration Card -->
+<section class="bg-surface-container p-8 rounded-lg">
+<h2 class="font-headline text-lg mb-8 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">settings_suggest</span>
+                            System Configuration
+                        </h2>
+<div class="space-y-6">
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-lg transition-colors hover:bg-surface-container-high">
+<div>
+<p class="font-headline font-semibold">Auto-Parser</p>
+<p class="text-xs text-on-surface-variant">Enable autonomous node routing for unstructured inputs.</p>
+</div>
+<div class="w-12 h-6 bg-tertiary rounded-full relative cursor-pointer">
+<div class="absolute right-1 top-1 w-4 h-4 bg-on-tertiary rounded-full"></div>
+</div>
+</div>
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-lg">
+<div>
+<p class="font-headline font-semibold">Batch Execution</p>
+<p class="text-xs text-on-surface-variant">Parallelize task execution across cloud clusters.</p>
+</div>
+<div class="w-12 h-6 bg-surface-container-highest rounded-full relative cursor-pointer">
+<div class="absolute left-1 top-1 w-4 h-4 bg-on-surface-variant rounded-full"></div>
+</div>
+</div>
+<div class="flex items-center justify-between p-4 bg-surface-container-low rounded-lg">
+<div>
+<p class="font-headline font-semibold">Suggestion Notifications</p>
+<p class="text-xs text-on-surface-variant">Real-time alerts for engine optimization logic.</p>
+</div>
+<div class="w-12 h-6 bg-tertiary rounded-full relative cursor-pointer">
+<div class="absolute right-1 top-1 w-4 h-4 bg-on-tertiary rounded-full"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- API Management Card -->
+<section class="bg-surface-container p-8 rounded-lg">
+<h2 class="font-headline text-lg mb-8 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">key</span>
+                            API Management
+                        </h2>
+<div class="mb-8">
+<label class="font-label text-xs text-on-surface-variant block mb-2 uppercase tracking-widest">Active Secret Key</label>
+<div class="flex gap-2">
+<div class="flex-1 bg-surface-container-lowest font-label p-3 rounded-lg text-sm text-primary flex items-center justify-between">
+<span>jan_live_••••••••••••••••••••••••3a9c</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface">content_copy</span>
+</div>
+<button class="px-6 bg-surface-container-high rounded-lg text-xs font-label hover:bg-surface-container-highest transition-all border border-outline-variant/10">Regenerate</button>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-center mb-4">
+<label class="font-label text-xs text-on-surface-variant uppercase tracking-widest">Usage Threshold</label>
+<span class="font-label text-tertiary">850k / 1M Requests</span>
+</div>
+<div class="h-2 w-full bg-surface-container-lowest rounded-full overflow-hidden">
+<div class="h-full bg-gradient-to-r from-tertiary/40 to-tertiary w-[85%]"></div>
+</div>
+<p class="text-[10px] text-on-surface-variant mt-2 italic">Auto-throttle kicks in at 950,000 requests.</p>
+</div>
+</section>
+<!-- Database Connection Card -->
+<section class="bg-surface-container p-8 rounded-lg overflow-hidden relative">
+<!-- Decorative Background Glow -->
+<div class="absolute -right-20 -bottom-20 w-40 h-40 bg-tertiary/5 blur-3xl rounded-full"></div>
+<h2 class="font-headline text-lg mb-8 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">database</span>
+                            Infrastructure
+                        </h2>
+<div class="grid grid-cols-2 gap-6 mb-8">
+<div class="p-4 bg-surface-container-low rounded-lg">
+<p class="font-label text-[10px] text-on-surface-variant uppercase mb-1">Status</p>
+<div class="flex items-center gap-2">
+<div class="h-2 w-2 rounded-full bg-[#4cd6ff] animate-pulse"></div>
+<p class="font-headline font-bold text-tertiary">PostgreSQL Connected</p>
+</div>
+</div>
+<div class="p-4 bg-surface-container-low rounded-lg">
+<p class="font-label text-[10px] text-on-surface-variant uppercase mb-1">Host</p>
+<p class="font-headline font-bold">aws-us-east-cluster.local</p>
+</div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex gap-4">
+<div class="flex flex-col">
+<span class="text-[10px] font-label text-on-surface-variant">Latency</span>
+<span class="text-sm font-label">12ms</span>
+</div>
+<div class="w-px h-8 bg-outline-variant/20"></div>
+<div class="flex flex-col">
+<span class="text-[10px] font-label text-on-surface-variant">Uptime</span>
+<span class="text-sm font-label">99.99%</span>
+</div>
+</div>
+<button class="flex items-center gap-2 px-6 py-3 bg-surface-container-highest rounded-lg text-sm font-label hover:text-tertiary transition-all">
+<span class="material-symbols-outlined text-sm">terminal</span>
+                                Test Connection
+                            </button>
+</div>
+</section>
+</div>
+<!-- Execution Logs Section (New Additon) -->
+<section class="col-span-12 mt-8">
+<div class="bg-surface-container p-8 rounded-lg border border-outline-variant/5">
+<div class="flex items-center justify-between mb-8">
+<h2 class="font-headline text-lg flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">terminal</span>
+                            Execution Logs
+                        </h2>
+<div class="flex items-center gap-2 mr-4 bg-surface-container-low p-1 rounded-full border border-outline-variant/10">
+<button class="px-3 py-1 rounded-full text-[10px] font-label uppercase tracking-widest bg-tertiary text-on-tertiary shadow-lg shadow-tertiary/20">All</button>
+<button class="px-3 py-1 rounded-full text-[10px] font-label uppercase tracking-widest text-on-surface-variant hover:text-tertiary transition-colors">Success</button>
+<button class="px-3 py-1 rounded-full text-[10px] font-label uppercase tracking-widest text-on-surface-variant hover:text-tertiary transition-colors">Pending</button>
+<button class="px-3 py-1 rounded-full text-[10px] font-label uppercase tracking-widest text-on-surface-variant hover:text-error transition-colors">Error</button>
+<button class="px-3 py-1 rounded-full text-[10px] font-label uppercase tracking-widest text-on-surface-variant hover:text-secondary transition-colors">Warning</button>
+</div><div class="flex items-center gap-4">
+<span class="text-[10px] font-label text-on-surface-variant uppercase tracking-widest bg-surface-container-high px-2 py-1 rounded">Real-time Stream</span>
+<button class="text-on-surface-variant hover:text-tertiary transition-colors">
+<span class="material-symbols-outlined text-lg">download</span>
+</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<div class="max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+<table class="w-full text-left border-separate border-spacing-y-2">
+<thead class="sticky top-0 bg-surface-container z-10">
+<tr class="text-[10px] font-label text-on-surface-variant uppercase tracking-widest">
+<th class="pb-4 pl-4">Timestamp</th>
+<th class="pb-4">Task ID</th>
+<th class="pb-4">Event</th>
+<th class="pb-4 pr-4">Status</th>
+</tr>
+</thead>
+<tbody class="font-mono text-xs">
+<tr class="bg-surface-container-low hover:bg-surface-container-high transition-colors group">
+<td class="py-3 pl-4 rounded-l-lg text-on-surface-variant">2023-11-24 14:22:01.042</td>
+<td class="py-3 text-tertiary">#EXE-88219</td>
+<td class="py-3">Autonomous Node Routing Initialized</td>
+<td class="py-3 pr-4 rounded-r-lg">
+<div class="flex items-center gap-1.5 text-[#4cd6ff]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#4cd6ff]"></span>
+                                            SUCCESS
+                                        </div>
+</td>
+</tr>
+<tr class="bg-surface-container-low hover:bg-surface-container-high transition-colors group">
+<td class="py-3 pl-4 rounded-l-lg text-on-surface-variant">2023-11-24 14:21:58.910</td>
+<td class="py-3 text-tertiary">#EXE-88218</td>
+<td class="py-3">Batch Execution Pipeline Started</td>
+<td class="py-3 pr-4 rounded-r-lg">
+<div class="flex items-center gap-1.5 text-[#4cd6ff]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#4cd6ff]"></span>
+                                            SUCCESS
+                                        </div>
+</td>
+</tr>
+<tr class="bg-surface-container-low hover:bg-surface-container-high transition-colors group">
+<td class="py-3 pl-4 rounded-l-lg text-on-surface-variant">2023-11-24 14:20:12.331</td>
+<td class="py-3 text-tertiary">#SYS-CFG-01</td>
+<td class="py-3">API Key Regeneration Requested</td>
+<td class="py-3 pr-4 rounded-r-lg">
+<div class="flex items-center gap-1.5 text-on-surface-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>
+                                            PENDING
+                                        </div>
+</td>
+</tr>
+<tr class="bg-surface-container-low hover:bg-surface-container-high transition-colors group">
+<td class="py-3 pl-4 rounded-l-lg text-on-surface-variant">2023-11-24 14:18:44.209</td>
+<td class="py-3 text-tertiary">#EXE-88217</td>
+<td class="py-3">Unstructured Input Parser Timeout</td>
+<td class="py-3 pr-4 rounded-r-lg">
+<div class="flex items-center gap-1.5 text-error">
+<span class="w-1.5 h-1.5 rounded-full bg-error animate-pulse"></span>
+                                            ERROR
+                                        </div>
+</td>
+</tr>
+<tr class="bg-surface-container-low hover:bg-surface-container-high transition-colors group">
+<td class="py-3 pl-4 rounded-l-lg text-on-surface-variant">2023-11-24 14:15:02.115</td>
+<td class="py-3 text-tertiary">#DB-CON-04</td>
+<td class="py-3">High Latency Detected: aws-us-east-cluster</td>
+<td class="py-3 pr-4 rounded-r-lg">
+<div class="flex items-center gap-1.5 text-secondary">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                            WARNING
+                                        </div>
+</td>
+</tr>
+<tr class="bg-surface-container-low hover:bg-surface-container-high transition-colors group">
+<td class="py-3 pl-4 rounded-l-lg text-on-surface-variant">2023-11-24 14:12:30.882</td>
+<td class="py-3 text-tertiary">#EXE-88216</td>
+<td class="py-3">Node Routing Optimizer Handshake</td>
+<td class="py-3 pr-4 rounded-r-lg">
+<div class="flex items-center gap-1.5 text-[#4cd6ff]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#4cd6ff]"></span>
+                                            SUCCESS
+                                        </div>
+</td>
+</tr>
+<tr class="bg-surface-container-low hover:bg-surface-container-high transition-colors group">
+<td class="py-3 pl-4 rounded-l-lg text-on-surface-variant">2023-11-24 14:10:15.003</td>
+<td class="py-3 text-tertiary">#EXE-88215</td>
+<td class="py-3">Cloud Cluster Resource Allocation</td>
+<td class="py-3 pr-4 rounded-r-lg">
+<div class="flex items-center gap-1.5 text-[#4cd6ff]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#4cd6ff]"></span>
+                                            SUCCESS
+                                        </div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Kinetic Footer -->
+<footer class="mt-20 border-t border-outline-variant/10 pt-8 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="h-10 w-10 bg-primary-container rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container">shield</span>
+</div>
+<div>
+<p class="text-xs font-bold text-on-surface">End-to-End Encryption Active</p>
+<p class="text-[10px] text-on-surface-variant font-label">All pipeline modifications are logged via Immutable Ledger.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<button class="px-8 py-3 text-on-surface-variant hover:text-on-surface font-label text-sm transition-colors">Discard Changes</button>
+<button class="px-8 py-3 bg-gradient-to-br from-tertiary to-on-tertiary-container text-on-tertiary font-headline font-bold text-sm rounded-lg active:scale-95 transition-all shadow-xl shadow-tertiary/10">Deploy Configuration</button>
+</div>
+</footer>
+</div>
+</main>
+</body></html>

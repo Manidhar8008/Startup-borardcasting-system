@@ -1,0 +1,153 @@
+# JAN AI — Front-End Application Code Blueprint (Vite + React + Tailwind)
+
+This document provides the functional structure to transform the JAN AI high-fidelity designs into a clickable, demo-ready SaaS application.
+
+## 1. Project Setup & Configuration
+```bash
+# Initialize Vite with React and TypeScript
+npm create vite@latest jan-ai -- --template react-ts
+cd jan-ai
+
+# Install core dependencies
+npm install lucide-react react-router-dom axios clsx tailwind-merge framer-motion zustand
+
+# Setup Tailwind CSS
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+```
+
+## 2. Directory Structure (Application Scale)
+```text
+src/
+├── api/             # API client (Axios) and endpoint definitions
+├── components/      # Shared components (Layout, Nav, Forms, Cards)
+│   ├── layout/      # AppShell, TopNav, SideNav
+│   ├── ui/          # Buttons, Inputs, Modals, Progress Indicators
+│   └── content/     # Studio-specific components (ScoreCard, LogicNode)
+├── context/         # Auth, Workspace, and System Health context
+├── hooks/           # Custom hooks (usePipeline, useAccount)
+├── pages/           # Screen implementations
+│   ├── auth/        # Sign-up, Onboarding, Profile Setup
+│   ├── dashboard/   # Multi-account Dashboard
+│   ├── studio/      # Content Studio, Strategy Forge, Pipeline OS
+│   └── settings/    # System Config, Logs, FAQ
+├── store/           # Zustand stores for global UI state
+├── types/           # Global TypeScript interfaces
+└── App.tsx          # Main Router & Provider wrapper
+```
+
+## 3. Global State Management (Zustand + Context)
+We use Zustand for lightweight UI state and React Context for domain-level state like `ActiveAccount`.
+
+```typescript
+// src/store/uiStore.ts
+import { create } from 'zustand';
+
+interface UIState {
+  isSidebarOpen: boolean;
+  activeTheme: 'dark'; // Hardcoded for Pipeline Kinetic
+  toggleSidebar: () => void;
+}
+
+export const useUIStore = create<UIState>((set) => ({
+  isSidebarOpen: true,
+  activeTheme: 'dark',
+  toggleSidebar: () => set((state) => ({ isSidebarOpen: !state.isSidebarOpen })),
+}));
+
+// src/context/AccountContext.tsx
+import React, { createContext, useContext, useState } from 'react';
+
+const AccountContext = createContext<any>(null);
+
+export const AccountProvider = ({ children }: { children: React.ReactNode }) => {
+  const [activeAccount, setActiveAccount] = useState({
+    name: 'Quantum Tech',
+    niche: 'SaaS & Tech',
+    goal: 'Growth',
+  });
+
+  return (
+    <AccountContext.Provider value={{ activeAccount, setActiveAccount }}>
+      {children}
+    </AccountContext.Provider>
+  );
+};
+```
+
+## 4. Feature Implementation: The Kinetic Router
+Mapping our established screens to the application routing logic.
+
+```typescript
+// src/App.tsx
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { AppShell } from './components/layout/AppShell';
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        {/* Auth Flow */}
+        <Route path="/signup" element={<Onboarding />} /> {/* Reference: {{DATA:SCREEN:SCREEN_40}} */}
+        <Route path="/setup" element={<BusinessDetails />} /> {/* Reference: {{DATA:SCREEN:SCREEN_39}} */}
+        
+        {/* Main Application Shell */}
+        <Route element={<AppShell />}>
+          <Route path="/" element={<Dashboard />} /> {/* Reference: {{DATA:SCREEN:SCREEN_31}} */}
+          <Route path="/strategy" element={<StrategyForge />} /> {/* Reference: {{DATA:SCREEN:SCREEN_17}} */}
+          <Route path="/studio" element={<ContentStudio />} /> {/* Reference: {{DATA:SCREEN:SCREEN_19}} */}
+          <Route path="/calendar" element={<ContentCalendar />} /> {/* Reference: {{DATA:SCREEN:SCREEN_2}} */}
+          <Route path="/ideabank" element={<IdeaBank />} /> {/* Reference: {{DATA:SCREEN:SCREEN_26}} */}
+          <Route path="/settings" element={<Settings />} /> {/* Reference: {{DATA:SCREEN:SCREEN_30}} */}
+          <Route path="/faq" element={<FAQ />} /> {/* Reference: {{DATA:SCREEN:SCREEN_41}} */}
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
+}
+```
+
+## 5. API Strategy: Simulated Execution
+The application uses a unified service layer to handle simulated "pipeline" triggers and content scoring.
+
+```typescript
+// src/api/pipeline.ts
+import axios from 'axios';
+
+const api = axios.create({ baseURL: '/api' });
+
+export const triggerPipeline = async (inputId: string) => {
+  // Simulate POST /pipeline/run
+  return api.post('/run', { inputId });
+};
+
+export const fetchScores = async (contentId: string) => {
+  // Simulate GET /scores
+  return api.get(`/scores/${contentId}`);
+};
+```
+
+## 6. Styling Foundation (Tailwind Theme)
+Configuring the `Pipeline Kinetic` theme tokens in `tailwind.config.js`.
+
+```javascript
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        background: '#0D1B2A', // Custom color from Design System
+        surface: '#1B263B',
+        primary: '#415A77',
+        accent: '#778DA9',
+        kinetic: '#00C2FF', // The signature Pipeline Cyan
+      },
+      fontFamily: {
+        manrope: ['Manrope', 'sans-serif'],
+      },
+      borderRadius: {
+        'kinetic': '4px', // Roundness: ROUND_FOUR
+      }
+    },
+  },
+}
+```

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>JAN AI - Daily Thought Dump</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@700;800&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-tertiary-fixed-variant": "#004e60",
+              "outline-variant": "#44474c",
+              "secondary-fixed-dim": "#afc9ea",
+              "tertiary-fixed-dim": "#4cd6ff",
+              "on-tertiary-fixed": "#001f28",
+              "tertiary": "#4cd6ff",
+              "surface-container-low": "#191b24",
+              "surface-variant": "#32343e",
+              "primary-container": "#0f1a2e",
+              "on-surface-variant": "#c4c6cc",
+              "error-container": "#93000a",
+              "secondary-container": "#2f4865",
+              "on-secondary-fixed-variant": "#2f4865",
+              "surface-container-lowest": "#0c0e17",
+              "surface-container-highest": "#32343e",
+              "outline": "#8e9196",
+              "surface-container": "#1d1f29",
+              "on-primary": "#263046",
+              "on-error-container": "#ffdad6",
+              "background": "#11131c",
+              "error": "#ffb4ab",
+              "primary-fixed-dim": "#bbc6e2",
+              "on-secondary-container": "#9eb7d8",
+              "on-primary-container": "#78839c",
+              "primary": "#bbc6e2",
+              "surface-tint": "#bbc6e2",
+              "surface-bright": "#373943",
+              "secondary-fixed": "#d1e4ff",
+              "surface": "#11131c",
+              "secondary": "#afc9ea",
+              "on-primary-fixed": "#101b30",
+              "surface-dim": "#11131c",
+              "on-background": "#e1e1ef",
+              "on-surface": "#e1e1ef",
+              "on-secondary-fixed": "#001d36",
+              "inverse-on-surface": "#2e303a",
+              "on-tertiary": "#003543",
+              "surface-container-high": "#282933",
+              "primary-fixed": "#d7e2ff",
+              "on-tertiary-container": "#008eae",
+              "tertiary-container": "#001d26",
+              "on-primary-fixed-variant": "#3c475d",
+              "on-error": "#690005",
+              "inverse-surface": "#e1e1ef",
+              "on-secondary": "#17324d",
+              "tertiary-fixed": "#b7eaff",
+              "inverse-primary": "#545e76"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Space Grotesk"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      ::-webkit-scrollbar { width: 4px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+      ::-webkit-scrollbar-thumb { background: #32343e; border-radius: 10px; }
+      .glass-panel {
+        background: rgba(55, 57, 67, 0.6);
+        backdrop-filter: blur(20px);
+      }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-tertiary/30">
+<div class="flex h-screen overflow-hidden">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col p-4 gap-2 h-full w-64 bg-[#11131c] border-r-0 z-40">
+<div class="flex items-center gap-3 px-4 py-6 mb-4">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-tertiary to-on-tertiary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-tertiary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<div>
+<h1 class="font-headline font-bold text-[#bbc6e2] leading-tight">JAN AI</h1>
+<p class="font-label text-[0.65rem] uppercase tracking-[0.2em] text-on-tertiary-container">Intelligence Engine</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-[#bbc6e2] hover:text-white hover:bg-[#282933] transition-all rounded-lg cursor-pointer active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-['Inter'] text-[0.875rem]">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-[#1d1f29] text-[#4cd6ff] rounded-lg cursor-pointer active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="font-['Inter'] text-[0.875rem]">Content Studio</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#bbc6e2] hover:text-white hover:bg-[#282933] transition-all rounded-lg cursor-pointer active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-['Inter'] text-[0.875rem]">Strategy</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-[#bbc6e2] hover:text-white hover:bg-[#282933] transition-all rounded-lg cursor-pointer active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-['Inter'] text-[0.875rem]">Settings</span>
+</a>
+</nav>
+<div class="mt-auto pt-4 border-t border-outline-variant/20 space-y-1">
+<button class="w-full mb-4 py-3 rounded-xl bg-gradient-to-r from-tertiary to-on-tertiary-container text-on-tertiary font-label text-sm font-bold tracking-tight hover:opacity-90 transition-opacity">
+                    New Thought
+                </button>
+<a class="flex items-center gap-3 px-4 py-2 text-[#bbc6e2] hover:text-white hover:bg-[#282933] transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span class="font-['Inter'] text-[0.875rem]">Support</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-[#bbc6e2] hover:text-white hover:bg-[#282933] transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">manage_accounts</span>
+<span class="font-['Inter'] text-[0.875rem]">Account</span>
+</a>
+</div>
+</aside>
+<div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center h-16 px-8 w-full bg-[#11131c] z-50">
+<div class="flex items-center gap-8">
+<h2 class="text-xl font-bold tracking-tighter text-[#bbc6e2] font-['Manrope']">Daily Thought Dump</h2>
+<div class="hidden lg:flex items-center gap-6">
+<a class="text-[#bbc6e2] opacity-70 hover:opacity-100 transition-opacity font-['Manrope'] text-sm tracking-tight" href="#">Dashboard</a>
+<a class="text-[#4cd6ff] font-semibold border-b-2 border-[#4cd6ff] pb-1 font-['Manrope'] text-sm tracking-tight" href="#">Content Studio</a>
+<a class="text-[#bbc6e2] opacity-70 hover:opacity-100 transition-opacity font-['Manrope'] text-sm tracking-tight" href="#">Strategy</a>
+<a class="text-[#bbc6e2] opacity-70 hover:opacity-100 transition-opacity font-['Manrope'] text-sm tracking-tight" href="#">Settings</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<input class="bg-[#1d1f29] border-none rounded-md px-4 py-1.5 text-sm text-[#bbc6e2] w-64 focus:ring-1 focus:ring-tertiary transition-all" placeholder="Search insights..." type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-1.5 text-on-surface-variant text-sm">search</span>
+</div>
+<button class="p-2 text-[#bbc6e2] hover:bg-[#1d1f29] rounded-md transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-[#bbc6e2] hover:bg-[#1d1f29] rounded-md transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</button>
+<img alt="User Profile Avatar" class="w-8 h-8 rounded-full border border-outline-variant/30 ml-2" data-alt="Close-up portrait of a professional man with modern glasses in soft studio lighting against a dark neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0sdxhE524agO0zeWc3gqMDxLH2xSlOZvKe4-blhRyU0LytnfEiNmRpgMIGq1ILuiAta4ODJGm1byHSSVVAXva9WGJzw1rWSd8OhGT-f-CcHgnoYI0NMN007dEOfcTGG-tMkFmQBGt6O6ZLNZBSZw4eV48T8E4VDyqiue7RartdMz-xq1-uRIVBqaBkvdsQe5nwHBV1a3rlzFh_ESNElEZCmz3gisdMJbTmIKIlTp7LIDccX8mzJezDxy9wqzc_Xt5ZdYcwW4wtJqw"/>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 flex overflow-hidden p-6 gap-6">
+<!-- Left: The Input Canvas -->
+<section class="flex-1 flex flex-col bg-surface-container rounded-xl overflow-hidden shadow-2xl relative">
+<div class="p-6 flex items-center justify-between border-b border-outline-variant/10">
+<div class="flex items-center gap-3">
+<span class="font-label text-xs uppercase tracking-widest text-on-tertiary-container">Buffer Status:</span>
+<div class="flex gap-1.5">
+<div class="w-1.5 h-1.5 rounded-full bg-tertiary"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-tertiary"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-tertiary/20"></div>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="font-label text-xs text-on-surface-variant">428 Words</span>
+<div class="h-4 w-[1px] bg-outline-variant/30"></div>
+<span class="font-label text-xs text-on-surface-variant">Last saved 2m ago</span>
+</div>
+</div>
+<div class="flex-1 relative">
+<textarea class="w-full h-full p-12 bg-transparent border-none focus:ring-0 text-on-surface font-body text-lg leading-relaxed resize-none placeholder:text-on-surface-variant/20" placeholder="Start your raw thought dump here... insights, emotional beats, or business strategies. Let the engine extract the value."></textarea>
+<!-- Floating Context Marker -->
+<div class="absolute bottom-12 left-12 flex items-center gap-2 px-3 py-1.5 bg-surface-container-high rounded-full border border-outline-variant/10">
+<span class="material-symbols-outlined text-tertiary text-sm" style="font-variation-settings: 'FILL' 1;">edit_note</span>
+<span class="font-label text-[10px] uppercase tracking-tighter text-on-surface-variant">Active Intelligence Layer: ON</span>
+</div>
+</div>
+<div class="p-6 bg-surface-container-low/50 flex justify-end gap-3">
+<button class="px-6 py-2 rounded-lg text-primary font-label text-sm hover:bg-surface-container-high transition-colors">Discard</button>
+<button class="px-8 py-2 rounded-lg bg-surface-container-highest text-on-surface font-label text-sm hover:bg-surface-bright transition-all">Draft Saved</button>
+<button class="px-8 py-2 rounded-lg bg-gradient-to-r from-tertiary to-on-tertiary-container text-on-tertiary font-label text-sm font-bold">Process Content</button>
+</div>
+</section>
+<!-- Right: Real-Time Extraction Sidebar -->
+<aside class="w-96 flex flex-col gap-6">
+<!-- Extraction Header -->
+<div class="bg-surface-container rounded-xl p-6 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-tertiary/5 rounded-full -mr-16 -mt-16 blur-3xl"></div>
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-tertiary">database</span>
+<h3 class="font-headline text-lg font-bold text-on-surface">Extraction Hub</h3>
+</div>
+<!-- Pipeline Kinetic Indicator -->
+<div class="flex flex-col gap-4 relative">
+<!-- Topic Extraction -->
+<div class="relative pl-6">
+<div class="absolute left-0 top-0 bottom-0 w-[2px] bg-outline-variant/20">
+<div class="absolute top-0 left-0 w-full h-1/2 bg-tertiary"></div>
+</div>
+<div class="absolute left-[-4px] top-0 w-2 h-2 rounded-full bg-tertiary shadow-[0_0_8px_rgba(76,214,255,0.6)]"></div>
+<span class="font-label text-[10px] uppercase tracking-widest text-on-tertiary-container block mb-1">Topics</span>
+<div class="flex flex-wrap gap-2">
+<span class="px-2 py-0.5 bg-surface-container-high text-tertiary text-[11px] font-label rounded-md">Artificial Intelligence</span>
+<span class="px-2 py-0.5 bg-surface-container-high text-tertiary text-[11px] font-label rounded-md">Stoic Discipline</span>
+<span class="px-2 py-0.5 bg-surface-container-high text-primary/50 text-[11px] font-label rounded-md italic">Analyzing...</span>
+</div>
+</div>
+<!-- Intent & Tone -->
+<div class="grid grid-cols-2 gap-4 relative pl-6">
+<div class="absolute left-0 top-0 bottom-0 w-[2px] bg-outline-variant/20"></div>
+<div class="absolute left-[-4px] top-0 w-2 h-2 rounded-full bg-primary"></div>
+<div>
+<span class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant block mb-1">Intent</span>
+<p class="text-sm font-body text-on-surface">Educational / Share</p>
+</div>
+<div>
+<span class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant block mb-1">Tone</span>
+<p class="text-sm font-body text-on-surface">Analytical</p>
+</div>
+</div>
+<!-- Processing State -->
+<div class="relative pl-6">
+<div class="absolute left-0 top-0 bottom-0 w-[2px] bg-outline-variant/20"></div>
+<div class="absolute left-[-4px] top-0 w-2 h-2 rounded-full bg-outline-variant"></div>
+<span class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant block mb-1">Status</span>
+<p class="text-xs font-label text-tertiary animate-pulse">EXTRACTING CORE ARGUMENTS...</p>
+</div>
+</div>
+</div>
+<!-- Key Ideas Bento Card -->
+<div class="flex-1 bg-surface-container-low rounded-xl p-8 flex flex-col">
+<div class="flex items-center justify-between mb-8">
+<h4 class="font-headline font-bold text-on-surface">Key Ideas</h4>
+<span class="material-symbols-outlined text-on-surface-variant text-sm">more_horiz</span>
+</div>
+<div class="space-y-6 flex-1 overflow-y-auto pr-2">
+<div class="group">
+<div class="flex gap-4">
+<span class="font-label text-tertiary text-xs mt-1">01</span>
+<p class="text-sm text-on-surface-variant leading-relaxed group-hover:text-on-surface transition-colors">The paradox of AI utility: humans crave automation for the tasks they hate, but find purpose in the struggle of execution.</p>
+</div>
+</div>
+<div class="group">
+<div class="flex gap-4">
+<span class="font-label text-tertiary text-xs mt-1">02</span>
+<p class="text-sm text-on-surface-variant leading-relaxed group-hover:text-on-surface transition-colors">Digital stoicism: maintaining internal silence in an era of algorithmic noise.</p>
+</div>
+</div>
+<div class="group">
+<div class="flex gap-4">
+<span class="font-label text-tertiary text-xs mt-1">03</span>
+<p class="text-sm text-on-surface-variant leading-relaxed group-hover:text-on-surface transition-colors">Information density over content length as the new premium metric for engagement.</p>
+</div>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-outline-variant/10">
+<button class="w-full group flex items-center justify-center gap-2 py-3 rounded-lg bg-surface-container-high hover:bg-surface-bright transition-all">
+<span class="material-symbols-outlined text-tertiary text-sm">auto_fix</span>
+<span class="font-label text-xs uppercase tracking-widest">Synthesize for LinkedIn</span>
+</button>
+</div>
+</div>
+<!-- Data Visualization Element -->
+<div class="h-32 bg-surface-container-lowest rounded-xl p-4 flex flex-col justify-end gap-3 relative overflow-hidden">
+<div class="absolute inset-0 opacity-10 pointer-events-none">
+<div class="w-full h-full" style="background-image: radial-gradient(circle at 2px 2px, #bbc6e2 1px, transparent 0); background-size: 16px 16px;">
+</div>
+</div>
+<div class="flex items-end gap-1 h-12">
+<div class="flex-1 bg-tertiary/20 rounded-t-sm h-1/2"></div>
+<div class="flex-1 bg-tertiary/30 rounded-t-sm h-3/4"></div>
+<div class="flex-1 bg-tertiary rounded-t-sm h-full"></div>
+<div class="flex-1 bg-tertiary/40 rounded-t-sm h-2/3"></div>
+<div class="flex-1 bg-tertiary/60 rounded-t-sm h-5/6"></div>
+<div class="flex-1 bg-tertiary/10 rounded-t-sm h-1/4"></div>
+<div class="flex-1 bg-tertiary/30 rounded-t-sm h-1/2"></div>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-label text-[10px] text-on-tertiary-container uppercase tracking-widest">Extraction Confidence</span>
+<span class="font-label text-[10px] text-tertiary">94.8%</span>
+</div>
+</div>
+</aside>
+</main>
+</div>
+</div>
+<!-- Mobile Navigation Shell -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-[#11131c] flex items-center justify-around z-50">
+<a class="flex flex-col items-center gap-1 text-[#bbc6e2] opacity-70" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-[10px] font-label">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-[#4cd6ff]" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="text-[10px] font-label">Studio</span>
+</a>
+<div class="w-12 h-12 -mt-10 rounded-full bg-gradient-to-r from-tertiary to-on-tertiary-container flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-on-tertiary" style="font-variation-settings: 'FILL' 1;">add</span>
+</div>
+<a class="flex flex-col items-center gap-1 text-[#bbc6e2] opacity-70" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="text-[10px] font-label">Strategy</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-[#bbc6e2] opacity-70" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] font-label">Settings</span>
+</a>
+</nav>
+</body></html>

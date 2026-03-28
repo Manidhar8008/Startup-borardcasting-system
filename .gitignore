@@ -21,3 +21,9 @@ Thumbs.db
 
 # Docker
 docker/
+node_modules/
+.env
+*.log
+dist/
+build/
+*.zip

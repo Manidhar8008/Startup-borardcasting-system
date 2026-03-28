@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>JAN AI Content Studio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@700;800&amp;family=Space_Grotesk:wght@500;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-tertiary-fixed-variant": "#004e60",
+                        "outline-variant": "#44474c",
+                        "secondary-fixed-dim": "#afc9ea",
+                        "tertiary-fixed-dim": "#4cd6ff",
+                        "on-tertiary-fixed": "#001f28",
+                        "tertiary": "#4cd6ff",
+                        "surface-container-low": "#191b24",
+                        "surface-variant": "#32343e",
+                        "primary-container": "#0f1a2e",
+                        "on-surface-variant": "#c4c6cc",
+                        "error-container": "#93000a",
+                        "secondary-container": "#2f4865",
+                        "on-secondary-fixed-variant": "#2f4865",
+                        "surface-container-lowest": "#0c0e17",
+                        "surface-container-highest": "#32343e",
+                        "outline": "#8e9196",
+                        "surface-container": "#1d1f29",
+                        "on-primary": "#263046",
+                        "on-error-container": "#ffdad6",
+                        "background": "#11131c",
+                        "error": "#ffb4ab",
+                        "primary-fixed-dim": "#bbc6e2",
+                        "on-secondary-container": "#9eb7d8",
+                        "on-primary-container": "#78839c",
+                        "primary": "#bbc6e2",
+                        "surface-tint": "#bbc6e2",
+                        "surface-bright": "#373943",
+                        "secondary-fixed": "#d1e4ff",
+                        "surface": "#11131c",
+                        "secondary": "#afc9ea",
+                        "on-primary-fixed": "#101b30",
+                        "surface-dim": "#11131c",
+                        "on-background": "#e1e1ef",
+                        "on-surface": "#e1e1ef",
+                        "on-secondary-fixed": "#001d36",
+                        "inverse-on-surface": "#2e303a",
+                        "on-tertiary": "#003543",
+                        "surface-container-high": "#282933",
+                        "primary-fixed": "#d7e2ff",
+                        "on-tertiary-container": "#008eae",
+                        "tertiary-container": "#001d26",
+                        "on-primary-fixed-variant": "#3c475d",
+                        "on-error": "#690005",
+                        "inverse-surface": "#e1e1ef",
+                        "on-secondary": "#17324d",
+                        "tertiary-fixed": "#b7eaff",
+                        "inverse-primary": "#545e76"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #11131c;
+            color: #e1e1ef;
+        }
+    </style>
+</head>
+<body class="flex min-h-screen overflow-hidden">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col p-4 gap-2 h-screen w-64 left-0 border-r-0 bg-[#11131c] shrink-0">
+<div class="flex items-center gap-3 px-2 mb-8">
+<div class="w-8 h-8 rounded-lg bg-gradient-to-br from-tertiary to-on-tertiary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-tertiary text-xl" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+<div>
+<h1 class="font-headline font-bold text-[#bbc6e2] leading-none">JAN AI</h1>
+<p class="text-[0.65rem] font-label text-on-primary-container tracking-widest uppercase mt-1">Intelligence Engine</p>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2.5 text-[#bbc6e2] hover:text-white hover:bg-[#282933] transition-all rounded-lg group cursor-pointer active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-lg">dashboard</span>
+<span class="font-body text-[0.875rem]">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 bg-[#1d1f29] text-[#4cd6ff] rounded-lg group cursor-pointer active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+<span class="font-body text-[0.875rem]">Content Studio</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-[#bbc6e2] hover:text-white hover:bg-[#282933] transition-all rounded-lg group cursor-pointer active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-lg">calendar_today</span>
+<span class="font-body text-[0.875rem]">Strategy</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 text-[#bbc6e2] hover:text-white hover:bg-[#282933] transition-all rounded-lg group cursor-pointer active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-lg">settings</span>
+<span class="font-body text-[0.875rem]">Settings</span>
+</a>
+</nav>
+<div class="mt-auto pt-4 space-y-1">
+<button class="w-full mb-4 py-3 bg-gradient-to-r from-tertiary to-on-tertiary-container text-on-tertiary font-label font-bold rounded-lg flex items-center justify-center gap-2 hover:opacity-90 transition-opacity active:scale-[0.98]">
+<span class="material-symbols-outlined text-sm">add</span>
+                New Thought
+            </button>
+<a class="flex items-center gap-3 px-3 py-2 text-[#bbc6e2] hover:text-white hover:bg-[#282933] transition-all rounded-lg cursor-pointer active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-lg">help_outline</span>
+<span class="font-body text-[0.875rem]">Support</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-[#bbc6e2] hover:text-white hover:bg-[#282933] transition-all rounded-lg cursor-pointer active:scale-[0.98]" href="#">
+<span class="material-symbols-outlined text-lg">manage_accounts</span>
+<span class="font-body text-[0.875rem]">Account</span>
+</a>
+</div>
+</aside>
+<div class="flex-1 flex flex-col h-screen overflow-hidden">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center h-16 px-8 w-full bg-[#11131c] shrink-0">
+<div class="flex items-center gap-4">
+<span class="text-xl font-bold tracking-tighter text-[#bbc6e2] font-headline">JAN AI</span>
+<div class="h-4 w-px bg-outline-variant mx-2"></div>
+<span class="font-label text-xs text-on-primary-container tracking-widest uppercase">Content Studio / Draft_042</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden lg:flex gap-6 items-center">
+<a class="text-[#bbc6e2] opacity-70 hover:opacity-100 transition-opacity font-headline text-sm tracking-tight" href="#">Dashboard</a>
+<a class="text-[#4cd6ff] font-semibold border-b-2 border-[#4cd6ff] pb-1 font-headline text-sm tracking-tight" href="#">Content Studio</a>
+<a class="text-[#bbc6e2] opacity-70 hover:opacity-100 transition-opacity font-headline text-sm tracking-tight" href="#">Strategy</a>
+<a class="text-[#bbc6e2] opacity-70 hover:opacity-100 transition-opacity font-headline text-sm tracking-tight" href="#">Settings</a>
+</div>
+<div class="flex items-center gap-3 ml-4">
+<button class="p-2 text-[#bbc6e2] hover:bg-[#1d1f29] rounded-md transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-[#bbc6e2] hover:bg-[#1d1f29] rounded-md transition-colors active:scale-95 duration-200">
+<span class="material-symbols-outlined">bolt</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden border border-outline-variant">
+<img alt="User Profile Avatar" class="w-full h-full object-cover" data-alt="professional portrait of a creative professional with soft studio lighting and a neutral dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-jc6xbdY2A0J4cQVPqjSUuVhHZpBzkUOT-52MMgazn-bIJ385O_j3FfSz9h7EK0vMV8bMqCsEy3ywu1dowwfG04VAMuEu7q3Fym5XySA6scUSXkCJ0dEuCo8PR3GysCYiSBEOQG8sMxOeh208hL2OOCKLniQQHq_oWje3mh3BBvnvcQWS78A40MVyHgrzC71e0MBd7UVqbZOwgEcP9eHptsTlZGcHqhXVauVWjFlJymF-WncxEsuxouT_tabl4x2UWy0Yc1fAtNBQ"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex overflow-hidden bg-background">
+<!-- Side Controls: Content Restructuring & Strategy -->
+<div class="w-80 shrink-0 bg-surface-container flex flex-col p-6 overflow-y-auto gap-8 border-r border-transparent">
+<!-- Content Restructuring Section -->
+<section>
+<h3 class="font-label text-[0.75rem] text-tertiary uppercase tracking-widest mb-4">Content Restructuring</h3>
+<div class="space-y-3">
+<button class="w-full flex items-center justify-between p-3 rounded-lg bg-surface-container-high hover:bg-surface-bright transition-colors group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-tertiary">notes</span>
+<span class="font-body text-sm font-medium">Short-form</span>
+</div>
+<span class="material-symbols-outlined text-tertiary text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</button>
+<button class="w-full flex items-center justify-between p-3 rounded-lg bg-surface-container-low hover:bg-surface-container-high transition-colors group">
+<div class="flex items-center gap-3 text-on-surface-variant">
+<span class="material-symbols-outlined">article</span>
+<span class="font-body text-sm font-medium">Long-form</span>
+</div>
+</button>
+<button class="w-full flex items-center justify-between p-3 rounded-lg bg-surface-container-low hover:bg-surface-container-high transition-colors group">
+<div class="flex items-center gap-3 text-on-surface-variant">
+<span class="material-symbols-outlined">reorder</span>
+<span class="font-body text-sm font-medium">Thread format</span>
+</div>
+</button>
+<button class="w-full flex items-center justify-between p-3 rounded-lg bg-surface-container-low hover:bg-surface-container-high transition-colors group">
+<div class="flex items-center gap-3 text-on-surface-variant">
+<span class="material-symbols-outlined">view_carousel</span>
+<span class="font-body text-sm font-medium">Carousel format</span>
+</div>
+</button>
+</div>
+</section>
+<!-- Posting Strategy Section -->
+<section class="mt-auto">
+<div class="p-5 rounded-xl bg-surface-container-lowest border border-outline-variant/10">
+<h3 class="font-label text-[0.75rem] text-tertiary uppercase tracking-widest mb-4">Posting Strategy</h3>
+<div class="space-y-4">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-lg">schedule</span>
+<div>
+<p class="font-label text-[0.65rem] text-on-primary-container uppercase">Post Time</p>
+<p class="font-body text-sm font-semibold">Tue, 09:15 AM EST</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-lg">psychology</span>
+<div>
+<p class="font-label text-[0.65rem] text-on-primary-container uppercase">Platform Reason</p>
+<p class="font-body text-sm leading-snug">High professional engagement window for AI ethics discussions.</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary text-lg">category</span>
+<div>
+<p class="font-label text-[0.65rem] text-on-primary-container uppercase">Content Type</p>
+<p class="font-body text-sm font-semibold">Thought Leadership</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-6 py-2.5 bg-surface-variant text-on-surface font-label text-xs font-bold rounded-lg hover:bg-outline-variant transition-colors uppercase tracking-widest">
+                            Refine Strategy
+                        </button>
+</div>
+</section>
+</div>
+<!-- Content Editor / Preview -->
+<div class="flex-1 flex flex-col overflow-hidden">
+<!-- Platform Tabs -->
+<div class="flex items-center px-8 bg-surface shadow-sm z-10">
+<button class="px-6 py-5 border-b-2 border-tertiary text-tertiary flex items-center gap-2 font-label text-sm font-bold tracking-tight">
+<span class="material-symbols-outlined text-lg">link</span>
+                        LinkedIn
+                    </button>
+<button class="px-6 py-5 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-2 font-label text-sm">
+<span class="material-symbols-outlined text-lg">close</span>
+                        Twitter/X
+                    </button>
+<button class="px-6 py-5 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-2 font-label text-sm">
+<span class="material-symbols-outlined text-lg">photo_camera</span>
+                        Instagram
+                    </button>
+<button class="px-6 py-5 border-b-2 border-transparent text-on-surface-variant hover:text-on-surface transition-colors flex items-center gap-2 font-label text-sm">
+<span class="material-symbols-outlined text-lg">forum</span>
+                        Reddit
+                    </button>
+</div>
+<!-- Editor Workspace -->
+<div class="flex-1 overflow-y-auto p-8 space-y-8 bg-surface-container-lowest">
+<div class="max-w-4xl mx-auto space-y-8">
+<!-- Hook Section -->
+<div class="group">
+<div class="flex items-center justify-between mb-3">
+<label class="font-label text-xs text-tertiary uppercase tracking-[0.2em] font-bold">The Hook</label>
+<span class="font-label text-[10px] text-on-primary-container px-2 py-1 rounded bg-surface-container-high">42 / 100 CHARS</span>
+</div>
+<div class="p-6 rounded-xl bg-surface-container-low border-l-4 border-tertiary focus-within:bg-surface-container transition-colors shadow-xl">
+<p class="font-headline text-xl font-bold leading-relaxed text-on-surface focus:outline-none" contenteditable="true">
+                                    Stop building SaaS platforms. Start architecting neural workflows. Here's why the 'dashboard era' is dying.
+                                </p>
+</div>
+</div>
+<!-- Body Section -->
+<div class="group">
+<div class="flex items-center justify-between mb-3">
+<label class="font-label text-xs text-on-primary-container uppercase tracking-[0.2em]">The Body</label>
+<div class="flex gap-2">
+<button class="p-1.5 rounded hover:bg-surface-container-high transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">auto_fix_high</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container-high transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">translate</span>
+</button>
+</div>
+</div>
+<div class="p-8 rounded-xl bg-surface-container-low focus-within:bg-surface-container transition-colors min-h-[300px]">
+<div class="font-body text-on-surface-variant leading-loose space-y-4 focus:outline-none" contenteditable="true">
+<p>Most enterprises are still trapped in the "point-and-click" paradigm. We've spent the last decade perfecting interfaces that require humans to act like data entry clerks.</p>
+<p>But the Kinetic Architecture of 2024 changes everything. We're moving towards:</p>
+<ul class="list-disc pl-5 space-y-2 marker:text-tertiary">
+<li>Intent-based automation that anticipates user friction.</li>
+<li>Tonal layering in UI that visualizes logic, not just data.</li>
+<li>Asymmetric pipelines that mirror real-world decision flow.</li>
+</ul>
+<p>When the UI becomes a manifestation of intent, the friction of "using software" disappears.</p>
+</div>
+</div>
+</div>
+<!-- CTA Section -->
+<div class="group">
+<div class="flex items-center justify-between mb-3">
+<label class="font-label text-xs text-on-primary-container uppercase tracking-[0.2em]">Call to Action</label>
+</div>
+<div class="p-6 rounded-xl bg-surface-container-low focus-within:bg-surface-container transition-colors border border-outline-variant/20">
+<p class="font-body font-semibold text-secondary focus:outline-none" contenteditable="true">
+                                    Join the evolution of logic. Click the link in bio to read our latest whitepaper on Kinetic Architectures. 🚀
+                                </p>
+</div>
+</div>
+<!-- Image Preview / Attachment (Bento style) -->
+<div class="grid grid-cols-12 gap-4 h-64">
+<div class="col-span-8 rounded-xl overflow-hidden relative group">
+<img alt="Abstract AI Logic" class="w-full h-full object-cover" data-alt="abstract digital visualization of flowing data nodes and connections with a dark blue and cyan color palette and soft neon glow" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-8xhFx_IeChdHv5L_eo7XF9-WVB9CRaeWQN4K4of_5RMSQlhgVAy_0N_YjFQTlJhjYIWOze-_eMHlqDIUdNbYDp5DXNKe_illhbCgXupKnR6lVlcnOiBJwzY9-DcC3HVwEdGw3kUIX9xO4w9qfiCgW6f79b-9my5Ezmy5tSG3lkSI0DWZu_xT0OI3EV0VpIciT3RplZNKmcTJDCPSRqkOSg3GRDGJ6jhAWMDkoZQnvwFxrPPUUCyu-iDqBBxaHTKvPwNMgoqP9XOq"/>
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/80 to-transparent flex items-end p-6">
+<span class="font-label text-[10px] text-tertiary bg-tertiary/10 px-2 py-1 rounded backdrop-blur-md">PRIMARY CREATIVE</span>
+</div>
+<button class="absolute top-4 right-4 p-2 bg-surface-container-highest/60 backdrop-blur-md rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">edit</span>
+</button>
+</div>
+<div class="col-span-4 grid grid-rows-2 gap-4">
+<div class="rounded-xl bg-surface-container-high flex flex-col items-center justify-center border border-dashed border-outline-variant group cursor-pointer hover:border-tertiary transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-tertiary mb-2">add_photo_alternate</span>
+<span class="font-label text-[10px] text-on-surface-variant">ADD VARIATION</span>
+</div>
+<div class="rounded-xl overflow-hidden relative">
+<img alt="Tech Detail" class="w-full h-full object-cover opacity-50 grayscale hover:grayscale-0 transition-all cursor-pointer" data-alt="extreme close up of a futuristic server circuit board with glowing light paths and precision engineering details" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAq8KXAk48dc3ngnIPidgufD1h_WRfv-7SzSUrCifJGKXqzR4u2D5mVIPc-BqNDWiAbT3J97oouLdw1m8ceeuxwaYmRpBt-ScwDO6oySafIJWo2TBpAm58jJAvJewWy8kka-pCctNBe3Mp5qcooWDJDSY1yyLJqu0XSSgx9oIcIQLqVg-dteBDOPB5Hg3RWU6Fw0ebD1YHhthGk-wA_GVspcGfUeiJomLt-p0DAPscToAvjj2ldFnO2yC5Km80KJTKbijq18B0Ibzy9"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-white/50">play_circle</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sticky Footer Actions -->
+<div class="bg-surface-container h-20 px-8 flex items-center justify-between border-t border-outline-variant/10 z-20">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 px-3 py-1.5 bg-surface-container-high rounded-full border border-outline-variant/20">
+<div class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></div>
+<span class="font-label text-[10px] text-on-surface">SYNCING...</span>
+</div>
+<span class="text-xs font-body text-on-primary-container">Draft saved 2 mins ago</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-5 py-2.5 font-label text-xs font-bold text-on-surface hover:bg-surface-bright transition-all rounded-lg border border-outline-variant/30 uppercase tracking-widest">
+                            Save as Draft
+                        </button>
+<button class="px-8 py-2.5 bg-gradient-to-r from-tertiary to-on-tertiary-container text-on-tertiary font-label text-xs font-bold rounded-lg hover:opacity-90 transition-all shadow-lg shadow-tertiary/10 uppercase tracking-widest">
+                            Publish Now
+                        </button>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Mobile Navigation Suppressed as per Task instructions for a desktop focused Content Studio -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-[#11131c] flex items-center justify-around z-50 px-4">
+<button class="text-[#4cd6ff]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</button>
+<button class="text-[#bbc6e2] opacity-70">
+<span class="material-symbols-outlined">dashboard</span>
+</button>
+<button class="text-[#bbc6e2] opacity-70">
+<span class="material-symbols-outlined">calendar_today</span>
+</button>
+<button class="text-[#bbc6e2] opacity-70">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</nav>
+</body></html>

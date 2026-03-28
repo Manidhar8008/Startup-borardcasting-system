@@ -1,0 +1,26 @@
+# Evaluative Architecture Blueprint: JAN AI — Content Intelligence OS
+
+## 1. Objective
+Transform JAN AI into a fully evaluative system that scores, predicts, and improves content iteratively.
+
+## 2. New Architectural Services
+- **Scoring Engine (`scoring_engine.py`):** Evaluates content across Clarity, Engagement, Originality, and Platform Fit (0–100 scale).
+- **Simulation Engine (`simulation_engine.py`):** Predicts platform-specific performance (High/Medium/Low) based on tone, structure, and hooks.
+- **Improvement Engine (`improvement_engine.py`):** An iterative loop that refines content based on score weaknesses (e.g., strengthening a weak hook).
+- **Variation Engine (`variation_engine.py`):** Generates Bold, Minimal, and Story-based versions of any given content piece.
+
+## 3. Database Schema Updates
+- `content_scores`: Stores granular scoring breakdowns and reasons.
+- `content_feedback`: Captures user interactions to refine the profile.
+- `content_variations`: Stores generated alternative versions of content.
+
+## 4. UI/UX Enhancements (The Studio Upgrade)
+- **Score Indicators:** Real-time visibility into content quality metrics.
+- **Performance Predictions:** Confidence scores and qualitative outlooks for each platform.
+- **"Improve" Action:** A one-click optimization loop to fix low-scoring areas.
+- **Variations Toggle:** Quick switching between Bold, Minimal, and Story tones.
+
+## 5. API Strategy
+- `POST /content/score`: Triggers the evaluative suite.
+- `POST /content/improve`: Executes iterative refinement.
+- `GET /content/variations`: Fetches tone-based alternatives.

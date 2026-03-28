@@ -1,0 +1,94 @@
+# JAN AI — Technical Execution Pipeline Blueprint
+
+This document outlines the implementation strategy to connect the existing JAN AI frontend screens into a working content execution pipeline.
+
+## 1. Database Schema Updates (PostgreSQL + SQLAlchemy)
+
+We need to add tables to store the structured output of the content engine and the generated weekly plans.
+
+```python
+# app/models.py
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, JSON, Text
+from .database import Base
+import datetime
+
+class ContentEntry(Base):
+    __tablename__ = "content_entries"
+    id = Column(Integer, primary_key=True, index=True)
+    account_id = Column(Integer, ForeignKey("accounts.id"))
+    original_input_id = Column(Integer, ForeignKey("idea_bank.id"), nullable=True)
+    topic = Column(String)
+    extracted_data = Column(JSON) # { "topics": [], "intent": "", "tone": "" }
+    generated_content = Column(JSON) # { "linkedin": {}, "twitter": {}, "instagram": {}, "youtube_short": {}, "blog": {} }
+    created_at = Column(DateTime, default=datetime.datetime.utcnow)
+
+class WeeklyPlan(Base):
+    __tablename__ = "weekly_plans"
+    id = Column(Integer, primary_key=True, index=True)
+    account_id = Column(Integer, ForeignKey("accounts.id"))
+    content_entry_id = Column(Integer, ForeignKey("content_entries.id"))
+    plan_data = Column(JSON) # List of 7 days with platform, format, topic, time
+    created_at = Column(DateTime, default=datetime.datetime.utcnow)
+```
+
+## 2. Backend API Implementation (FastAPI)
+
+The core logic resides in a unified `/process-input` endpoint that triggers the extraction and generation services.
+
+```python
+# app/routes/content_pipeline.py
+from fastapi import APIRouter, Depends
+from ..services import content_engine, strategy_engine
+from ..schemas import InputSchema
+
+router = APIRouter()
+
+@router.post("/process-input")
+async def process_content_input(data: InputSchema, db: Session = Depends(get_db)):
+    # 1. Extraction & Multi-Format Generation
+    processed_content = await content_engine.generate_multi_format(data.text)
+    
+    # 2. Strategy Generation (Weekly Plan)
+    weekly_strategy = await strategy_engine.create_7_day_plan(processed_content)
+    
+    # 3. Persistence
+    new_entry = db_service.save_content_entry(db, processed_content)
+    new_plan = db_service.save_weekly_plan(db, new_entry.id, weekly_strategy)
+    
+    return {
+        "content_entry_id": new_entry.id,
+        "content": processed_content,
+        "weekly_plan": weekly_strategy
+    }
+```
+
+## 3. Frontend Integration (React + Axios)
+
+We connect the existing UI components to the new pipeline.
+
+### Step 1: Triggering the Pipeline (Idea Bank / Input Hub)
+When a user "Triggers Transformation" from the Idea Bank ({{DATA:SCREEN:SCREEN_27}}), we call the new endpoint.
+
+```typescript
+// src/services/pipeline.ts
+export const triggerTransformation = async (text: string) => {
+    const response = await api.post('/process-input', { text });
+    return response.data;
+};
+```
+
+### Step 2: Displaying Results (Omni-Format & Strategy Forge)
+The state is updated globally, and the relevant screens fetch this data to populate their views.
+
+- **Omni-Format Studio ({{DATA:SCREEN:SCREEN_21}}):** Subscribes to the `generated_content` JSON to render the different platform tabs.
+- **Strategy Forge ({{DATA:SCREEN:SCREEN_17}}):** Subscribes to the `weekly_plan` JSON to render the 7-day operational timeline.
+- **Content Calendar ({{DATA:SCREEN:SCREEN_2}}):** Automatically maps the `weekly_plan` entries into the date-based grid view.
+
+## 4. Execution Flow Summary
+1. **Source:** User clicks "Expand Idea" in Idea Bank ({{DATA:SCREEN:SCREEN_27}}).
+2. **Action:** Frontend sends raw text to `/process-input`.
+3. **Engine:** Backend extracts data, generates posts (LinkedIn, X, etc.), and builds a 7-day strategy.
+4. **Display:** 
+   - User is redirected to Strategy Forge ({{DATA:SCREEN:SCREEN_17}}) to review the plan.
+   - User navigates to Omni-Format Studio ({{DATA:SCREEN:SCREEN_21}}) to edit specific generated posts.
+   - The Calendar ({{DATA:SCREEN:SCREEN_2}}) is now populated with scheduled drafts.

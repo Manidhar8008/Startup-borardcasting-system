@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Strategy Forge | Editorial Engine</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@700;800&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-dim": "#11131c",
+                        "surface-container-highest": "#32343e",
+                        "surface-container-high": "#282933",
+                        "secondary-fixed-dim": "#afc9ea",
+                        "secondary": "#afc9ea",
+                        "on-secondary-fixed": "#001d36",
+                        "outline-variant": "#44474c",
+                        "on-primary-container": "#78839c",
+                        "on-secondary": "#17324d",
+                        "tertiary": "#4cd6ff",
+                        "tertiary-container": "#001d26",
+                        "primary-fixed-dim": "#bbc6e2",
+                        "surface-tint": "#bbc6e2",
+                        "secondary-fixed": "#d1e4ff",
+                        "on-primary-fixed-variant": "#3c475d",
+                        "secondary-container": "#2f4865",
+                        "inverse-primary": "#545e76",
+                        "tertiary-fixed": "#b7eaff",
+                        "background": "#11131c",
+                        "surface-container": "#1d1f29",
+                        "primary-container": "#0f1a2e",
+                        "primary-fixed": "#d7e2ff",
+                        "on-tertiary-container": "#008eae",
+                        "surface-container-lowest": "#0c0e17",
+                        "outline": "#8e9196",
+                        "surface-bright": "#373943",
+                        "on-error": "#690005",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-low": "#191b24",
+                        "on-secondary-container": "#9eb7d8",
+                        "on-primary": "#263046",
+                        "inverse-on-surface": "#2e303a",
+                        "tertiary-fixed-dim": "#4cd6ff",
+                        "on-background": "#e1e1ef",
+                        "inverse-surface": "#e1e1ef",
+                        "on-tertiary": "#003543",
+                        "on-surface-variant": "#c4c6cc",
+                        "on-secondary-fixed-variant": "#2f4865",
+                        "surface-variant": "#32343e",
+                        "primary": "#bbc6e2",
+                        "on-tertiary-fixed": "#001f28",
+                        "error": "#ffb4ab",
+                        "error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#004e60",
+                        "on-primary-fixed": "#101b30",
+                        "surface": "#11131c",
+                        "on-surface": "#e1e1ef"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Space Grotesk"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .glass-panel {
+            backdrop-filter: blur(20px);
+            background: rgba(55, 57, 67, 0.6);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen selection:bg-tertiary selection:text-on-tertiary">
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-0 h-full flex flex-col h-screen w-64 border-r-0 bg-[#11131c] dark:bg-[#11131c] z-50">
+<div class="p-6 flex flex-col h-full">
+<div class="mb-10">
+<h1 class="text-xl font-bold tracking-tight text-[#bbc6e2] font-manrope">Editorial Engine</h1>
+<p class="font-inter text-xs text-[#e1e1ef]/60 uppercase tracking-widest mt-1">Automation Pipeline</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#e1e1ef]/60 hover:text-[#e1e1ef] hover:bg-[#1d1f29] transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">workspaces</span>
+<span class="font-space-grotesk label-md">Workspace</span>
+</a>
+<!-- Active Item: Strategy -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-[#1d1f29] text-[#4cd6ff] font-semibold border-l-4 border-[#4cd6ff] transition-all" href="#">
+<span class="material-symbols-outlined">insights</span>
+<span class="font-space-grotesk label-md">Strategy</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#e1e1ef]/60 hover:text-[#e1e1ef] hover:bg-[#1d1f29] transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">edit_note</span>
+<span class="font-space-grotesk label-md">Content Studio</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#e1e1ef]/60 hover:text-[#e1e1ef] hover:bg-[#1d1f29] transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-space-grotesk label-md">Calendar</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#e1e1ef]/60 hover:text-[#e1e1ef] hover:bg-[#1d1f29] transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">lightbulb</span>
+<span class="font-space-grotesk label-md">Idea Bank</span>
+</a>
+</nav>
+<button class="mt-8 mb-8 py-3 px-4 rounded-xl bg-gradient-to-br from-[#bbc6e2] to-[#0f1a2e] text-on-primary font-bold font-manrope flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">add</span>
+                New Project
+            </button>
+<div class="mt-auto space-y-2 pt-6 border-t border-outline-variant/20">
+<a class="flex items-center gap-3 px-4 py-2 text-[#e1e1ef]/60 hover:text-[#e1e1ef] font-space-grotesk label-md" href="#">
+<span class="material-symbols-outlined">settings</span>
+                    Settings
+                </a>
+<a class="flex items-center gap-3 px-4 py-2 text-[#e1e1ef]/60 hover:text-[#e1e1ef] font-space-grotesk label-md" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+                    Support
+                </a>
+</div>
+</div>
+</aside>
+<!-- TopNavBar Shell -->
+<header class="sticky top-0 z-40 flex items-center justify-between px-8 ml-64 h-16 bg-[#11131c]/80 backdrop-blur-xl w-[calc(100%-16rem)]">
+<div class="flex items-center gap-8">
+<span class="text-lg font-black text-[#bbc6e2] font-manrope">Pipeline Logic</span>
+<div class="flex items-center gap-6">
+<a class="font-manrope font-bold text-[#e1e1ef]/70 hover:text-[#e1e1ef] uppercase tracking-wider text-xs" href="#">Global View</a>
+<a class="font-manrope font-bold text-[#4cd6ff] border-b-2 border-[#4cd6ff] pb-1 uppercase tracking-wider text-xs" href="#">System Health</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="px-4 py-2 rounded-lg font-label text-xs text-primary border border-primary/20 hover:bg-primary/10 transition-all">Quick Draft</button>
+<button class="px-6 py-2 rounded-lg font-label text-xs font-bold text-on-tertiary bg-gradient-to-br from-[#4cd6ff] to-[#008eae] shadow-[0_0_20px_rgba(76,214,255,0.2)]">Run Pipeline</button>
+<div class="flex items-center gap-3 ml-4 border-l border-outline-variant/30 pl-4">
+<span class="material-symbols-outlined text-[#e1e1ef]/60 cursor-pointer hover:text-tertiary">notifications</span>
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden">
+<img alt="Administrator Profile" class="w-full h-full object-cover" data-alt="Portrait of a professional business executive in a modern tech office setting with soft blue ambient lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0-FbF4qTHf6qxzswQ-ZZENjJq4ggLG2IjdRpQSwI45pLmygb4aZIXkF0QAiiZH47KFxbgyc2OH6rUcAvEAFAk4AL2Kz00hJDBfnNbFybFcHuIppceH-LaMLQg6pj22b0Y8KRGmO8AGClXtWvxy6EPRlVZhpbLYnY6gvmeIYn2NwhIoRaGWhpPUkZ0Xvfo6FR6aiUn4U5wCZNe5DwZgWuymlBcJwHVht6YUTp4LvPE0Ly7kjplwWFBmuTlC91ss-nirnKP3NJjAr92"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="ml-64 p-12 max-w-[1400px]">
+<!-- Page Header -->
+<div class="flex justify-between items-end mb-16">
+<div>
+<h2 class="font-headline text-5xl font-extrabold text-on-surface tracking-tight mb-2">Strategy Forge</h2>
+<p class="font-body text-on-primary-container text-lg max-w-xl">Weekly Content Plan Engine • Generating multi-channel synchronization for project "Growth Velocity 2.0"</p>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-3 bg-surface-container px-4 py-3 rounded-xl border border-outline-variant/10">
+<span class="font-label text-xs text-on-surface-variant uppercase">Idea Persistence</span>
+<button class="w-10 h-5 bg-tertiary rounded-full relative p-1 flex items-center justify-end">
+<div class="w-3 h-3 bg-on-tertiary rounded-full"></div>
+</button>
+</div>
+<button class="flex items-center gap-2 px-8 py-4 bg-tertiary text-on-tertiary font-headline font-extrabold rounded-xl shadow-[0_0_30px_rgba(76,214,255,0.15)] hover:scale-[1.02] transition-transform">
+<span class="material-symbols-outlined">auto_awesome</span>
+                    Auto-Fill Calendar
+                </button>
+</div>
+</div>
+<!-- Strategy Grid & Bento Layout -->
+<div class="grid grid-cols-12 gap-8">
+<!-- Context & Mix (Sidebar Content) -->
+<div class="col-span-12 lg:col-span-4 space-y-8">
+<!-- Input Context -->
+<section class="bg-surface-container p-8 rounded-xl relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full -mr-16 -mt-16 blur-3xl"></div>
+<h3 class="font-label text-xs font-bold text-tertiary uppercase tracking-[0.2em] mb-6">Input Context</h3>
+<div class="space-y-6">
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase font-label mb-1">Business Identity</p>
+<p class="font-headline text-xl text-on-surface">B2B SaaS Automation</p>
+</div>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-surface-container-high rounded text-[11px] font-label text-primary-fixed-dim border border-primary/10">AI WORKFLOWS</span>
+<span class="px-3 py-1 bg-surface-container-high rounded text-[11px] font-label text-primary-fixed-dim border border-primary/10">EDITORIAL SCALE</span>
+<span class="px-3 py-1 bg-surface-container-high rounded text-[11px] font-label text-primary-fixed-dim border border-primary/10">TIME HACKING</span>
+</div>
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase font-label mb-1">Core Intent</p>
+<p class="font-body text-sm leading-relaxed text-on-surface/80">Establish authority in the automation space while driving direct conversion for the Q4 Enterprise Tier launch.</p>
+</div>
+</div>
+</section>
+<!-- Content Mix Breakdown -->
+<section class="bg-surface-container-high p-8 rounded-xl">
+<h3 class="font-label text-xs font-bold text-tertiary uppercase tracking-[0.2em] mb-8">Content Mix Strategy</h3>
+<div class="space-y-8">
+<div class="relative h-4 w-full bg-surface-container-lowest rounded-full flex overflow-hidden">
+<div class="h-full bg-tertiary w-[40%]" title="Value"></div>
+<div class="h-full bg-primary w-[30%]" title="Storytelling"></div>
+<div class="h-full bg-secondary w-[20%]" title="Authority"></div>
+<div class="h-full bg-error w-[10%]" title="Selling"></div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-tertiary"></div>
+<div>
+<p class="font-label text-xs text-on-surface">Value (40%)</p>
+<p class="text-[10px] text-on-surface-variant">Education &amp; Utility</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<div>
+<p class="font-label text-xs text-on-surface">Story (30%)</p>
+<p class="text-[10px] text-on-surface-variant">Relatability</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-secondary"></div>
+<div>
+<p class="font-label text-xs text-on-surface">Authority (20%)</p>
+<p class="text-[10px] text-on-surface-variant">Case Studies</p>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-2 h-2 rounded-full bg-error"></div>
+<div>
+<p class="font-label text-xs text-on-surface">Selling (10%)</p>
+<p class="text-[10px] text-on-surface-variant">Direct Offers</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Weekly Strategy Grid (Main Content) -->
+<div class="col-span-12 lg:col-span-8 space-y-4">
+<div class="flex items-center justify-between mb-4 px-2">
+<h3 class="font-label text-xs font-bold text-on-primary-container uppercase tracking-[0.2em]">Operational Timeline</h3>
+<div class="flex gap-2">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+<span class="w-2 h-2 rounded-full bg-primary-container"></span>
+</div>
+</div>
+<!-- 7-Day Strategy Feed -->
+<div class="space-y-4">
+<!-- Day Card: Monday -->
+<div class="group bg-surface-container hover:bg-surface-container-high transition-all p-6 rounded-xl flex items-center gap-8 border-l-4 border-tertiary">
+<div class="w-16 flex flex-col items-center">
+<span class="font-label text-[10px] text-on-surface-variant uppercase tracking-tighter">Day 01</span>
+<span class="font-headline text-2xl font-black text-on-surface">MON</span>
+</div>
+<div class="flex-1 grid grid-cols-4 gap-6 items-center">
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase font-label mb-1">Platform</p>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-lg">terminal</span>
+<span class="font-body text-sm font-semibold">LinkedIn</span>
+</div>
+</div>
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase font-label mb-1">Format</p>
+<span class="font-body text-sm">Long-form Post</span>
+</div>
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase font-label mb-1">Strategy</p>
+<span class="px-2 py-0.5 bg-tertiary/10 text-tertiary text-[10px] font-label rounded uppercase">Value</span>
+</div>
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase font-label mb-1">Post Time</p>
+<span class="font-label text-sm text-on-surface">08:15 AM</span>
+</div>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">more_vert</button>
+</div>
+<!-- Day Card: Tuesday -->
+<div class="group bg-surface-container hover:bg-surface-container-high transition-all p-6 rounded-xl flex items-center gap-8 border-l-4 border-primary">
+<div class="w-16 flex flex-col items-center">
+<span class="font-label text-[10px] text-on-surface-variant uppercase tracking-tighter">Day 02</span>
+<span class="font-headline text-2xl font-black text-on-surface">TUE</span>
+</div>
+<div class="flex-1 grid grid-cols-4 gap-6 items-center">
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase font-label mb-1">Platform</p>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-lg">alternate_email</span>
+<span class="font-body text-sm font-semibold">Twitter</span>
+</div>
+</div>
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase font-label mb-1">Format</p>
+<span class="font-body text-sm">Thread (12 parts)</span>
+</div>
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase font-label mb-1">Strategy</p>
+<span class="px-2 py-0.5 bg-primary/10 text-primary text-[10px] font-label rounded uppercase">Authority</span>
+</div>
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase font-label mb-1">Post Time</p>
+<span class="font-label text-sm text-on-surface">11:30 AM</span>
+</div>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">more_vert</button>
+</div>
+<!-- Day Card: Wednesday -->
+<div class="group bg-surface-container hover:bg-surface-container-high transition-all p-6 rounded-xl flex items-center gap-8 border-l-4 border-secondary">
+<div class="w-16 flex flex-col items-center">
+<span class="font-label text-[10px] text-on-surface-variant uppercase tracking-tighter">Day 03</span>
+<span class="font-headline text-2xl font-black text-on-surface">WED</span>
+</div>
+<div class="flex-1 grid grid-cols-4 gap-6 items-center">
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase font-label mb-1">Platform</p>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-lg">movie</span>
+<span class="font-body text-sm font-semibold">YouTube</span>
+</div>
+</div>
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase font-label mb-1">Format</p>
+<span class="font-body text-sm">Tech Tutorial</span>
+</div>
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase font-label mb-1">Strategy</p>
+<span class="px-2 py-0.5 bg-secondary/10 text-secondary text-[10px] font-label rounded uppercase">Value</span>
+</div>
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase font-label mb-1">Post Time</p>
+<span class="font-label text-sm text-on-surface">03:00 PM</span>
+</div>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">more_vert</button>
+</div>
+<!-- Day Card: Thursday -->
+<div class="group bg-surface-container hover:bg-surface-container-high transition-all p-6 rounded-xl flex items-center gap-8 border-l-4 border-tertiary">
+<div class="w-16 flex flex-col items-center">
+<span class="font-label text-[10px] text-on-surface-variant uppercase tracking-tighter">Day 04</span>
+<span class="font-headline text-2xl font-black text-on-surface">THU</span>
+</div>
+<div class="flex-1 grid grid-cols-4 gap-6 items-center">
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase font-label mb-1">Platform</p>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-lg">view_carousel</span>
+<span class="font-body text-sm font-semibold">Instagram</span>
+</div>
+</div>
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase font-label mb-1">Format</p>
+<span class="font-body text-sm">Educational Carousel</span>
+</div>
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase font-label mb-1">Strategy</p>
+<span class="px-2 py-0.5 bg-tertiary/10 text-tertiary text-[10px] font-label rounded uppercase">Story</span>
+</div>
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase font-label mb-1">Post Time</p>
+<span class="font-label text-sm text-on-surface">07:45 PM</span>
+</div>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">more_vert</button>
+</div>
+<!-- Day Card: Friday -->
+<div class="group bg-surface-container hover:bg-surface-container-high transition-all p-6 rounded-xl flex items-center gap-8 border-l-4 border-error">
+<div class="w-16 flex flex-col items-center">
+<span class="font-label text-[10px] text-on-surface-variant uppercase tracking-tighter">Day 05</span>
+<span class="font-headline text-2xl font-black text-on-surface">FRI</span>
+</div>
+<div class="flex-1 grid grid-cols-4 gap-6 items-center">
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase font-label mb-1">Platform</p>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-error text-lg">mail</span>
+<span class="font-body text-sm font-semibold">Newsletter</span>
+</div>
+</div>
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase font-label mb-1">Format</p>
+<span class="font-body text-sm">Deep Dive Email</span>
+</div>
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase font-label mb-1">Strategy</p>
+<span class="px-2 py-0.5 bg-error/10 text-error text-[10px] font-label rounded uppercase">Selling</span>
+</div>
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase font-label mb-1">Post Time</p>
+<span class="font-label text-sm text-on-surface">09:00 AM</span>
+</div>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">more_vert</button>
+</div>
+<!-- Skeleton for Sat/Sun (Asymmetric Layout) -->
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container/50 border border-dashed border-outline-variant/30 p-6 rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-4">
+<span class="font-headline text-xl font-black text-on-surface/40">SAT</span>
+<span class="font-label text-xs text-on-surface-variant">Low Engagement Mode</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant/40">dark_mode</span>
+</div>
+<div class="bg-surface-container/50 border border-dashed border-outline-variant/30 p-6 rounded-xl flex items-center justify-between">
+<div class="flex items-center gap-4">
+<span class="font-headline text-xl font-black text-on-surface/40">SUN</span>
+<span class="font-label text-xs text-on-surface-variant">System Reset</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant/40">restart_alt</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Visual Decorative Element (Pipeline) -->
+<div class="mt-20 flex items-center justify-between opacity-20">
+<div class="h-[2px] flex-1 bg-gradient-to-r from-transparent to-tertiary"></div>
+<div class="mx-8 flex gap-8">
+<span class="material-symbols-outlined text-tertiary">data_object</span>
+<span class="material-symbols-outlined text-primary">hub</span>
+<span class="material-symbols-outlined text-secondary">analytics</span>
+</div>
+<div class="h-[2px] flex-1 bg-gradient-to-l from-transparent to-secondary"></div>
+</div>
+</main>
+</body></html>

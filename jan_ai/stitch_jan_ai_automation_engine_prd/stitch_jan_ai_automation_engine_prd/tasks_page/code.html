@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;family=Space+Grotesk:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-dim": "#11131c",
+              "inverse-primary": "#545e76",
+              "surface": "#11131c",
+              "error": "#ffb4ab",
+              "primary-fixed-dim": "#bbc6e2",
+              "secondary-container": "#2f4865",
+              "outline-variant": "#44474c",
+              "on-secondary-fixed-variant": "#2f4865",
+              "outline": "#8e9196",
+              "on-tertiary-fixed-variant": "#004e60",
+              "on-primary": "#263046",
+              "secondary-fixed-dim": "#afc9ea",
+              "error-container": "#93000a",
+              "on-primary-container": "#78839c",
+              "on-secondary": "#17324d",
+              "on-error-container": "#ffdad6",
+              "on-secondary-container": "#9eb7d8",
+              "background": "#11131c",
+              "tertiary": "#4cd6ff",
+              "on-tertiary-fixed": "#001f28",
+              "on-surface": "#e1e1ef",
+              "surface-container-high": "#282933",
+              "surface-container-lowest": "#0c0e17",
+              "surface-container-low": "#191b24",
+              "on-surface-variant": "#c4c6cc",
+              "on-primary-fixed-variant": "#3c475d",
+              "primary-container": "#0f1a2e",
+              "tertiary-fixed-dim": "#4cd6ff",
+              "secondary": "#afc9ea",
+              "primary-fixed": "#d7e2ff",
+              "inverse-on-surface": "#2e303a",
+              "tertiary-container": "#001d26",
+              "surface-variant": "#32343e",
+              "surface-tint": "#bbc6e2",
+              "inverse-surface": "#e1e1ef",
+              "primary": "#bbc6e2",
+              "surface-container": "#1d1f29",
+              "on-tertiary-container": "#008eae",
+              "on-error": "#690005",
+              "tertiary-fixed": "#b7eaff",
+              "surface-container-highest": "#32343e",
+              "secondary-fixed": "#d1e4ff",
+              "on-background": "#e1e1ef",
+              "surface-bright": "#373943",
+              "on-primary-fixed": "#101b30",
+              "on-tertiary": "#003543",
+              "on-secondary-fixed": "#001d36"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Space Grotesk"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        .glass-panel {
+            background: rgba(55, 57, 67, 0.6);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface selection:bg-tertiary/30">
+<!-- SideNavBar Shell -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-[#11131c] dark:bg-[#11131c] font-['Manrope'] antialiased tracking-tight flex flex-col p-6 space-y-8 z-50">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary text-sm">bolt</span>
+</div>
+<span class="text-xl font-bold tracking-tighter text-[#bbc6e2]">JAN AI</span>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="text-[#e1e1ef]/60 flex items-center gap-3 px-4 py-3 hover:bg-[#282933] hover:text-[#e1e1ef] transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="text-[#4cd6ff] font-semibold flex items-center gap-3 px-4 py-3 rounded-lg bg-[#1d1f29] transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="assignment">assignment</span>
+<span>Tasks</span>
+</a>
+<a class="text-[#e1e1ef]/60 flex items-center gap-3 px-4 py-3 hover:bg-[#282933] hover:text-[#e1e1ef] transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+<span>Suggestions</span>
+</a>
+<a class="text-[#e1e1ef]/60 flex items-center gap-3 px-4 py-3 hover:bg-[#282933] hover:text-[#e1e1ef] transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<div class="pt-6">
+<button class="w-full bg-gradient-to-r from-tertiary to-on-tertiary-container text-on-tertiary font-label font-bold py-3 rounded-xl active:scale-[0.98] transition-transform">
+                Run Pipeline
+            </button>
+</div>
+</aside>
+<!-- TopNavBar Shell -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] z-40 bg-[#11131c]/80 backdrop-blur-md dark:bg-[#11131c]/80 flex justify-between items-center h-20 px-12 font-['Inter'] text-sm">
+<div class="flex items-center gap-4 w-1/3">
+<div class="relative w-full group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full bg-surface-container-lowest border-none rounded-lg py-2 pl-10 pr-4 text-on-surface focus:ring-2 focus:ring-[#4cd6ff]/30 placeholder:text-outline transition-all" placeholder="Search tasks or engine logs..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4 text-[#e1e1ef]">
+<button class="hover:text-[#4cd6ff] transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="hover:text-[#4cd6ff] transition-colors">
+<span class="material-symbols-outlined" data-icon="bolt">bolt</span>
+</button>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant/30"></div>
+<div class="flex items-center gap-3">
+<div class="text-right hidden sm:block">
+<p class="font-semibold text-on-surface">Alex Rivera</p>
+<p class="text-xs text-on-surface-variant">Lead Architect</p>
+</div>
+<img alt="User Profile" class="w-10 h-10 rounded-full border border-outline-variant/50 object-cover" data-alt="professional headshot of a male software architect with short dark hair and a focused expression in a modern office environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-wwKDLSDBxkZLquqDGEDsWB2_WKO6Vd4tMFo0wqkzT3IOJrsoeazw3dYhH9jLYpP70DhwpF4zbeG2EohrwyhxHwNvKJrF0uvBRZB93vpVrgTiPnJyNPRm4M1QhXquVUvevRE9L9CUWwmusjuH2NPBRhsR9D8F0Y3Y9eD3zLQQy0g9Y96WrhjpdqX3621wp34sqldQpiK493NsmXv8ysIkg6TYCR6Mk83U16NA0zxPAiaxBsVdDWANj7UEvIRQ7Rv_troTjn4qJlsS"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-20 min-h-screen bg-surface">
+<div class="px-12 py-10 space-y-10">
+<!-- Page Header & Filters -->
+<section class="flex flex-col md:flex-row justify-between items-end gap-6">
+<div class="space-y-2">
+<h1 class="font-headline text-4xl font-extrabold tracking-tight text-on-surface">Task Engine</h1>
+<p class="font-body text-on-surface-variant max-w-xl">Orchestrate your editorial automation pipelines. Manage recurring logic flows and monitor execution integrity across the engine.</p>
+</div>
+<div class="flex flex-wrap gap-3">
+<div class="bg-surface-container rounded-xl p-1 flex items-center">
+<button class="px-4 py-2 rounded-lg bg-surface-container-high text-tertiary font-label text-xs uppercase tracking-widest">All</button>
+<button class="px-4 py-2 rounded-lg text-on-surface-variant hover:text-on-surface font-label text-xs uppercase tracking-widest transition-colors">Active</button>
+<button class="px-4 py-2 rounded-lg text-on-surface-variant hover:text-on-surface font-label text-xs uppercase tracking-widest transition-colors">Inactive</button>
+</div>
+<button class="flex items-center gap-2 bg-surface-container-high px-4 py-2 rounded-xl text-on-surface hover:bg-surface-bright transition-all">
+<span class="material-symbols-outlined text-sm">filter_list</span>
+<span class="font-label text-xs uppercase tracking-widest">Filters</span>
+</button>
+<button class="flex items-center gap-2 bg-gradient-to-br from-tertiary to-on-tertiary-container text-on-tertiary px-6 py-2 rounded-xl font-bold shadow-lg shadow-tertiary/10 active:scale-95 transition-all">
+<span class="material-symbols-outlined">add</span>
+<span>Add New Task</span>
+</button>
+</div>
+</section>
+<!-- Task List Table (Data-Dense Editorial Style) -->
+<section class="bg-surface-container-low rounded-2xl overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full border-collapse">
+<thead>
+<tr class="bg-surface-container border-b border-outline-variant/10">
+<th class="px-8 py-5 text-left font-label text-xs uppercase tracking-widest text-on-surface-variant">Task Identity</th>
+<th class="px-8 py-5 text-left font-label text-xs uppercase tracking-widest text-on-surface-variant">Execution Logic</th>
+<th class="px-8 py-5 text-left font-label text-xs uppercase tracking-widest text-on-surface-variant">Recurring</th>
+<th class="px-8 py-5 text-left font-label text-xs uppercase tracking-widest text-on-surface-variant">Engine Status</th>
+<th class="px-8 py-5 text-left font-label text-xs uppercase tracking-widest text-on-surface-variant">Last Run</th>
+<th class="px-8 py-5 text-right font-label text-xs uppercase tracking-widest text-on-surface-variant">Control</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/5">
+<!-- Task Row 1 -->
+<tr class="group hover:bg-surface-container/50 transition-colors">
+<td class="px-8 py-6">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="article">article</span>
+</div>
+<div>
+<p class="font-headline font-bold text-on-surface">Article Sentiment Analysis</p>
+<p class="text-xs text-on-surface-variant font-body">ID: ENG-9421-QA</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6">
+<div class="flex flex-col">
+<span class="text-sm font-body text-on-surface">Daily, 6:00 AM</span>
+<span class="text-[10px] font-label text-tertiary uppercase tracking-tighter">Priority: High</span>
+</div>
+</td>
+<td class="px-8 py-6">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span class="text-xs font-label text-on-surface">Enabled</span>
+</div>
+</td>
+<td class="px-8 py-6">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-label uppercase tracking-widest bg-tertiary/10 text-tertiary border border-tertiary/20">
+                                        Active
+                                    </span>
+</td>
+<td class="px-8 py-6 text-xs font-label text-on-surface-variant">
+                                    Oct 24, 2023 · 06:01 AM
+                                </td>
+<td class="px-8 py-6 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-surface-container-highest rounded-lg text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="p-2 hover:bg-surface-container-highest rounded-lg text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">content_copy</span>
+</button>
+<button class="p-2 hover:bg-surface-container-highest rounded-lg text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Task Row 2 -->
+<tr class="group hover:bg-surface-container/50 transition-colors">
+<td class="px-8 py-6">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary" data-icon="cloud_sync">cloud_sync</span>
+</div>
+<div>
+<p class="font-headline font-bold text-on-surface">Source Sync: Reuters API</p>
+<p class="text-xs text-on-surface-variant font-body">ID: ENG-1032-DS</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6">
+<div class="flex flex-col">
+<span class="text-sm font-body text-on-surface">Hourly, :45m</span>
+<span class="text-[10px] font-label text-on-surface-variant uppercase tracking-tighter">Priority: Med</span>
+</div>
+</td>
+<td class="px-8 py-6">
+<div class="flex items-center gap-2 text-outline">
+<span class="w-2 h-2 rounded-full bg-outline-variant"></span>
+<span class="text-xs font-label">Disabled</span>
+</div>
+</td>
+<td class="px-8 py-6">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-label uppercase tracking-widest bg-surface-container-high text-on-surface-variant border border-outline-variant/30">
+                                        Inactive
+                                    </span>
+</td>
+<td class="px-8 py-6 text-xs font-label text-on-surface-variant">
+                                    Oct 22, 2023 · 11:45 PM
+                                </td>
+<td class="px-8 py-6 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-surface-container-highest rounded-lg text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="p-2 hover:bg-surface-container-highest rounded-lg text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">content_copy</span>
+</button>
+<button class="p-2 hover:bg-surface-container-highest rounded-lg text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Task Row 3 -->
+<tr class="group hover:bg-surface-container/50 transition-colors">
+<td class="px-8 py-6">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded bg-tertiary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary" data-icon="summarize">summarize</span>
+</div>
+<div>
+<p class="font-headline font-bold text-on-surface">Weekly Meta-Summary Gen</p>
+<p class="text-xs text-on-surface-variant font-body">ID: ENG-4409-AI</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-6">
+<div class="flex flex-col">
+<span class="text-sm font-body text-on-surface">Weekly, Mon 8:00 AM</span>
+<span class="text-[10px] font-label text-tertiary uppercase tracking-tighter">Priority: High</span>
+</div>
+</td>
+<td class="px-8 py-6">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span class="text-xs font-label text-on-surface">Enabled</span>
+</div>
+</td>
+<td class="px-8 py-6">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-label uppercase tracking-widest bg-tertiary/10 text-tertiary border border-tertiary/20">
+                                        Active
+                                    </span>
+</td>
+<td class="px-8 py-6 text-xs font-label text-on-surface-variant">
+                                    Oct 23, 2023 · 08:00 AM
+                                </td>
+<td class="px-8 py-6 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-surface-container-highest rounded-lg text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">edit</span>
+</button>
+<button class="p-2 hover:bg-surface-container-highest rounded-lg text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">content_copy</span>
+</button>
+<button class="p-2 hover:bg-surface-container-highest rounded-lg text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined text-sm">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer/Pagination -->
+<div class="px-8 py-4 bg-surface-container/30 border-t border-outline-variant/10 flex justify-between items-center">
+<p class="text-xs font-label text-on-surface-variant">Displaying 3 of 42 automation tasks</p>
+<div class="flex gap-2">
+<button class="p-2 rounded-lg bg-surface-container-high text-on-surface disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="p-2 rounded-lg bg-surface-container-high text-on-surface">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Bottom Stats / "Bento-lite" info -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-surface-container rounded-2xl p-6 flex items-center gap-6">
+<div class="w-12 h-12 rounded-full bg-tertiary/10 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div>
+<p class="font-label text-xs uppercase tracking-widest text-on-surface-variant">Engine Uptime</p>
+<p class="font-headline text-2xl font-bold text-on-surface">99.98%</p>
+</div>
+</div>
+<div class="bg-surface-container rounded-2xl p-6 flex items-center gap-6">
+<div class="w-12 h-12 rounded-full bg-secondary-container/30 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+<div>
+<p class="font-label text-xs uppercase tracking-widest text-on-surface-variant">Throughput</p>
+<p class="font-headline text-2xl font-bold text-on-surface">1.2k ops/m</p>
+</div>
+</div>
+<div class="bg-surface-container rounded-2xl p-6 flex items-center gap-6">
+<div class="w-12 h-12 rounded-full bg-error/10 flex items-center justify-center text-error">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">error</span>
+</div>
+<div>
+<p class="font-label text-xs uppercase tracking-widest text-on-surface-variant">Missed Cycles</p>
+<p class="font-headline text-2xl font-bold text-on-surface">2</p>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Modal Backdrop (Hidden by default, shown for conceptual design) -->
+<div class="fixed inset-0 z-50 flex items-center justify-center pointer-events-none opacity-0 transition-opacity">
+<div class="absolute inset-0 bg-surface/80 backdrop-blur-sm"></div>
+<div class="relative w-full max-w-2xl bg-surface-container-highest rounded-3xl p-8 border border-outline-variant/20 shadow-2xl glass-panel">
+<div class="flex justify-between items-start mb-8">
+<div>
+<h2 class="font-headline text-2xl font-bold text-on-surface">Add New Logic Task</h2>
+<p class="text-on-surface-variant font-body">Define a new automation sequence for the engine.</p>
+</div>
+<button class="p-2 hover:bg-surface-container rounded-full text-on-surface-variant">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<form class="space-y-6">
+<div class="space-y-2">
+<label class="font-label text-xs uppercase tracking-widest text-on-surface-variant">Task Name</label>
+<input class="w-full bg-surface-container-lowest border-none rounded-xl py-3 px-4 text-on-surface focus:ring-2 focus:ring-tertiary transition-all" placeholder="e.g. SEO Data Enrichment" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="font-label text-xs uppercase tracking-widest text-on-surface-variant">Frequency</label>
+<select class="w-full bg-surface-container-lowest border-none rounded-xl py-3 px-4 text-on-surface focus:ring-2 focus:ring-tertiary transition-all appearance-none">
+<option>Daily</option>
+<option>Hourly</option>
+<option>Weekly</option>
+<option>Cron Expression</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="font-label text-xs uppercase tracking-widest text-on-surface-variant">Execution Time</label>
+<input class="w-full bg-surface-container-lowest border-none rounded-xl py-3 px-4 text-on-surface focus:ring-2 focus:ring-tertiary transition-all" type="time"/>
+</div>
+</div>
+<div class="flex items-center gap-3 py-2">
+<div class="w-12 h-6 bg-tertiary rounded-full relative flex items-center px-1">
+<div class="w-4 h-4 bg-on-tertiary rounded-full translate-x-6 transition-transform"></div>
+</div>
+<span class="font-body text-sm text-on-surface">Enable Recurring Schedule</span>
+</div>
+<div class="pt-4 flex justify-end gap-4">
+<button class="px-6 py-2 rounded-xl text-on-surface-variant font-label text-xs uppercase tracking-widest hover:text-on-surface transition-colors" type="button">Cancel</button>
+<button class="bg-gradient-to-br from-tertiary to-on-tertiary-container text-on-tertiary px-8 py-3 rounded-xl font-bold" type="submit">Deploy Task</button>
+</div>
+</form>
+</div>
+</div>
+</body></html>

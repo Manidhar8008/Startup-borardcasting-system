@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@700;800&amp;family=Space+Grotesk:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary-container": "#0f1a2e",
+              "inverse-on-surface": "#2e303a",
+              "inverse-primary": "#545e76",
+              "surface": "#11131c",
+              "tertiary-container": "#001d26",
+              "secondary-container": "#2f4865",
+              "on-surface-variant": "#c4c6cc",
+              "on-tertiary": "#003543",
+              "on-tertiary-fixed": "#001f28",
+              "surface-container": "#1d1f29",
+              "on-secondary-fixed-variant": "#2f4865",
+              "tertiary": "#4cd6ff",
+              "on-tertiary-container": "#008eae",
+              "outline-variant": "#44474c",
+              "surface-container-high": "#282933",
+              "inverse-surface": "#e1e1ef",
+              "primary-fixed": "#d7e2ff",
+              "on-primary": "#263046",
+              "secondary-fixed-dim": "#afc9ea",
+              "surface-container-lowest": "#0c0e17",
+              "secondary-fixed": "#d1e4ff",
+              "on-primary-container": "#78839c",
+              "on-primary-fixed-variant": "#3c475d",
+              "on-background": "#e1e1ef",
+              "surface-variant": "#32343e",
+              "error-container": "#93000a",
+              "outline": "#8e9196",
+              "on-primary-fixed": "#101b30",
+              "surface-tint": "#bbc6e2",
+              "primary-fixed-dim": "#bbc6e2",
+              "secondary": "#afc9ea",
+              "on-secondary-fixed": "#001d36",
+              "on-error-container": "#ffdad6",
+              "surface-container-low": "#191b24",
+              "on-tertiary-fixed-variant": "#004e60",
+              "error": "#ffb4ab",
+              "surface-container-highest": "#32343e",
+              "on-error": "#690005",
+              "primary": "#bbc6e2",
+              "on-secondary-container": "#9eb7d8",
+              "tertiary-fixed": "#b7eaff",
+              "surface-dim": "#11131c",
+              "tertiary-fixed-dim": "#4cd6ff",
+              "on-surface": "#e1e1ef",
+              "surface-bright": "#373943",
+              "background": "#11131c",
+              "on-secondary": "#17324d"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Space Grotesk"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      body {
+        background-color: #11131c;
+        color: #e1e1ef;
+      }
+      .kinetic-gradient {
+        background: linear-gradient(135deg, #4cd6ff 0%, #008eae 100%);
+      }
+      .glass-card {
+        background: rgba(50, 52, 62, 0.6);
+        backdrop-filter: blur(20px);
+      }
+    </style>
+</head>
+<body class="font-body selection:bg-tertiary/30">
+<!-- Top Navigation -->
+<header class="bg-[#11131c] text-[#bbc6e2] font-['Manrope'] tracking-tight text-sm docked full-width top-0 z-50 flex justify-between items-center w-full px-8 py-3 h-16">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold tracking-tighter text-[#bbc6e2]">Pipeline Kinetic</span>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-[#bbc6e2]/60 hover:bg-[#282933] transition-colors duration-200 px-3 py-1 rounded" href="#">Dashboard</a>
+<a class="text-[#bbc6e2]/60 hover:bg-[#282933] transition-colors duration-200 px-3 py-1 rounded" href="#">Strategy</a>
+<a class="text-[#bbc6e2]/60 hover:bg-[#282933] transition-colors duration-200 px-3 py-1 rounded" href="#">Calendar</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="bg-surface-container-lowest border-none focus:ring-1 focus:ring-tertiary rounded-lg pl-10 pr-4 py-1.5 text-xs w-64 placeholder:text-outline" placeholder="Search documentation..." type="text"/>
+</div>
+<button class="bg-surface-container-high text-[#bbc6e2] px-4 py-1.5 rounded hover:bg-[#282933] active:scale-95 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">history</span>
+<span>history</span>
+</button>
+<button class="kinetic-gradient text-on-tertiary px-5 py-1.5 rounded font-semibold text-xs active:scale-95 transition-all shadow-lg shadow-tertiary/10">
+                Run Pipeline
+            </button>
+</div>
+</header>
+<div class="flex min-h-screen pt-16">
+<!-- Side Navigation -->
+<aside class="fixed left-0 top-0 h-full w-64 z-40 bg-[#11131c] text-[#4cd6ff] font-['Inter'] text-[13px] font-medium py-6 px-4 flex flex-col gap-2 pt-20">
+<div class="mb-8 px-4">
+<div class="flex items-center gap-3 mb-1">
+<img alt="System Status" class="w-6 h-6 rounded-full" data-alt="Abstract minimalist circular icon representing high-tech automation systems with glowing cyan accents on a dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgHFCL_oxW2HoVD2pQvXh-Qs6dWzzEBcIyi7v283xEoKkZAy-VhyXXVk7AIu-PCsqhVd799GAEmQ-LE1Ie6kcWj0Hf9kQt0YEgHVzxb9J8tDiN45M8-pDdxga1feqLa87oQiE3QhDhy8mbNUGPn7lGhTUhTswuQJgyJSQ5bI5gDL4VrGPQdqUgNo-mVbe2KBWGue3GkVepdzMdYvVvWw2f5tXUDo7Gsjy4T6Rd7t19C1vlRUXdYBZV419emmHpltvM1LFow3Gixf06"/>
+<span class="text-lg font-black text-[#bbc6e2]">Automation Engine</span>
+</div>
+<span class="text-[10px] font-label text-on-surface-variant uppercase tracking-widest opacity-60">v2.4.0 Active</span>
+</div>
+<a class="flex items-center gap-3 text-[#bbc6e2]/50 hover:text-[#bbc6e2] px-4 py-2 hover:bg-[#1d1f29] transition-all duration-300 group" href="#">
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-3 text-[#bbc6e2]/50 hover:text-[#bbc6e2] px-4 py-2 hover:bg-[#1d1f29] transition-all duration-300 group" href="#">
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">insights</span>
+<span>Strategy</span>
+</a>
+<a class="flex items-center gap-3 text-[#bbc6e2]/50 hover:text-[#bbc6e2] px-4 py-2 hover:bg-[#1d1f29] transition-all duration-300 group" href="#">
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">auto_awesome</span>
+<span>Content Studio</span>
+</a>
+<a class="flex items-center gap-3 text-[#bbc6e2]/50 hover:text-[#bbc6e2] px-4 py-2 hover:bg-[#1d1f29] transition-all duration-300 group" href="#">
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">calendar_today</span>
+<span>Calendar</span>
+</a>
+<a class="flex items-center gap-3 text-[#bbc6e2]/50 hover:text-[#bbc6e2] px-4 py-2 hover:bg-[#1d1f29] transition-all duration-300 group" href="#">
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">lightbulb</span>
+<span>Idea Bank</span>
+</a>
+<a class="flex items-center gap-3 text-[#bbc6e2]/50 hover:text-[#bbc6e2] px-4 py-2 hover:bg-[#1d1f29] transition-all duration-300 group" href="#">
+<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">settings</span>
+<span>Settings</span>
+</a>
+<div class="mt-auto flex flex-col gap-2">
+<a class="flex items-center gap-3 bg-[#1d1f29] text-[#4cd6ff] rounded-lg px-4 py-2 border-r-2 border-[#4cd6ff]" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span>Help Center</span>
+</a>
+<a class="flex items-center gap-3 text-[#bbc6e2]/50 hover:text-[#bbc6e2] px-4 py-2 hover:bg-[#1d1f29] transition-all duration-300" href="#">
+<span class="material-symbols-outlined">chat_bubble_outline</span>
+<span>Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 flex-1 p-14 max-w-7xl mx-auto w-full">
+<!-- Hero Section -->
+<section class="mb-16">
+<h1 class="font-headline text-5xl font-extrabold tracking-tight mb-4 text-primary leading-tight">
+                    How can we help you <br/><span class="text-tertiary">engineer your growth?</span>
+</h1>
+<p class="font-body text-on-surface-variant text-lg max-w-2xl leading-relaxed">
+                    Search our documentation for technical guides on pipeline logic, editorial automation, and enterprise content strategies.
+                </p>
+<div class="mt-10 flex gap-4">
+<div class="relative flex-1 max-w-xl">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-tertiary">search</span>
+<input class="w-full bg-surface-container-low border-none focus:ring-2 focus:ring-tertiary/20 rounded-xl pl-12 pr-6 py-4 text-primary font-medium shadow-2xl" placeholder="e.g. How to set up cross-platform automation..." type="text"/>
+</div>
+<button class="bg-surface-container-high px-8 py-4 rounded-xl font-headline font-bold text-primary hover:bg-surface-variant transition-all flex items-center gap-2">
+                        Contact Support
+                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</section>
+<!-- Knowledge Categories (Bento Grid) -->
+<section class="grid grid-cols-12 gap-6 mb-20">
+<!-- Getting Started -->
+<div class="col-span-12 md:col-span-7 bg-surface-container p-8 rounded-xl flex flex-col justify-between min-h-[320px] relative overflow-hidden group">
+<div class="relative z-10">
+<div class="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-primary-container text-tertiary mb-6">
+<span class="material-symbols-outlined">rocket_launch</span>
+</div>
+<h3 class="font-headline text-2xl font-bold text-primary mb-3">Getting Started</h3>
+<p class="text-on-surface-variant font-body mb-6 max-w-sm">From zero to automation. Learn the fundamentals of the Pipeline Kinetic engine and first-time setup.</p>
+<div class="flex flex-wrap gap-2">
+<span class="bg-surface-container-high px-3 py-1 rounded-full text-xs font-label text-tertiary">Initial Setup</span>
+<span class="bg-surface-container-high px-3 py-1 rounded-full text-xs font-label text-tertiary">API Keys</span>
+<span class="bg-surface-container-high px-3 py-1 rounded-full text-xs font-label text-tertiary">First Workflow</span>
+</div>
+</div>
+<div class="absolute right-0 bottom-0 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[180px] leading-none translate-y-12 translate-x-12">engineering</span>
+</div>
+</div>
+<!-- Pipeline Logic -->
+<div class="col-span-12 md:col-span-5 bg-tertiary-container p-8 rounded-xl relative overflow-hidden group">
+<div class="relative z-10">
+<div class="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-surface/40 text-tertiary mb-6">
+<span class="material-symbols-outlined">hub</span>
+</div>
+<h3 class="font-headline text-2xl font-bold text-tertiary mb-3">Pipeline Logic</h3>
+<p class="text-on-surface-variant font-body mb-4">Deep dive into conditional triggers, branching paths, and kinetic nodes.</p>
+<ul class="space-y-3 mt-6">
+<li class="flex items-center gap-3 text-sm text-primary group/item cursor-pointer hover:text-tertiary transition-colors">
+<span class="material-symbols-outlined text-sm">arrow_right_alt</span>
+                                Advanced Trigger Configuration
+                            </li>
+<li class="flex items-center gap-3 text-sm text-primary group/item cursor-pointer hover:text-tertiary transition-colors">
+<span class="material-symbols-outlined text-sm">arrow_right_alt</span>
+                                Handling Error Callbacks
+                            </li>
+</ul>
+</div>
+</div>
+<!-- Content Strategy -->
+<div class="col-span-12 md:col-span-4 bg-surface-container-high p-8 rounded-xl group hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-tertiary mb-4">auto_stories</span>
+<h3 class="font-headline text-xl font-bold text-primary mb-2">Content Strategy</h3>
+<p class="text-sm text-on-surface-variant leading-relaxed mb-4">Optimizing your output for cross-channel distribution and audience engagement.</p>
+<a class="text-xs font-label text-tertiary uppercase tracking-widest flex items-center gap-2 group-hover:gap-3 transition-all" href="#">
+                        View Guides <span class="material-symbols-outlined text-xs">north_east</span>
+</a>
+</div>
+<!-- Billing -->
+<div class="col-span-12 md:col-span-4 bg-surface-container p-8 rounded-xl group hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-tertiary mb-4">payments</span>
+<h3 class="font-headline text-xl font-bold text-primary mb-2">Billing &amp; Account</h3>
+<p class="text-sm text-on-surface-variant leading-relaxed mb-4">Managing subscriptions, credit cycles, and enterprise seat licensing.</p>
+<a class="text-xs font-label text-tertiary uppercase tracking-widest flex items-center gap-2 group-hover:gap-3 transition-all" href="#">
+                        Manage Plan <span class="material-symbols-outlined text-xs">north_east</span>
+</a>
+</div>
+<!-- Security -->
+<div class="col-span-12 md:col-span-4 bg-surface-container p-8 rounded-xl group hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-tertiary mb-4">encrypted</span>
+<h3 class="font-headline text-xl font-bold text-primary mb-2">Security &amp; Privacy</h3>
+<p class="text-sm text-on-surface-variant leading-relaxed mb-4">Data encryption standards, SOC2 compliance, and workspace permissions.</p>
+<a class="text-xs font-label text-tertiary uppercase tracking-widest flex items-center gap-2 group-hover:gap-3 transition-all" href="#">
+                        Security Portal <span class="material-symbols-outlined text-xs">north_east</span>
+</a>
+</div>
+</section>
+<!-- Frequently Asked Questions -->
+<section class="space-y-12">
+<div class="flex items-end justify-between border-b border-outline-variant/20 pb-6">
+<div>
+<span class="font-label text-xs uppercase tracking-[0.3em] text-tertiary mb-2 block">Top Inquiries</span>
+<h2 class="font-headline text-3xl font-extrabold text-primary">Popular Technical FAQ</h2>
+</div>
+<button class="text-primary text-sm font-medium hover:text-tertiary transition-colors">View All 150+ Articles</button>
+</div>
+<div class="space-y-4">
+<!-- FAQ Item 1 -->
+<div class="bg-surface-container-low hover:bg-surface-container-high transition-all rounded-xl p-6 group cursor-pointer">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-6">
+<span class="font-label text-tertiary/40 text-xl font-bold">01</span>
+<h4 class="font-headline text-lg font-bold text-primary">How do I synchronize kinetic nodes across different time zones?</h4>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:rotate-45 transition-transform">add</span>
+</div>
+</div>
+<!-- FAQ Item 2 -->
+<div class="bg-surface-container-low hover:bg-surface-container-high transition-all rounded-xl p-6 group cursor-pointer">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-6">
+<span class="font-label text-tertiary/40 text-xl font-bold">02</span>
+<h4 class="font-headline text-lg font-bold text-primary">Can I export my automation strategy as a portable YAML file?</h4>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:rotate-45 transition-transform">add</span>
+</div>
+</div>
+<!-- FAQ Item 3 -->
+<div class="bg-surface-container-low hover:bg-surface-container-high transition-all rounded-xl p-6 group cursor-pointer">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-6">
+<span class="font-label text-tertiary/40 text-xl font-bold">03</span>
+<h4 class="font-headline text-lg font-bold text-primary">What is the latency threshold for real-time editorial triggers?</h4>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:rotate-45 transition-transform">add</span>
+</div>
+</div>
+<!-- FAQ Item 4 -->
+<div class="bg-surface-container-low hover:bg-surface-container-high transition-all rounded-xl p-6 group cursor-pointer">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-6">
+<span class="font-label text-tertiary/40 text-xl font-bold">04</span>
+<h4 class="font-headline text-lg font-bold text-primary">How are API rate limits handled during high-volume content bursts?</h4>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:rotate-45 transition-transform">add</span>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="mt-24 p-12 rounded-2xl bg-gradient-to-br from-surface-container to-surface-container-lowest relative overflow-hidden text-center">
+<div class="relative z-10">
+<h2 class="font-headline text-3xl font-extrabold text-primary mb-4">Still need assistance?</h2>
+<p class="font-body text-on-surface-variant max-w-xl mx-auto mb-10 leading-relaxed">
+                        Our technical support architects are available 24/7 for Enterprise partners and during business hours for Pro accounts.
+                    </p>
+<div class="flex justify-center gap-4">
+<button class="kinetic-gradient text-on-tertiary px-8 py-4 rounded-xl font-bold active:scale-95 transition-all shadow-xl shadow-tertiary/20">
+                            Start Live Chat
+                        </button>
+<button class="bg-surface-container-high border border-outline-variant/20 px-8 py-4 rounded-xl font-bold text-primary hover:bg-surface-variant transition-all">
+                            Submit a Ticket
+                        </button>
+</div>
+</div>
+<!-- Background Decorations -->
+<div class="absolute -top-24 -left-24 w-64 h-64 bg-tertiary/5 rounded-full blur-[100px]"></div>
+<div class="absolute -bottom-24 -right-24 w-64 h-64 bg-primary/5 rounded-full blur-[100px]"></div>
+</section>
+<footer class="mt-24 pb-12 text-center">
+<p class="font-label text-[10px] text-outline tracking-widest uppercase mb-4">Pipeline Kinetic Support Ecosystem • © 2024 JAN AI</p>
+<div class="flex justify-center gap-6 text-xs text-on-surface-variant/60">
+<a class="hover:text-tertiary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-tertiary transition-colors" href="#">Service Status</a>
+<a class="hover:text-tertiary transition-colors" href="#">Developer API</a>
+</div>
+</footer>
+</main>
+</div>
+</body></html>

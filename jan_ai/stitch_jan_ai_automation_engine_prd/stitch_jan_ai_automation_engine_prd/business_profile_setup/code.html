@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>JAN AI - Business Details Onboarding</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;family=Space+Grotesk:wght@500;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-container": "#0f1a2e",
+                        "inverse-on-surface": "#2e303a",
+                        "inverse-primary": "#545e76",
+                        "surface": "#11131c",
+                        "tertiary-container": "#001d26",
+                        "secondary-container": "#2f4865",
+                        "on-surface-variant": "#c4c6cc",
+                        "on-tertiary": "#003543",
+                        "on-tertiary-fixed": "#001f28",
+                        "surface-container": "#1d1f29",
+                        "on-secondary-fixed-variant": "#2f4865",
+                        "tertiary": "#4cd6ff",
+                        "on-tertiary-container": "#008eae",
+                        "outline-variant": "#44474c",
+                        "surface-container-high": "#282933",
+                        "inverse-surface": "#e1e1ef",
+                        "primary-fixed": "#d7e2ff",
+                        "on-primary": "#263046",
+                        "secondary-fixed-dim": "#afc9ea",
+                        "surface-container-lowest": "#0c0e17",
+                        "secondary-fixed": "#d1e4ff",
+                        "on-primary-container": "#78839c",
+                        "on-primary-fixed-variant": "#3c475d",
+                        "on-background": "#e1e1ef",
+                        "surface-variant": "#32343e",
+                        "error-container": "#93000a",
+                        "outline": "#8e9196",
+                        "on-primary-fixed": "#101b30",
+                        "surface-tint": "#bbc6e2",
+                        "primary-fixed-dim": "#bbc6e2",
+                        "secondary": "#afc9ea",
+                        "on-secondary-fixed": "#001d36",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-low": "#191b24",
+                        "on-tertiary-fixed-variant": "#004e60",
+                        "error": "#ffb4ab",
+                        "surface-container-highest": "#32343e",
+                        "on-error": "#690005",
+                        "primary": "#bbc6e2",
+                        "on-secondary-container": "#9eb7d8",
+                        "tertiary-fixed": "#b7eaff",
+                        "surface-dim": "#11131c",
+                        "tertiary-fixed-dim": "#4cd6ff",
+                        "on-surface": "#e1e1ef",
+                        "surface-bright": "#373943",
+                        "background": "#11131c",
+                        "on-secondary": "#17324d"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Space Grotesk"]
+                    },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .pipeline-track {
+            background: linear-gradient(to bottom, #4cd6ff 33%, #bbc6e2 33% 66%, #44474c 66%);
+        }
+        .glass-panel {
+            background: rgba(55, 57, 67, 0.6);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-tertiary/30">
+<!-- Onboarding suppression rule: No Global Nav Shells on Transactional Pages -->
+<main class="min-h-screen flex flex-col md:flex-row">
+<!-- Sidebar Branding & Progress (Asymmetric Layout) -->
+<aside class="w-full md:w-[400px] bg-surface-container flex flex-col p-8 md:p-12 relative overflow-hidden">
+<div class="z-10">
+<div class="flex items-center gap-3 mb-16">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-tertiary to-on-tertiary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-tertiary" data-icon="token">token</span>
+</div>
+<span class="font-headline font-extrabold text-2xl tracking-tighter text-primary">JAN AI</span>
+</div>
+<div class="space-y-12">
+<div class="relative pl-8">
+<!-- Kinetic Pipeline Indicator -->
+<div class="absolute left-0 top-0 bottom-0 w-[2px] bg-outline-variant/20 rounded-full">
+<div class="absolute top-0 left-0 w-full h-[66%] bg-tertiary rounded-full"></div>
+</div>
+<div class="space-y-10">
+<div class="relative">
+<div class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-tertiary ring-4 ring-surface"></div>
+<p class="font-label text-xs uppercase tracking-widest text-on-tertiary-container mb-1">Step 01</p>
+<h3 class="font-headline text-lg font-bold text-on-surface">Account Setup</h3>
+<p class="text-sm text-on-surface-variant">Credentials and workspace identification.</p>
+</div>
+<div class="relative">
+<div class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-tertiary ring-4 ring-surface"></div>
+<p class="font-label text-xs uppercase tracking-widest text-tertiary mb-1">Step 02</p>
+<h3 class="font-headline text-lg font-bold text-on-surface">Business Details</h3>
+<p class="text-sm text-on-surface-variant">Defining the core logic of your brand engine.</p>
+</div>
+<div class="relative">
+<div class="absolute -left-[37px] top-1 w-4 h-4 rounded-full bg-outline-variant ring-4 ring-surface"></div>
+<p class="font-label text-xs uppercase tracking-widest text-on-surface-variant/40 mb-1">Step 03</p>
+<h3 class="font-headline text-lg font-bold text-on-surface/40">Integrations</h3>
+<p class="text-sm text-on-surface-variant/40">Connecting your content ecosystem.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Background Decorative Texture -->
+<div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-primary-container/20 to-transparent pointer-events-none"></div>
+<div class="absolute -bottom-20 -left-20 w-64 h-64 bg-tertiary/5 blur-[120px] rounded-full"></div>
+</aside>
+<!-- Main Form Canvas -->
+<section class="flex-1 flex items-center justify-center p-6 md:p-12 lg:p-24 bg-surface">
+<div class="w-full max-w-2xl">
+<header class="mb-12">
+<h1 class="font-headline text-4xl font-extrabold tracking-tight text-on-surface mb-4">The Kinetic Architect</h1>
+<p class="text-on-surface-variant text-lg max-w-lg">Enter your business parameters to calibrate the Pipeline Kinetic engine for your specific niche.</p>
+</header>
+<form class="space-y-10">
+<!-- Section: Identity -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="space-y-2">
+<label class="font-label text-xs uppercase tracking-widest text-primary/70">Brand Name</label>
+<input class="w-full bg-surface-container-lowest border-none focus:ring-0 focus:border-none p-4 rounded-lg text-on-surface placeholder:text-on-surface-variant/30 transition-all border-b-2 border-transparent focus:border-tertiary" placeholder="e.g. Quantum Digital" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="font-label text-xs uppercase tracking-widest text-primary/70">Niche</label>
+<div class="relative">
+<select class="w-full bg-surface-container-lowest border-none focus:ring-0 focus:border-none p-4 rounded-lg text-on-surface appearance-none cursor-pointer border-b-2 border-transparent focus:border-tertiary">
+<option>SaaS &amp; Technology</option>
+<option>Digital Marketing</option>
+<option>E-commerce</option>
+<option>Healthcare Tech</option>
+<option>Fintech</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Section: Audience -->
+<div class="space-y-2">
+<label class="font-label text-xs uppercase tracking-widest text-primary/70">Target Audience</label>
+<textarea class="w-full bg-surface-container-lowest border-none focus:ring-0 focus:border-none p-4 rounded-lg text-on-surface placeholder:text-on-surface-variant/30 resize-none border-b-2 border-transparent focus:border-tertiary" placeholder="Describe your ideal customer profile in technical detail..." rows="3"></textarea>
+</div>
+<!-- Section: Goals (Bento Style Selection) -->
+<div class="space-y-4">
+<label class="font-label text-xs uppercase tracking-widest text-primary/70">Primary Goal</label>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Option 1 -->
+<label class="relative group cursor-pointer">
+<input checked="" class="peer sr-only" name="goal" type="radio"/>
+<div class="p-6 rounded-xl bg-surface-container-low border border-transparent peer-checked:bg-surface-container-high peer-checked:border-tertiary/30 transition-all duration-300">
+<span class="material-symbols-outlined text-tertiary mb-4 block" data-icon="trending_up">trending_up</span>
+<h4 class="font-headline font-bold text-on-surface mb-1">Growth</h4>
+<p class="text-xs text-on-surface-variant">Focus on rapid scaling and market reach.</p>
+</div>
+</label>
+<!-- Option 2 -->
+<label class="relative group cursor-pointer">
+<input class="peer sr-only" name="goal" type="radio"/>
+<div class="p-6 rounded-xl bg-surface-container-low border border-transparent peer-checked:bg-surface-container-high peer-checked:border-tertiary/30 transition-all duration-300">
+<span class="material-symbols-outlined text-primary mb-4 block" data-icon="hub">hub</span>
+<h4 class="font-headline font-bold text-on-surface mb-1">Leads</h4>
+<p class="text-xs text-on-surface-variant">Optimize for conversion and high-intent data.</p>
+</div>
+</label>
+<!-- Option 3 -->
+<label class="relative group cursor-pointer">
+<input class="peer sr-only" name="goal" type="radio"/>
+<div class="p-6 rounded-xl bg-surface-container-low border border-transparent peer-checked:bg-surface-container-high peer-checked:border-tertiary/30 transition-all duration-300">
+<span class="material-symbols-outlined text-primary mb-4 block" data-icon="verified">verified</span>
+<h4 class="font-headline font-bold text-on-surface mb-1">Authority</h4>
+<p class="text-xs text-on-surface-variant">Establish dominance through thought leadership.</p>
+</div>
+</label>
+</div>
+</div>
+<!-- Actions -->
+<div class="pt-8 flex items-center justify-between">
+<button class="font-label text-sm font-bold text-primary hover:text-on-surface transition-colors flex items-center gap-2" type="button">
+<span class="material-symbols-outlined text-sm" data-icon="arrow_back">arrow_back</span>
+                            Previous Step
+                        </button>
+<button class="relative group overflow-hidden bg-gradient-to-br from-tertiary to-on-tertiary-container text-on-tertiary px-10 py-4 rounded-full font-headline font-bold tracking-tight shadow-2xl shadow-tertiary/10 active:scale-95 transition-all" type="submit">
+<span class="relative z-10 flex items-center gap-3">
+                                Finish Setup
+                                <span class="material-symbols-outlined text-lg" data-icon="rocket_launch">rocket_launch</span>
+</span>
+<div class="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+</button>
+</div>
+</form>
+</div>
+</section>
+</main>
+<!-- Visual Polish: Floating Technical Data -->
+<div class="fixed bottom-8 right-8 pointer-events-none hidden lg:block">
+<div class="glass-panel p-6 rounded-2xl border border-white/5 space-y-4">
+<div class="flex items-center gap-4">
+<div class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></div>
+<span class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">Engine Status: Calibrating</span>
+</div>
+<div class="w-48 h-1 bg-surface-container-lowest rounded-full overflow-hidden">
+<div class="w-2/3 h-full bg-tertiary"></div>
+</div>
+<div class="flex justify-between text-[10px] font-label text-on-surface-variant/40">
+<span>LATENCY: 14MS</span>
+<span>V2.4.0</span>
+</div>
+</div>
+</div>
+</body></html>

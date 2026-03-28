@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>JAN AI - Suggestions Engine</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;family=Space+Grotesk:wght@500;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #11131c;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #282933;
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-dim": "#11131c",
+              "inverse-primary": "#545e76",
+              "surface": "#11131c",
+              "error": "#ffb4ab",
+              "primary-fixed-dim": "#bbc6e2",
+              "secondary-container": "#2f4865",
+              "outline-variant": "#44474c",
+              "on-secondary-fixed-variant": "#2f4865",
+              "outline": "#8e9196",
+              "on-tertiary-fixed-variant": "#004e60",
+              "on-primary": "#263046",
+              "secondary-fixed-dim": "#afc9ea",
+              "error-container": "#93000a",
+              "on-primary-container": "#78839c",
+              "on-secondary": "#17324d",
+              "on-error-container": "#ffdad6",
+              "on-secondary-container": "#9eb7d8",
+              "background": "#11131c",
+              "tertiary": "#4cd6ff",
+              "on-tertiary-fixed": "#001f28",
+              "on-surface": "#e1e1ef",
+              "surface-container-high": "#282933",
+              "surface-container-lowest": "#0c0e17",
+              "surface-container-low": "#191b24",
+              "on-surface-variant": "#c4c6cc",
+              "on-primary-fixed-variant": "#3c475d",
+              "primary-container": "#0f1a2e",
+              "tertiary-fixed-dim": "#4cd6ff",
+              "secondary": "#afc9ea",
+              "primary-fixed": "#d7e2ff",
+              "inverse-on-surface": "#2e303a",
+              "tertiary-container": "#001d26",
+              "surface-variant": "#32343e",
+              "surface-tint": "#bbc6e2",
+              "inverse-surface": "#e1e1ef",
+              "primary": "#bbc6e2",
+              "surface-container": "#1d1f29",
+              "on-tertiary-container": "#008eae",
+              "on-error": "#690005",
+              "tertiary-fixed": "#b7eaff",
+              "surface-container-highest": "#32343e",
+              "secondary-fixed": "#d1e4ff",
+              "on-background": "#e1e1ef",
+              "surface-bright": "#373943",
+              "on-primary-fixed": "#101b30",
+              "on-tertiary": "#003543",
+              "on-secondary-fixed": "#001d36"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Space Grotesk"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-tertiary/30">
+<!-- SideNavBar Component -->
+<aside class="h-screen w-64 fixed left-0 top-0 bg-[#1d1f29] border-none flex flex-col p-6 space-y-8 z-50">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-gradient-to-br from-primary to-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary text-sm" data-icon="psychology">psychology</span>
+</div>
+<div>
+<h1 class="text-xl font-bold tracking-tighter text-[#bbc6e2] font-headline">JAN AI</h1>
+<p class="text-[10px] uppercase tracking-widest text-on-surface-variant font-label">Automation Engine</p>
+</div>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="text-[#e1e1ef]/60 flex items-center gap-3 px-4 py-3 hover:text-[#e1e1ef] transition-colors hover:bg-[#282933] rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label text-sm">Dashboard</span>
+</a>
+<a class="text-[#e1e1ef]/60 flex items-center gap-3 px-4 py-3 hover:text-[#e1e1ef] transition-colors hover:bg-[#282933] rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="assignment">assignment</span>
+<span class="font-label text-sm">Tasks</span>
+</a>
+<!-- Active State: Suggestions -->
+<a class="text-[#4cd6ff] font-semibold flex items-center gap-3 px-4 py-3 rounded-lg bg-[#1d1f29]" href="#">
+<span class="material-symbols-outlined" data-icon="psychology" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<span class="font-label text-sm">Suggestions</span>
+</a>
+<a class="text-[#e1e1ef]/60 flex items-center gap-3 px-4 py-3 hover:text-[#e1e1ef] transition-colors hover:bg-[#282933] rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label text-sm">Settings</span>
+</a>
+</nav>
+<div class="pt-6 border-t border-outline-variant/20">
+<button class="w-full py-3 px-4 bg-gradient-to-r from-tertiary to-on-tertiary-container text-on-tertiary rounded-lg font-label text-xs font-bold uppercase tracking-widest active:scale-[0.98] transition-transform">
+                Run Pipeline
+            </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-64 min-h-screen">
+<!-- TopNavBar Component -->
+<header class="fixed top-0 right-0 w-[calc(100%-16rem)] z-40 bg-[#11131c]/80 backdrop-blur-md flex justify-between items-center h-20 px-12 font-body text-sm">
+<div class="flex items-center gap-4 bg-surface-container-lowest px-4 py-2 rounded-full w-96 group focus-within:ring-2 focus-within:ring-[#4cd6ff]/30 transition-all">
+<span class="material-symbols-outlined text-outline" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-on-surface placeholder:text-outline w-full text-xs" placeholder="Search patterns..." type="text"/>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4">
+<button class="text-[#e1e1ef] hover:text-[#4cd6ff] transition-colors relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-tertiary rounded-full"></span>
+</button>
+<button class="text-[#e1e1ef] hover:text-[#4cd6ff] transition-colors">
+<span class="material-symbols-outlined" data-icon="bolt">bolt</span>
+</button>
+</div>
+<div class="h-8 w-px bg-outline-variant/30"></div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="text-xs font-bold font-headline">Alex Rivera</p>
+<p class="text-[10px] text-on-surface-variant font-label">Lead Architect</p>
+</div>
+<img alt="User Profile" class="w-10 h-10 rounded-full object-cover ring-2 ring-primary/20" data-alt="Close up portrait of a professional man with a neutral expression against a dark studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBQeHgpFwJklIHHaUWcHWFATCWQM7NuYHM7Sc1bkNkkTx7b2IhmmkY5nkgOxm7LSW-eD_xzxFRMzQRdQzNffdK5lQCl84xzuN5GrKcCnKUpjjQNRnK_11McvohJNaSjPIbNcaMWZoX4LxrUvYv5qEl9Ka3jnsF-yVdIGlZQtj40HbMv0FKsQ5Hhq-6ELq8HRjnWqsqSsa7MOFZJ3PxJmtLsNs6GW2vBAvGoRapjUBir2OXFvKna_T0a73Zz_Os4mOfx73QuQFFqxyT"/>
+</div>
+</div>
+</header>
+<!-- Content Body -->
+<div class="pt-32 px-12 pb-16 max-w-7xl mx-auto space-y-12">
+<!-- Page Header -->
+<section class="flex justify-between items-end">
+<div class="space-y-2">
+<span class="text-tertiary font-label text-xs font-bold uppercase tracking-[0.2em]">Secret Weapon</span>
+<h2 class="text-5xl font-extrabold font-headline tracking-tighter text-on-surface">Suggestion Engine</h2>
+<p class="text-on-surface-variant max-w-md font-body text-sm leading-relaxed">
+                        Kinetic AI analyzing 14,204 logs to optimize your editorial pipeline.
+                    </p>
+</div>
+<div class="flex gap-4">
+<div class="bg-surface-container p-4 rounded-xl flex items-center gap-4">
+<div class="text-right">
+<p class="text-[10px] font-label text-outline uppercase tracking-wider">Confidence Score</p>
+<p class="text-2xl font-bold font-label text-tertiary">94.2%</p>
+</div>
+<div class="w-12 h-12 rounded-full border-4 border-tertiary/20 border-t-tertiary flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary text-lg" data-icon="auto_awesome">auto_awesome</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Pattern Highlighting Section (The "Why") -->
+<section class="grid grid-cols-12 gap-8">
+<div class="col-span-12 lg:col-span-8 bg-surface-container-low p-8 rounded-xl space-y-8">
+<div class="flex justify-between items-center">
+<h3 class="font-headline text-xl font-bold">Execution Logs Pattern</h3>
+<div class="flex gap-2">
+<span class="px-3 py-1 bg-surface-container-highest rounded-full text-[10px] font-label text-tertiary uppercase tracking-tighter">7 Day Window</span>
+<span class="px-3 py-1 bg-surface-container-highest rounded-full text-[10px] font-label text-on-surface-variant uppercase tracking-tighter">Editorial Flow</span>
+</div>
+</div>
+<!-- Pipeline/Heatmap Visualization -->
+<div class="space-y-6">
+<div class="grid grid-cols-24 gap-1 h-32 items-end">
+<!-- Simulated Heatmap bars -->
+<div class="bg-tertiary/20 h-[40%] rounded-t-sm w-full"></div>
+<div class="bg-tertiary/30 h-[60%] rounded-t-sm w-full"></div>
+<div class="bg-tertiary/10 h-[20%] rounded-t-sm w-full"></div>
+<div class="bg-tertiary/60 h-[80%] rounded-t-sm w-full"></div>
+<div class="bg-error/40 h-[95%] rounded-t-sm w-full"></div>
+<div class="bg-tertiary/40 h-[50%] rounded-t-sm w-full"></div>
+<div class="bg-tertiary/20 h-[30%] rounded-t-sm w-full"></div>
+<div class="bg-tertiary/70 h-[85%] rounded-t-sm w-full"></div>
+<div class="bg-error/50 h-[100%] rounded-t-sm w-full"></div>
+<div class="bg-tertiary/30 h-[45%] rounded-t-sm w-full"></div>
+<div class="bg-tertiary/10 h-[15%] rounded-t-sm w-full"></div>
+<div class="bg-tertiary/40 h-[55%] rounded-t-sm w-full"></div>
+<div class="bg-tertiary/20 h-[35%] rounded-t-sm w-full"></div>
+<div class="bg-tertiary/80 h-[90%] rounded-t-sm w-full"></div>
+<div class="bg-tertiary/30 h-[50%] rounded-t-sm w-full"></div>
+<div class="bg-error/30 h-[80%] rounded-t-sm w-full"></div>
+<div class="bg-tertiary/50 h-[65%] rounded-t-sm w-full"></div>
+<div class="bg-tertiary/20 h-[40%] rounded-t-sm w-full"></div>
+<div class="bg-tertiary/60 h-[75%] rounded-t-sm w-full"></div>
+<div class="bg-tertiary/10 h-[25%] rounded-t-sm w-full"></div>
+<div class="bg-tertiary/40 h-[60%] rounded-t-sm w-full"></div>
+<div class="bg-tertiary/90 h-[100%] rounded-t-sm w-full"></div>
+<div class="bg-tertiary/20 h-[45%] rounded-t-sm w-full"></div>
+<div class="bg-tertiary/30 h-[55%] rounded-t-sm w-full"></div>
+</div>
+<div class="flex justify-between font-label text-[10px] text-outline uppercase tracking-widest pt-4 border-t border-outline-variant/10">
+<span>00:00</span>
+<span>04:00</span>
+<span>08:00</span>
+<span class="text-error font-bold italic">Critical Congestion</span>
+<span>16:00</span>
+<span>20:00</span>
+<span>23:59</span>
+</div>
+</div>
+</div>
+<div class="col-span-12 lg:col-span-4 bg-primary-container p-8 rounded-xl flex flex-col justify-between relative overflow-hidden group">
+<div class="relative z-10 space-y-4">
+<div class="w-10 h-10 bg-tertiary/10 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary" data-icon="query_stats">query_stats</span>
+</div>
+<h4 class="font-headline text-lg font-bold text-on-primary">Network Drift</h4>
+<p class="text-sm text-on-primary-container leading-relaxed">
+                            Your "Morning Review" task has drifted <span class="text-tertiary font-bold">42 mins</span> from the original schedule over 14 days.
+                        </p>
+</div>
+<div class="relative z-10 pt-6">
+<div class="flex items-center gap-2">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full bg-tertiary"></div>
+<div class="w-6 h-6 rounded-full bg-primary"></div>
+<div class="w-6 h-6 rounded-full bg-outline-variant"></div>
+</div>
+<span class="text-[10px] font-label text-on-primary-container uppercase tracking-tighter">+3 correlated nodes</span>
+</div>
+</div>
+<!-- Decorative abstract background -->
+<div class="absolute top-0 right-0 w-32 h-32 bg-tertiary/5 rounded-full blur-3xl -mr-16 -mt-16 group-hover:bg-tertiary/10 transition-all duration-700"></div>
+</div>
+</section>
+<!-- Suggestion Feed Section -->
+<section class="space-y-8">
+<div class="flex items-center gap-4">
+<h3 class="font-headline text-2xl font-extrabold tracking-tight">Active Suggestions</h3>
+<span class="h-px flex-1 bg-outline-variant/20"></span>
+<div class="flex gap-2">
+<button class="p-2 text-outline hover:text-on-surface"><span class="material-symbols-outlined" data-icon="filter_list">filter_list</span></button>
+<button class="p-2 text-outline hover:text-on-surface"><span class="material-symbols-outlined" data-icon="sort">sort</span></button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- Suggestion Card 1 -->
+<div class="bg-surface-container-low rounded-xl p-8 space-y-6 hover:bg-surface-container-high transition-all duration-300 group">
+<div class="flex justify-between items-start">
+<span class="px-2 py-1 bg-error/10 text-error rounded text-[10px] font-label font-bold uppercase tracking-wider">Efficiency Gap</span>
+<span class="text-outline group-hover:text-tertiary transition-colors"><span class="material-symbols-outlined" data-icon="more_vert">more_vert</span></span>
+</div>
+<div class="space-y-3">
+<h5 class="text-xs font-label text-outline uppercase tracking-widest">The Insight</h5>
+<p class="font-headline text-lg font-bold text-on-surface">Missed tasks: 3 times in 'Review Cycle'</p>
+</div>
+<div class="p-4 bg-surface-container-lowest rounded-lg border-l-2 border-tertiary">
+<h5 class="text-[10px] font-label text-tertiary uppercase tracking-widest mb-1">The Suggestion</h5>
+<p class="text-sm font-body text-on-surface-variant italic leading-relaxed">
+                                "Reduce difficulty parameters or shift timing to 14:00 PM when system load is 22% lower."
+                            </p>
+</div>
+<div class="flex gap-3 pt-4">
+<button class="flex-1 py-3 bg-gradient-to-r from-tertiary to-on-tertiary-container text-on-tertiary rounded-lg font-label text-[10px] font-bold uppercase tracking-widest active:scale-[0.98] transition-all">
+                                Apply Improvement
+                            </button>
+<button class="px-4 py-3 bg-surface-container-highest text-on-surface-variant rounded-lg font-label text-[10px] font-bold uppercase tracking-widest hover:text-on-surface transition-colors">
+                                Dismiss
+                            </button>
+</div>
+</div>
+<!-- Suggestion Card 2 -->
+<div class="bg-surface-container-low rounded-xl p-8 space-y-6 hover:bg-surface-container-high transition-all duration-300 group">
+<div class="flex justify-between items-start">
+<span class="px-2 py-1 bg-tertiary/10 text-tertiary rounded text-[10px] font-label font-bold uppercase tracking-wider">Auto-Pilot Ready</span>
+<span class="text-outline group-hover:text-tertiary transition-colors"><span class="material-symbols-outlined" data-icon="more_vert">more_vert</span></span>
+</div>
+<div class="space-y-3">
+<h5 class="text-xs font-label text-outline uppercase tracking-widest">The Insight</h5>
+<p class="font-headline text-lg font-bold text-on-surface">100% completion in 'Data Scrubbing'</p>
+</div>
+<div class="p-4 bg-surface-container-lowest rounded-lg border-l-2 border-primary">
+<h5 class="text-[10px] font-label text-primary uppercase tracking-widest mb-1">The Suggestion</h5>
+<p class="text-sm font-body text-on-surface-variant italic leading-relaxed">
+                                "This pattern is highly predictable. Enable 'Auto-Execution' for this pipeline step."
+                            </p>
+</div>
+<div class="flex gap-3 pt-4">
+<button class="flex-1 py-3 bg-gradient-to-r from-tertiary to-on-tertiary-container text-on-tertiary rounded-lg font-label text-[10px] font-bold uppercase tracking-widest active:scale-[0.98] transition-all">
+                                Automate Now
+                            </button>
+<button class="px-4 py-3 bg-surface-container-highest text-on-surface-variant rounded-lg font-label text-[10px] font-bold uppercase tracking-widest hover:text-on-surface transition-colors">
+                                Dismiss
+                            </button>
+</div>
+</div>
+<!-- Suggestion Card 3 -->
+<div class="bg-surface-container-low rounded-xl p-8 space-y-6 hover:bg-surface-container-high transition-all duration-300 group">
+<div class="flex justify-between items-start">
+<span class="px-2 py-1 bg-secondary-container/30 text-secondary rounded text-[10px] font-label font-bold uppercase tracking-wider">Resource Warning</span>
+<span class="text-outline group-hover:text-tertiary transition-colors"><span class="material-symbols-outlined" data-icon="more_vert">more_vert</span></span>
+</div>
+<div class="space-y-3">
+<h5 class="text-xs font-label text-outline uppercase tracking-widest">The Insight</h5>
+<p class="font-headline text-lg font-bold text-on-surface">Memory peaks every Friday at 4PM</p>
+</div>
+<div class="p-4 bg-surface-container-lowest rounded-lg border-l-2 border-secondary">
+<h5 class="text-[10px] font-label text-secondary uppercase tracking-widest mb-1">The Suggestion</h5>
+<p class="text-sm font-body text-on-surface-variant italic leading-relaxed">
+                                "Batch archive 'Temporary Files' on Thursday evening to clear memory cache."
+                            </p>
+</div>
+<div class="flex gap-3 pt-4">
+<button class="flex-1 py-3 bg-gradient-to-r from-tertiary to-on-tertiary-container text-on-tertiary rounded-lg font-label text-[10px] font-bold uppercase tracking-widest active:scale-[0.98] transition-all">
+                                Schedule Batch
+                            </button>
+<button class="px-4 py-3 bg-surface-container-highest text-on-surface-variant rounded-lg font-label text-[10px] font-bold uppercase tracking-widest hover:text-on-surface transition-colors">
+                                Dismiss
+                            </button>
+</div>
+</div>
+</div>
+</section>
+<!-- History/Trend Mini Section -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<div class="bg-surface-container p-6 rounded-xl flex items-center justify-between border-l-4 border-tertiary">
+<div class="flex items-center gap-6">
+<div class="w-12 h-12 bg-tertiary/10 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary" data-icon="trending_up">trending_up</span>
+</div>
+<div>
+<p class="font-label text-[10px] text-outline uppercase tracking-[0.2em]">Weekly Efficiency</p>
+<h4 class="font-headline text-xl font-bold">+18.5% Performance Lift</h4>
+</div>
+</div>
+<div class="flex gap-1 items-end h-8">
+<div class="w-1.5 h-3 bg-tertiary/20 rounded-t-full"></div>
+<div class="w-1.5 h-5 bg-tertiary/40 rounded-t-full"></div>
+<div class="w-1.5 h-4 bg-tertiary/20 rounded-t-full"></div>
+<div class="w-1.5 h-6 bg-tertiary/60 rounded-t-full"></div>
+<div class="w-1.5 h-8 bg-tertiary rounded-t-full"></div>
+</div>
+</div>
+<div class="bg-surface-container p-6 rounded-xl flex items-center justify-between border-l-4 border-error">
+<div class="flex items-center gap-6">
+<div class="w-12 h-12 bg-error/10 rounded-full flex items-center justify-center">
+<span class="material-symbols-outlined text-error" data-icon="psychology_alt">psychology_alt</span>
+</div>
+<div>
+<p class="font-label text-[10px] text-outline uppercase tracking-[0.2em]">Manual Overrides</p>
+<h4 class="font-headline text-xl font-bold">2 Decisions Pending</h4>
+</div>
+</div>
+<button class="text-xs font-label text-error border border-error/20 px-4 py-2 rounded hover:bg-error/10 transition-colors uppercase tracking-widest font-bold">Review</button>
+</div>
+</section>
+</div>
+</main>
+<!-- Contextual FAB (Supressed for Suggestions page per logic) -->
+</body></html>

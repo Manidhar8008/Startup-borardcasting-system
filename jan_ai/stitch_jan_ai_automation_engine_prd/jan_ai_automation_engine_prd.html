@@ -1,0 +1,214 @@
+1. PRODUCT DEFINITION (SIMPLIFIED & EXECUTABLE)
+🧠 JAN AI — Automation Engine (MVP v1)
+Core Idea:
+Input → System → Action → Feedback → Suggestion
+No agents. Just clean pipeline architecture.
+🏗️ 2. SYSTEM ARCHITECTURE (NO AGENTS)
+Plain text
+User Input
+   ↓
+Frontend (React)
+   ↓
+FastAPI Backend
+   ↓
+Task Engine + Suggestion Engine
+   ↓
+PostgreSQL (Memory)
+   ↓
+Scheduler (APScheduler)
+   ↓
+Execution (Notification / Logs)
+⚙️ 3. BACKEND (FULL CONFIG)
+🧱 Tech Stack
+FastAPI
+PostgreSQL
+SQLAlchemy
+APScheduler
+Ollama (optional for parsing/suggestions)
+📂 Backend Folder Structure
+Bash
+backend/
+│
+├── app/
+│   ├── main.py
+│   ├── database.py
+│   ├── models.py
+│   ├── schemas.py
+│   ├── routes/
+│   │    ├── task.py
+│   │    ├── suggestion.py
+│   │    └── user.py
+│   ├── services/
+│   │    ├── parser.py
+│   │    ├── scheduler.py
+│   │    ├── suggestion_engine.py
+│   │    └── memory.py
+│   └── config.py
+│
+├── requirements.txt
+└── run.py
+🗄️ Database Schema (CORE)
+Users
+SQL
+id, name, email
+Tasks
+SQL
+id
+user_id
+task_name
+schedule_time
+recurring (bool)
+status
+created_at
+last_run
+Logs
+SQL
+id
+task_id
+status (completed/missed)
+timestamp
+Suggestions
+SQL
+id
+user_id
+suggestion_text
+type (habit/productivity)
+created_at
+🔥 Core APIs
+1. Create Task
+Http
+POST /task/create
+2. Get Tasks
+Http
+GET /task/list
+3. Log Completion
+Http
+POST /task/complete
+4. Get Suggestions
+Http
+GET /suggestions
+🧠 4. SUGGESTION ENGINE (YOUR SECRET WEAPON)
+This is what makes your product not just a reminder app.
+🔹 Logic (Rule-Based + AI Later)
+Example Rules:
+If task missed 3 times → Suggest:
+“Reduce difficulty or change timing”
+If user consistent:
+“Increase intensity or add next habit”
+🔹 Suggestion Flow
+Plain text
+Logs → Analyze patterns → Generate suggestions → Store → Show UI
+🔹 Simple Python Logic
+Python
+if missed_count >= 3:
+    suggestion = "You're missing this task often. Try changing the time."
+🔹 Future Upgrade
+Plug Ollama:
+Python
+"Analyze user behavior and suggest improvement"
+🎨 5. FRONTEND (FULL CONFIG)
+🧱 Tech Stack
+React + Vite
+Tailwind CSS
+Axios
+📂 Frontend Structure
+Bash
+frontend/
+│
+├── src/
+│   ├── pages/
+│   │    ├── Dashboard.tsx
+│   │    ├── Tasks.tsx
+│   │    └── Suggestions.tsx
+│   │
+│   ├── components/
+│   │    ├── TaskCard.tsx
+│   │    ├── SuggestionCard.tsx
+│   │    └── Navbar.tsx
+│   │
+│   ├── services/
+│   │    └── api.ts
+│   │
+│   └── App.tsx
+🖥️ Core Screens
+1. Dashboard
+Today’s tasks
+Completion status
+2. Tasks Page
+Add task
+Edit task
+Delete task
+3. Suggestions Page
+Show AI suggestions
+Highlight patterns
+🔁 6. COMPLETE FLOW (END-TO-END)
+Plain text
+User types → “Wake up at 5AM”
+
+→ Backend parser converts to structured task
+→ Task stored in DB
+→ Scheduler triggers
+→ User completes/misses
+→ Log stored
+
+→ Suggestion engine runs
+→ Suggestion generated
+
+→ Frontend shows:
+   “You missed this 3 times, try 6AM”
+⚡ 7. GOOGLE STITCH MASTER PROMPT (POWERFUL)
+Use this. Don’t modify randomly.
+Plain text
+You are a senior full-stack engineer and system architect.
+
+Build a complete production-ready MVP application called "JAN AI - Automation Engine".
+
+Requirements:
+- Backend: FastAPI (Python)
+- Database: PostgreSQL with SQLAlchemy ORM
+- Frontend: React + Vite + Tailwind CSS
+- Scheduler: APScheduler
+
+Core Features:
+1. Task Management System
+   - Create, update, delete tasks
+   - Recurring schedules (daily, weekly)
+
+2. Task Execution Engine
+   - Scheduler triggers tasks
+   - Logs completion/missed status
+
+3. Suggestion Engine (IMPORTANT)
+   - Analyze task logs
+   - Generate rule-based suggestions:
+       - Missed tasks → suggest time change
+       - Consistency → suggest upgrades
+   - Store suggestions in DB
+   - Expose API to fetch suggestions
+
+4. Natural Language Parsing (Optional)
+   - Convert simple user input into structured tasks
+
+Deliverables:
+- Full backend code (FastAPI)
+- PostgreSQL models and schema
+- API routes (tasks, logs, suggestions)
+- Scheduler integration
+- Suggestion engine logic
+- Frontend React app with:
+    - Dashboard
+    - Task management UI
+    - Suggestions page
+- Axios API integration
+- Clean folder structure
+
+Constraints:
+- Keep architecture simple and modular
+- No agent orchestration
+- Code must run locally without complex setup
+- Focus on execution, not overengineering
+
+Output format:
+- Step-by-step implementation
+- Full working code (copy-paste ready)
+- Commands to run backend and frontend

@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Project documentation
+    url: https://github.com/Manidhar8008/Startup-borardcasting-system
+    about: Read the repository documentation before opening an issue.

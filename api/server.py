@@ -1,325 +1,313 @@
 # -*- coding: utf-8 -*-
 """Creator OS API — FastAPI backend for the JAN AI Media Manager dashboard.
 
-Endpoints:
-  GET  /ideas          → Idea feed from IdeaGenerator
-  GET  /trends         → Trend signals from TrendAgent
-  GET  /drafts         → Current drafts in memory
-  GET  /queue          → Approval queue
-  GET  /calendar       → Content calendar (planned topics)
-  GET  /analytics      → Analytics + learning data
-  GET  /status         → System status
-  POST /generate       → Generate content for a topic
-  POST /decide         → Multi-agent consensus on a decision
-
-  /                    → Dashboard UI (static files)
-
-Run:
-  uvicorn api.server:app --reload --port 8000
+Legacy routes are being hardened incrementally before SaaS release. Any route
+that accepts tenant data must derive identity from authentication, not a
+caller-controlled user_id. Live publishing is disabled through this legacy
+endpoint until persisted approval/version records are available.
 """
-
 import sys
 import os
 from pathlib import Path
 
-# Add project root to path
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from fastapi import FastAPI, HTTPException, Depends, BackgroundTasks
+from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse
-from pydantic import BaseModel
-from typing import Dict, List, Optional
+from pydantic import BaseModel, Field
+from typing import List
+
+from auth.auth_routes import router as auth_router
+from auth.auth_routes import get_current_user
+from core.saas_security import require_active_user, get_owned_brand
+from database.session import get_db
+from database.models import User
 
 app = FastAPI(
     title="JAN AI Creator OS",
     description="API for the JAN AI Media Manager — Creator Intelligence Platform",
-    version="2.0.0",
+    version="2.1.0",
 )
-
-# ── Authentication Routes ──────────────────────────────────────────────────
-from auth.auth_routes import router as auth_router
 app.include_router(auth_router)
 
-# Allow all origins for local dev
+# Production deployments must define exact frontend origins. Local development
+# can use the Vite default plus localhost. Never use wildcard CORS in SaaS.
+_default_origins = "http://localhost:5173,http://127.0.0.1:5173"
+_allowed_origins = [
+    origin.strip()
+    for origin in os.getenv("JAN_ALLOWED_ORIGINS", _default_origins).split(",")
+    if origin.strip()
+]
+if "*" in _allowed_origins:
+    raise RuntimeError("JAN_ALLOWED_ORIGINS cannot contain wildcard origins")
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=_allowed_origins,
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type", "X-Request-ID"],
 )
 
 from core.infrastructure import InfrastructureMiddleware, logger
 app.add_middleware(InfrastructureMiddleware, max_requests=300, window_seconds=60)
 
-# Initialize Database
-try:
-    from database.session import engine
-    from database.models import Base
-    Base.metadata.create_all(bind=engine)
-    logger.info("Database schema initialized successfully.")
-except Exception as e:
-    logger.error(f"Failed to initialize database: {e}")
+# Keep legacy table initialization for local compatibility only. Production
+# should use schema migrations; disabling implicit DDL avoids deploy-time drift.
+if os.getenv("JAN_AUTO_CREATE_SCHEMA", "true").lower() == "true":
+    try:
+        from database.session import engine
+        from database.models import Base
+        Base.metadata.create_all(bind=engine)
+        logger.info("Database schema initialized successfully.")
+    except Exception:
+        logger.exception("Failed to initialize database schema")
+        if os.getenv("JAN_ENV", "development").lower() == "production":
+            raise
 
 BRAND = os.getenv("JAN_BRAND", "janani_ai")
 
-# ── Serve Dashboard ────────────────────────────────────────────────────────────
 DASHBOARD_DIR = PROJECT_ROOT / "dashboard"
 if DASHBOARD_DIR.exists():
     app.mount("/dashboard", StaticFiles(directory=str(DASHBOARD_DIR), html=True), name="dashboard")
 
+
 @app.get("/")
 def root_redirect():
-    """Redirect root to dashboard."""
     return RedirectResponse(url="/dashboard/")
 
 
-# ── Request Models ─────────────────────────────────────────────────────────────
-
 class GenerateRequest(BaseModel):
-    topic: str
+    topic: str = Field(min_length=1, max_length=500)
     platform: str = "linkedin"
 
+
 class DecideRequest(BaseModel):
-    question: str
+    question: str = Field(min_length=1, max_length=4000)
     agents: List[str] = ["trend", "strategy", "analytics"]
 
+
 class BrandCreateRequest(BaseModel):
-    name: str
-    industry: str = ""
-    tone_profile: str = ""
-    target_audience: str = ""
+    name: str = Field(min_length=1, max_length=200)
+    industry: str = Field(default="", max_length=200)
+    tone_profile: str = Field(default="", max_length=4000)
+    target_audience: str = Field(default="", max_length=4000)
 
-
-# ── Muti-Brand & Subscription (Phase 9) ────────────────────────────────────────
 
 @app.post("/brands")
-def create_brand(req: BrandCreateRequest, user_id: int = 1, db: Session = Depends(lambda: next(getattr(__import__('database.session', fromlist=['get_db']), 'get_db')()))):
+def create_brand(
+    req: BrandCreateRequest,
+    current_user: User = Depends(require_active_user),
+    db: Session = Depends(get_db),
+):
     from core.brand_manager import BrandManager
     from core.subscription_manager import SubscriptionManager
+
     sub_manager = SubscriptionManager(db)
     brand_manager = BrandManager(db)
-    
-    current_count = len(brand_manager.get_user_brands(user_id))
-    if not sub_manager.can_create_brand(user_id, current_count):
+    current_count = len(brand_manager.get_user_brands(current_user.id))
+    if not sub_manager.can_create_brand(current_user.id, current_count):
         raise HTTPException(status_code=403, detail="Brand limit reached for your subscription tier.")
-        
-    brand = brand_manager.create_brand(user_id, req.name, req.industry, req.tone_profile, req.target_audience)
+
+    brand = brand_manager.create_brand(
+        current_user.id, req.name, req.industry, req.tone_profile, req.target_audience
+    )
     return {"status": "success", "brand_id": brand.id, "name": brand.name}
 
+
 @app.get("/brands")
-def get_brands(user_id: int = 1, db: Session = Depends(lambda: next(getattr(__import__('database.session', fromlist=['get_db']), 'get_db')()))):
+def get_brands(
+    current_user: User = Depends(require_active_user),
+    db: Session = Depends(get_db),
+):
     from core.brand_manager import BrandManager
     manager = BrandManager(db)
-    brands = manager.get_user_brands(user_id)
+    brands = manager.get_user_brands(current_user.id)
     return {"brands": [{"id": b.id, "name": b.name} for b in brands]}
 
+
 @app.get("/subscription")
-def get_subscription(user_id: int = 1, db: Session = Depends(lambda: next(getattr(__import__('database.session', fromlist=['get_db']), 'get_db')()))):
+def get_subscription(
+    current_user: User = Depends(require_active_user),
+    db: Session = Depends(get_db),
+):
     from core.subscription_manager import SubscriptionManager
     manager = SubscriptionManager(db)
-    sub = manager.get_subscription(user_id)
+    sub = manager.get_subscription(current_user.id)
     return {
         "tier": sub.plan_tier,
         "posts_used_today": sub.posts_used_today,
-        "limits": manager.LIMITS.get(sub.plan_tier, manager.LIMITS["free"])
+        "limits": manager.LIMITS.get(sub.plan_tier, manager.LIMITS["free"]),
     }
 
 
-# ── GET /status ────────────────────────────────────────────────────────────────
-
 @app.get("/status")
-def get_status():
-    """System status with agent count, LLM provider, cost usage."""
+def get_status(current_user: User = Depends(require_active_user)):
+    """Return current account's engine status (never expose provider secrets)."""
     try:
         from ai_core.llm_router import get_active_provider
         llm = get_active_provider()
     except Exception:
         llm = "unknown"
-
     try:
         from ai_core.cost_controller import get_controller
         usage = get_controller().usage_dict()
     except Exception:
         usage = {}
-
     try:
         from agents.agent_registry import registered_names
         agent_count = len(registered_names())
     except Exception:
         agent_count = 0
-
     try:
         from memory_engine.vector_store import posts_store
         vector_count = posts_store().count()
     except Exception:
         vector_count = 0
-
     return {
         "brand": BRAND,
         "llm_provider": llm,
         "agents": agent_count,
         "vector_memory": vector_count,
         "cost_usage": usage,
-        "version": "2.0.0",
+        "version": "2.1.0",
     }
 
 
 class PublishRequest(BaseModel):
-    draft_id: str
-    brand_id: int = 1
+    draft_id: str = Field(min_length=1, max_length=200)
+    brand_id: int = Field(gt=0)
+
 
 @app.post("/publish")
-def publish_content(req: PublishRequest, db: Session = Depends(lambda: next(getattr(__import__('database.session', fromlist=['get_db']), 'get_db')()))):
-    from agents.publisher_agent import PublisherAgent
-    # Mocking fetching draft directly from DB 
-    drafts = [{"draft": f"Content for {req.draft_id}", "platform": "linkedin", "brand": "janani_ai", "content_type": "post"}]
-    publisher = PublisherAgent()
-    res = publisher.run(drafts=drafts, dry_run=False) # Enable live publishing
-    return {"status": "published", "results": res}
+def publish_content(
+    req: PublishRequest,
+    current_user: User = Depends(require_active_user),
+    db: Session = Depends(get_db),
+):
+    """Legacy publish route fails closed until a persisted approval exists.
 
+    The old implementation fabricated a draft from the requested ID and invoked
+    live publishing. That behavior is unsafe and falsely implied successful
+    publication. Use the approval/versioned publishing-jobs API when implemented.
+    """
+    get_owned_brand(brand_id=req.brand_id, user=current_user, db=db)
+    raise HTTPException(
+        status_code=409,
+        detail="Legacy publishing is disabled. Create a persisted draft and approve its exact version before publishing.",
+    )
 
-# ── GET /assistant/chat ────────────────────────────────────────────────────────
 
 @app.get("/assistant/chat")
-def get_founder_advice(query: str, brand_id: int = 1, db: Session = Depends(lambda: next(getattr(__import__('database.session', fromlist=['get_db']), 'get_db')()))):
+def get_founder_advice(
+    query: str = Field(min_length=1, max_length=4000),
+    brand_id: int = 1,
+    current_user: User = Depends(require_active_user),
+    db: Session = Depends(get_db),
+):
+    get_owned_brand(brand_id=brand_id, user=current_user, db=db)
     from agents.founder_agent import FounderAgent
-    
     agent = FounderAgent()
-    res = agent.run(query=query, brand_id=brand_id, db=db)
-    
-    return {"status": "success", "response": res}
+    result = agent.run(query=query, brand_id=brand_id, db=db)
+    return {"status": "success", "response": result}
 
-
-# ── GET /ideas ─────────────────────────────────────────────────────────────────
 
 @app.get("/ideas")
-def get_idea_feed(topic: str = "AI and startups", count: int = 3):
-    """Generate idea feed from ranked topics."""
+def get_idea_feed(
+    topic: str = "AI and startups",
+    count: int = 3,
+    current_user: User = Depends(require_active_user),
+):
+    if count < 1 or count > 20:
+        raise HTTPException(status_code=422, detail="count must be between 1 and 20")
     try:
         from agents.trend_agent import TrendAgent
         from agents.topic_ranker import TopicRanker
         from agents.idea_generator import IdeaGenerator
-
         trend = TrendAgent(brand=BRAND)
         trend_data = trend.run(query=topic)
-
         ranker = TopicRanker(brand=BRAND)
         ranked = ranker.run(trends=trend_data.get("trends", []))
-
         generator = IdeaGenerator(brand=BRAND)
-        ideas = generator.run(ranked_topics=ranked.get("ranked_topics", []), count=count)
+        return generator.run(ranked_topics=ranked.get("ranked_topics", []), count=count)
+    except Exception:
+        logger.exception("Idea feed generation failed")
+        raise HTTPException(status_code=500, detail="Idea generation failed")
 
-        return ideas
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-# ── GET /trends ────────────────────────────────────────────────────────────────
 
 @app.get("/trends")
-def get_trends(query: str = "AI technology"):
-    """Get current trend signals."""
+def get_trends(query: str = "AI technology", current_user: User = Depends(require_active_user)):
     try:
         from agents.trend_agent import TrendAgent
-        agent = TrendAgent(brand=BRAND)
-        return agent.run(query=query)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        return TrendAgent(brand=BRAND).run(query=query)
+    except Exception:
+        logger.exception("Trend lookup failed")
+        raise HTTPException(status_code=500, detail="Trend lookup failed")
 
-
-# ── GET /drafts ────────────────────────────────────────────────────────────────
 
 @app.get("/drafts")
-def get_drafts():
-    """Get current drafts from approval queue."""
+def get_drafts(current_user: User = Depends(require_active_user)):
     try:
         from decision_engine.approval_queue import ApprovalQueue
         queue = ApprovalQueue(BRAND)
         return {"drafts": queue.list_drafts(), "brand": BRAND}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    except Exception:
+        logger.exception("Draft queue lookup failed")
+        raise HTTPException(status_code=500, detail="Draft queue lookup failed")
 
-
-# ── GET /queue ─────────────────────────────────────────────────────────────────
 
 @app.get("/queue")
-def get_approval_queue():
-    """Get approval queue status."""
+def get_approval_queue(current_user: User = Depends(require_active_user)):
     try:
         from decision_engine.approval_queue import ApprovalQueue
         queue = ApprovalQueue(BRAND)
         pending = queue.list_drafts()
-        return {
-            "pending_count": len(pending),
-            "items": pending,
-            "brand": BRAND,
-        }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        return {"pending_count": len(pending), "items": pending, "brand": BRAND}
+    except Exception:
+        logger.exception("Approval queue lookup failed")
+        raise HTTPException(status_code=500, detail="Approval queue lookup failed")
 
-
-# ── GET /calendar ──────────────────────────────────────────────────────────────
 
 @app.get("/calendar")
-def get_content_calendar():
-    """Get planned content from strategy and schedules."""
+def get_content_calendar(current_user: User = Depends(require_active_user)):
     try:
         from ai_core.performance_learner import get_learned_schedules
         schedules = get_learned_schedules()
     except Exception:
         schedules = {}
-
     try:
         from decision_engine.approval_queue import ApprovalQueue
-        queue = ApprovalQueue(BRAND)
-        pending = queue.list_drafts()
+        pending = ApprovalQueue(BRAND).list_drafts()
         upcoming = [
             {"topic": d.get("topic", ""), "platform": d.get("platform", ""), "status": "pending"}
             for d in pending[:10]
         ]
     except Exception:
         upcoming = []
+    return {"upcoming": upcoming, "optimal_schedules": schedules, "brand": BRAND}
 
-    return {
-        "upcoming": upcoming,
-        "optimal_schedules": schedules,
-        "brand": BRAND,
-    }
-
-
-# ── GET /analytics ─────────────────────────────────────────────────────────────
 
 @app.get("/analytics")
-def get_analytics():
-    """Get learning data and analytics."""
+def get_analytics(current_user: User = Depends(require_active_user)):
     try:
         from ai_core.performance_learner import get_learned_patterns
         patterns = get_learned_patterns()
     except Exception:
         patterns = {}
-
     try:
         from memory import topic_memory
         top = topic_memory.top_performers(BRAND, limit=5)
     except Exception:
         top = []
+    return {"learned_patterns": patterns, "top_performers": top, "brand": BRAND}
 
-    return {
-        "learned_patterns": patterns,
-        "top_performers": top,
-        "brand": BRAND,
-    }
-
-
-# ── POST /generate ─────────────────────────────────────────────────────────────
 
 @app.post("/generate")
-def generate_content(req: GenerateRequest):
-    """Generate content for a topic on a specific platform."""
+def generate_content(req: GenerateRequest, current_user: User = Depends(require_active_user)):
     writer_map = {
         "linkedin": "agents.writers.linkedin_writer.LinkedInWriter",
         "twitter": "agents.writers.twitter_writer.TwitterWriter",
@@ -327,23 +315,16 @@ def generate_content(req: GenerateRequest):
         "youtube": "agents.writers.youtube_writer.YouTubeWriter",
         "newsletter": "agents.writers.newsletter_writer.NewsletterWriter",
     }
-    writer_path = writer_map.get(req.platform)
+    writer_path = writer_map.get(req.platform.lower())
     if not writer_path:
-        raise HTTPException(status_code=400, detail=f"Unknown platform: {req.platform}")
-
+        raise HTTPException(status_code=400, detail=f"Unsupported platform: {req.platform}")
     try:
         module_path, class_name = writer_path.rsplit(".", 1)
         import importlib
-        mod = importlib.import_module(module_path)
-        WriterClass = getattr(mod, class_name)
-        writer = WriterClass(brand=BRAND)
-        result = writer.run(topic=req.topic)
-
-        # Auto-review
+        writer_class = getattr(importlib.import_module(module_path), class_name)
+        result = writer_class(brand=BRAND).run(topic=req.topic)
         from agents.review_agent import ReviewAgent
-        reviewer = ReviewAgent(brand=BRAND)
-        review = reviewer.run(drafts=result.get("drafts", []))
-
+        review = ReviewAgent(brand=BRAND).run(drafts=result.get("drafts", []))
         return {
             "content": result,
             "review": {
@@ -352,129 +333,45 @@ def generate_content(req: GenerateRequest):
                 "failed": len(review.get("failed", [])),
             },
         }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    except Exception:
+        logger.exception("Content generation failed")
+        raise HTTPException(status_code=500, detail="Content generation failed")
 
-
-# ── POST /decide ───────────────────────────────────────────────────────────────
 
 @app.post("/decide")
-def multi_agent_decide(req: DecideRequest):
-    """Run multi-agent consensus on a decision."""
+def multi_agent_decide(req: DecideRequest, current_user: User = Depends(require_active_user)):
     try:
         from ai_core.consensus_engine import ConsensusEngine
-        engine = ConsensusEngine(brand=BRAND)
-        result = engine.decide(
-            question=req.question,
-            agents=req.agents,
-        )
-        return result
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        return ConsensusEngine(brand=BRAND).decide(question=req.question, agents=req.agents)
+    except Exception:
+        logger.exception("Decision workflow failed")
+        raise HTTPException(status_code=500, detail="Decision workflow failed")
 
 
-# ── Webhook Endpoints ──────────────────────────────────────────────────────────
+@app.post("/webhook/approve/{draft_id}")
+def webhook_approve(draft_id: str, current_user: User = Depends(require_active_user)):
+    """Deprecated safe route; use explicit approval API with CSRF protection."""
+    raise HTTPException(status_code=410, detail="Legacy approval webhook is disabled; use the versioned approval API.")
 
-@app.get("/webhook/approve/{draft_id}")
-def webhook_approve(draft_id: str):
-    """Approve a draft via GET request from Slack/Discord button."""
+
+@app.post("/webhook/reject/{draft_id}")
+def webhook_reject(draft_id: str, current_user: User = Depends(require_active_user)):
+    """Deprecated safe route; use explicit rejection API with CSRF protection."""
+    raise HTTPException(status_code=410, detail="Legacy rejection webhook is disabled; use the versioned approval API.")
+
+
+@app.get("/health/live")
+def health_live():
+    return {"status": "ok"}
+
+
+@app.get("/health/ready")
+def health_ready():
     try:
-        from decision_engine.approval_queue import ApprovalQueue
-        queue = ApprovalQueue(BRAND)
-        published = queue.publish(draft_id)
-        if published:
-            return {"status": "success", "message": f"Draft {draft_id} approved and moved to publishing queue."}
-        else:
-            raise HTTPException(status_code=404, detail="Draft not found in queue.")
-    except HTTPException:
-        raise
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-@app.get("/webhook/reject/{draft_id}")
-def webhook_reject(draft_id: str):
-    """Reject a draft via GET request from Slack/Discord button."""
-    try:
-        from decision_engine.approval_queue import ApprovalQueue
-        queue = ApprovalQueue(BRAND)
-        rejected = queue.reject_draft(draft_id, reason="Rejected via external webhook")
-        if rejected:
-            return {"status": "success", "message": f"Draft {draft_id} rejected."}
-        else:
-            raise HTTPException(status_code=404, detail="Draft not found in queue.")
-    except HTTPException:
-        raise
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
-
-
-# ── Automation Engine Endpoints ────────────────────────────────────────────────
-
-@app.get("/automation/status")
-def get_automation_status():
-    from agents.automation_agent import AutomationAgent
-    agent = AutomationAgent(brand=BRAND)
-    return agent.get_status()
-
-@app.post("/automation/start")
-def start_automation(background_tasks: BackgroundTasks, brand_id: int = 1, db: Session = Depends(lambda: next(getattr(__import__('database.session', fromlist=['get_db']), 'get_db')()))):
-    from automation.autonomous_pipeline import AutonomousPipeline
-    
-    def run_bg(b_id: int):
-        bg_db = next(getattr(__import__('database.session', fromlist=['get_db']), 'get_db')())
-        pipeline = AutonomousPipeline(bg_db)
-        pipeline.run_for_brand(b_id)
-        bg_db.close()
-        
-    background_tasks.add_task(run_bg, brand_id)
-    return {"status": "success", "message": "Autonomous pipeline started in background."}
-
-@app.post("/automation/stop")
-def stop_automation():
-    from agents.automation_agent import AutomationAgent
-    agent = AutomationAgent(brand=BRAND)
-    return agent.stop_engine()
-
-@app.post("/growth/recommendations")
-def get_growth_recommendations(brand_id: int = 1, db: Session = Depends(lambda: next(getattr(__import__('database.session', fromlist=['get_db']), 'get_db')()))):
-    from analytics_engine.growth_optimizer import GrowthOptimizer
-    optimizer = GrowthOptimizer(db)
-    recs = optimizer.get_recommendations(brand_id)
-    if "error" in recs:
-        raise HTTPException(status_code=404, detail=recs["error"])
-    return {"status": "success", "recommendations": recs}
-
-@app.post("/autonomous/activate")
-def activate_autonomous_growth(brand_id: int = 1, db: Session = Depends(lambda: next(getattr(__import__('database.session', fromlist=['get_db']), 'get_db')()))):
-    """
-    Activates the end-to-end hands-free loop dictated by the AI Marketing Brain.
-    """
-    from agents.marketing_brain_agent import MarketingBrainAgent
-    brain = MarketingBrainAgent(brand=brand_id)
-    directive = brain.run(brand_id=brand_id)
-    
-    # In a full system, this would spawn a perpetual background job or Celery worker
-    # that wakes up daily, reads the 'global_state_snapshot', and triggers the pipeline.
-    
-    return {
-        "status": "success",
-        "message": "Autonomous Growth Mode activated.",
-        "marketing_brain_directive": directive
-    }
-
-# ── Plugin Ecosystem Endpoints ────────────────────────────────────────────────
-
-@app.get("/plugins")
-def list_plugins():
-    from plugins.plugin_manager import PluginManager
-    pm = PluginManager()
-    return {"status": "success", "plugins": pm.list_plugins()}
-
-@app.post("/plugins/execute/{plugin_name}")
-def execute_plugin(plugin_name: str):
-    from plugins.plugin_manager import PluginManager
-    pm = PluginManager()
-    res = pm.execute_plugin(plugin_name, post_url="janani.ai/post/123")
-    if "error" in res:
-        raise HTTPException(status_code=400, detail=res["error"])
-    return {"status": "success", "result": res}
+        from database.session import engine
+        with engine.connect():
+            pass
+        return {"status": "ready"}
+    except Exception:
+        logger.exception("Readiness probe failed")
+        raise HTTPException(status_code=503, detail="Dependencies not ready")

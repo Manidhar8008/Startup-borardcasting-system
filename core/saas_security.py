@@ -23,11 +23,7 @@ def require_active_user(user: User = Depends(get_current_user)) -> User:
     return user
 
 
-def get_owned_brand(
-    brand_id: int,
-    user: User,
-    db: Session,
-) -> Brand:
+def get_owned_brand(brand_id: int, user: User, db: Session) -> Brand:
     """Return a brand only if it belongs to the authenticated user."""
     brand: Optional[Brand] = (
         db.query(Brand)
@@ -36,13 +32,14 @@ def get_owned_brand(
     )
     if brand is None:
         # Avoid disclosing whether another user's resource exists.
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Brand not found",
-        )
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Brand not found")
     return brand
 
 
-def get_db_session(db: Session = Depends(get_db)) -> Session:
-    """Named dependency for clearer endpoint declarations."""
-    return db
+def owned_brand_dependency(
+    brand_id: int,
+    user: User = Depends(require_active_user),
+    db: Session = Depends(get_db),
+) -> Brand:
+    """FastAPI dependency for endpoints that accept a brand_id path parameter."""
+    return get_owned_brand(brand_id=brand_id, user=user, db=db)

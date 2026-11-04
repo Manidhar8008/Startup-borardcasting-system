@@ -265,3 +265,13 @@ If that problem interests you, **open an Issue, pick a task, or submit a Pull Re
 > **Build the AI co-founder with us.**
 
 **Built by Manidhar and future collaborators.**
+
+## Optional Longplay generation admission
+
+The existing `POST /generate` route can verify account access before loading or invoking a content writer. Unset `LONGPLAY_GENERATION_FEATURE_ID` preserves the local demo without initializing the new auth/billing dependency. To opt in, configure that access Feature UUID plus server-only `LONGPLAY_SECRET_KEY`, `LONGPLAY_BASE_URL` (HTTPS origin), `LONGPLAY_APP_ID` and explicit `LONGPLAY_ENVIRONMENT` (`sandbox` or `live`).
+
+Enabled requests reuse the existing JWT/account verifier, require an active database user and bind `jan:user:<database-user-id>` to the Longplay Customer. The request cannot choose a Customer or plan. The small Python standard-library HTTP adapter verifies Longplay 0.10 protocol/App/environment, refuses redirects and bounds requests and response size. It sends no topic, draft, brand data, passwords or model credentials. Denial is 402, absent identity 401, and operational failure a sanitized 503.
+
+This protects the selected generation entry only. It does not implement workspace isolation, secure the other demo APIs, complete the subscription lifecycle or reserve usage credits. The existing global-brand pipeline is still a demo: finish the account/workspace isolation work in #1 and review the safety-baseline PR before enabling a hosted commercial pilot. No database migration, real provider call, new auth issuer, payment or publication is enabled by this change.
+
+Offline checks: `python3 -m unittest tests/test_generation_access.py`. They import only the admission module; the API server's startup database initialization is not run.

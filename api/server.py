@@ -26,7 +26,8 @@ from pathlib import Path
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(PROJECT_ROOT))
 
-from fastapi import FastAPI, HTTPException, Depends, BackgroundTasks
+from fastapi import FastAPI, HTTPException, Depends, BackgroundTasks, Request
+from api.generation_access import admit_generation, GenerationAccessError
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from fastapi.staticfiles import StaticFiles
@@ -317,8 +318,24 @@ def get_analytics():
 
 # ── POST /generate ─────────────────────────────────────────────────────────────
 
+def require_generation_access(request: Request):
+    def verified_user(token):
+        from auth.auth_routes import get_current_user
+        from database.session import SessionLocal
+        with SessionLocal() as db:
+            user = get_current_user(token=token, db=db)
+            if not user.is_active:
+                raise HTTPException(status_code=403, detail="Account is inactive")
+            return str(user.id)
+
+    try:
+        admit_generation(request.headers.get("Authorization"), verified_user)
+    except GenerationAccessError as error:
+        raise HTTPException(status_code=error.status, detail=error.code) from None
+
+
 @app.post("/generate")
-def generate_content(req: GenerateRequest):
+def generate_content(req: GenerateRequest, _access=Depends(require_generation_access)):
     """Generate content for a topic on a specific platform."""
     writer_map = {
         "linkedin": "agents.writers.linkedin_writer.LinkedInWriter",
